@@ -1,10 +1,8 @@
 {
-  "name": "react-chat-widget",
-  "version": "2.1.5",
-  "description": "Chat web widget for React apps",
+  "name": "xatkit-chat-widget",
+  "version": "0.1.0",
+  "description": "Chat web widget for Xatkit",
   "main": "lib/index.js",
-  "repository": "git@github.com:Wolox/react-chat-widget.git",
-  "author": "Martín Callegari <martin.callegari@wolox.com.ar>",
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server --config webpack.config.dev.js",
