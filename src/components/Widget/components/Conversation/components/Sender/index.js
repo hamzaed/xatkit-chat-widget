@@ -25,7 +25,7 @@ class Sender extends Component{
             </button>
           </form>
           <div className="xatkit">
-            <a href="https://xatkit.com/" target="_blank"><img src={xatkit} className="xatkit-icon" alt="Xatkit"></img></a>
+            <a href="https://xatkit.com/" rel="nofollow" target="_blank"><img src={xatkit} className="xatkit-icon" alt="Xatkit"></img></a>
           </div>
         </div>
     );
