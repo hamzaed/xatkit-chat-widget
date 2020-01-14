@@ -35,6 +35,10 @@ class XatkitWidget extends Component {
             xatkit_server: server,
             socket: socket
         };
+        this.labels = {
+            title : widget_title,
+            subtitle: widget_subtitle
+        }
         socket.on('connect', () => {
             window.xatkit_session = socket.id
         });
@@ -51,9 +55,8 @@ class XatkitWidget extends Component {
     render() {
         return (
             <ConnectedWidget
-                title="Bienvenido"
-                subtitle="Asistente virtual"
-                senderPlaceHolder="Escribe aquí ..."
+                title= {this.labels.title}
+                subtitle= {this.labels.subtitle}
                 handleNewUserMessage={this.handleNewUserMessage}
 
             />
