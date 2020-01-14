@@ -1,4 +1,4 @@
-import ConnectedWidget from './src';
+import XatkitWidget from './src/components/XatkitWidget';
 import {
   addUserMessage,
   addResponseMessage,
@@ -13,7 +13,7 @@ import {
 } from './src/store/dispatcher';
 
 export {
-  ConnectedWidget as Widget,
+  XatkitWidget,
   addUserMessage,
   addResponseMessage,
   addLinkSnippet,

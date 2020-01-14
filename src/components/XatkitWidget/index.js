@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import  ConnectedWidget from '../../index';
 
-import {addResponseMessage, setQuickButtons, toggleMsgLoader, toggleWidget} from '../../../index'
+import {addResponseMessage, toggleWidget} from '../../store/dispatcher'
 
 import io from 'socket.io-client';
 
