@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import App from './App';
+import XatkitWidget from '../src/components/XatkitWidget';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<XatkitWidget />, document.getElementById('root'));
