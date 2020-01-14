@@ -9,7 +9,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 
 module.exports = {
-  entry: './index.js',
+  entry: './dev/main.js',
   output: {
     path: path.join(__dirname, '/lib'),
     filename: 'index.js',
