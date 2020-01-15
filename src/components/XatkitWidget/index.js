@@ -24,7 +24,7 @@ class XatkitWidget extends Component {
         const username = window.xatkit_username === undefined ? 'username' : window.xatkit_username;
         const title = window.xatkit_widget_title === undefined? this.props.title:xatkit_widget_title;
         const subtitle = window.xatkit_widget_subtitle === undefined? this.props.subtitle:xatkit_widget_subtitle;
-        const senderPlaceHolder = window.sender_place_holder === undefined? this.props.title:window.sender_place_holder;
+        const senderPlaceHolder = window.sender_place_holder === undefined? this.props.senderPlaceHolder:window.sender_place_holder;
         const toggleChat = window.xatkit_start_minimized === undefined ? this.props.toggleChat : window.xatkit_start_minimized;
         if(toggleChat) {
             toggleWidget();}
