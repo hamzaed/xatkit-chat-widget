@@ -3,4 +3,4 @@ import ReactDOM from 'react-dom';
 
 import XatkitWidget from '../index';
 
-ReactDOM.render(<XatkitWidget />, document.getElementById('xatkit-chat'));
+ReactDOM.render(<XatkitWidget title="My Bot"/>, document.getElementById('xatkit-chat'));
