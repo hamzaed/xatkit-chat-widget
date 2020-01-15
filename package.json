@@ -1,6 +1,6 @@
 {
   "name": "xatkit-chat-widget",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "Chat web widget for Xatkit",
   "main": "lib/index.js",
   "license": "MIT",
@@ -14,7 +14,9 @@
     "react",
     "chat",
     "widget",
+    "xatkit",
     "javascript"
+
   ],
   "dependencies": {
     "immutable": "^3.8.1",
