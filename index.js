@@ -11,9 +11,8 @@ import {
   isWidgetOpened,
   setQuickButtons
 } from './src/store/dispatcher';
-
+export default  XatkitWidget;
 export {
-  XatkitWidget,
   addUserMessage,
   addResponseMessage,
   addLinkSnippet,
