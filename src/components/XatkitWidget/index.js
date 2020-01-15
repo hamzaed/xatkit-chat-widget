@@ -24,6 +24,7 @@ class XatkitWidget extends Component {
         const username = window.xatkit_username === undefined ? 'username' : window.xatkit_username;
         const title = window.xatkit_widget_title === undefined? this.props.title:xatkit_widget_title;
         const subtitle = window.xatkit_widget_subtitle === undefined? this.props.subtitle:xatkit_widget_subtitle;
+        const senderPlaceHolder = window.sender_place_holder === undefined? this.props.title:window.sender_place_holder;
         const toggleChat = window.xatkit_start_minimized === undefined ? this.props.toggleChat : window.xatkit_start_minimized;
         if(toggleChat) {
             toggleWidget();}
@@ -42,7 +43,8 @@ class XatkitWidget extends Component {
         };
         this.labels = {
             title: title,
-            subtitle: subtitle
+            subtitle: subtitle,
+            senderPlaceHolder: senderPlaceHolder
         }
 
         socket.on('connect', () => {
@@ -63,6 +65,7 @@ class XatkitWidget extends Component {
             <ConnectedWidget
                 title= {this.labels.title}
                 subtitle= {this.labels.subtitle}
+                senderPlaceHolder={this.labels.senderPlaceHolder}
                 handleNewUserMessage={this.handleNewUserMessage}
 
             />
