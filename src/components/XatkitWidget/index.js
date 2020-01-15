@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import  ConnectedWidget from '../../index';
 
 import {addResponseMessage, toggleWidget} from '../../store/dispatcher'
 
 import io from 'socket.io-client';
+import PropTypes from "prop-types";
+
 
 class XatkitWidget extends Component {
 
@@ -17,11 +20,13 @@ class XatkitWidget extends Component {
      */
     constructor(props) {
         super(props);
-        toggleWidget();
         const server = window.xatkit_server === undefined ? 'http://localhost:5001' : window.xatkit_server;
         const username = window.xatkit_username === undefined ? 'username' : window.xatkit_username;
-        const widget_title = window.xatkit_widget_title === undefined ? 'Xatkit Chat': window.xatkit_widget_title;
-        const widget_subtitle = window.xatkit_widget_subtitle = undefined ? 'Test your Xatkit bot here!' : window.xatkit_widget_subtitl;
+        const title = window.xatkit_widget_title === undefined? this.props.title:xatkit_widget_title;
+        const subtitle = window.xatkit_widget_subtitle === undefined? this.props.subtitle:xatkit_widget_subtitle;
+        const toggleChat = window.xatkit_start_minimized === undefined ? this.props.toggleChat : window.xatkit_start_minimized;
+        if(toggleChat) {
+            toggleWidget();}
         const socket = io(server);
         socket.on('bot_message', function(msgObject) {
 
@@ -36,9 +41,10 @@ class XatkitWidget extends Component {
             socket: socket
         };
         this.labels = {
-            title : widget_title,
-            subtitle: widget_subtitle
+            title: title,
+            subtitle: subtitle
         }
+
         socket.on('connect', () => {
             window.xatkit_session = socket.id
         });
@@ -62,5 +68,19 @@ class XatkitWidget extends Component {
             />
         );
     }
+}
+
+XatkitWidget.propTypes = {
+    title: PropTypes.string,
+    subtitle: PropTypes.string,
+    toggleChat: PropTypes.bool,
+    senderPlaceHolder: PropTypes.string
+}
+
+XatkitWidget.defaultProps = {
+    title: 'Xatkit Chat',
+    subtitle: 'Test your Xatkit bot here!',
+    toggleChat: true,
+    senderPlaceHolder: 'Type a message...'
 }
 export default XatkitWidget;
