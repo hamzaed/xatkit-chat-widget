@@ -58,7 +58,9 @@ class XatkitWidget extends Component {
         this.state.socket.emit('user_message', {'message': newMessage, 'username': this.state.username});
 
     }
-
+    handleQuickButtonClicked = (newMessage) => {
+        //TODO
+}
 
     render() {
         return (
@@ -67,6 +69,7 @@ class XatkitWidget extends Component {
                 subtitle= {this.labels.subtitle}
                 senderPlaceHolder={this.labels.senderPlaceHolder}
                 handleNewUserMessage={this.handleNewUserMessage}
+                handleQuickButtonClicked={this.handleQuickButtonClicked}
 
             />
         );
