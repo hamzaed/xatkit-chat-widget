@@ -1,5 +1,4 @@
 import XatkitWidget from './src/components/XatkitWidget';
-import ConnectedWidget from './src'
 import {
   addUserMessage,
   addResponseMessage,
@@ -12,9 +11,13 @@ import {
   isWidgetOpened,
   setQuickButtons
 } from './src/store/dispatcher';
+import {
+  renderXatkitWidget,
+    renderDefaultXatkitWidget
+} from "./src/utils/renderer";
+
 export default  XatkitWidget;
 export {
-    ConnectedWidget as Widget,
   addUserMessage,
   addResponseMessage,
   addLinkSnippet,
@@ -24,5 +27,7 @@ export {
   toggleMsgLoader,
   dropMessages,
   isWidgetOpened,
-  setQuickButtons
+  setQuickButtons,
+    renderDefaultXatkitWidget,
+    renderXatkitWidget
 };

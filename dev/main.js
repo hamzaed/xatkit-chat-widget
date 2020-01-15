@@ -1,6 +1,5 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
 
-import XatkitWidget from '../index';
+import {renderDefaultXatkitWidget,renderXatkitWidget} from "../src/utils/renderer";
 
-ReactDOM.render(<XatkitWidget title="My Bot"/>, document.getElementById('xatkit-chat'));
+//renderXatkitWidget("xatkit-chat","test", undefined, true,undefined);
+renderDefaultXatkitWidget();
