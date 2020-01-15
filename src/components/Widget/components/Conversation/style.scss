@@ -1,6 +1,9 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,700|Roboto:100,300,400");
 @import 'common.scss';
 @import 'variables.scss';
 @import 'animation.scss';
+
+
 
 .rcw-conversation-container {
   @include animation(0, 0.5s, slide-in);
