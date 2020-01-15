@@ -1,4 +1,5 @@
 import XatkitWidget from './src/components/XatkitWidget';
+import ConnectedWidget from './src'
 import {
   addUserMessage,
   addResponseMessage,
@@ -13,6 +14,7 @@ import {
 } from './src/store/dispatcher';
 export default  XatkitWidget;
 export {
+    ConnectedWidget as Widget,
   addUserMessage,
   addResponseMessage,
   addLinkSnippet,
