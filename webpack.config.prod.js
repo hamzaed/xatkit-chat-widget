@@ -79,7 +79,11 @@ module.exports = [
         cache: true,
         parallel: true
       }),
-      new OptimizeCSSAssetsPlugin({})
+      new OptimizeCSSAssetsPlugin({
+        cssProcessorOptions: {
+          safe: true
+        }
+      })
     ]
   }
 },
@@ -153,7 +157,11 @@ module.exports = [
           cache: true,
           parallel: true
         }),
-        new OptimizeCSSAssetsPlugin({})
+        new OptimizeCSSAssetsPlugin({
+          cssProcessorOptions: {
+            safe: true
+          }
+        })
       ]
     }
   }
