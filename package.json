@@ -1,6 +1,6 @@
 {
   "name": "xatkit-chat-widget",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "description": "Chat web widget for Xatkit",
   "main": "lib/bundle.js",
   "module": "index.js",
