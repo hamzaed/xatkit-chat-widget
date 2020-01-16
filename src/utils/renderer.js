@@ -6,11 +6,11 @@ export function renderDefaultXatkitWidget() {
     ReactDOM.render(<XatkitWidget />, document.getElementById('xatkit-chat'));
 }
 
-export function renderXatkitWidget(elementId,title,subtitle,toggleChat, senderPlaceholder ) {
+export function renderXatkitWidget(elementId,title,subtitle,startMinimized, senderPlaceholder ) {
     ReactDOM.render(<XatkitWidget
         title={title}
         subtitle={subtitle}
-        toggleChat={toggleChat}
+        startMinimized={startMinimized}
         senderPlaceHolder={senderPlaceholder}
     />, document.getElementById(elementId));
 }
