@@ -21,20 +21,38 @@ class XatkitWidget extends Component {
         super(props);
         const server = window.xatkit_server === undefined ? 'http://localhost:5001' : window.xatkit_server;
         const username = window.xatkit_username === undefined ? 'username' : window.xatkit_username;
-        //const title = window.xatkit_widget_title === undefined ? this.props.title:xatkit_widget_title;
-        //const subtitle = window.xatkit_widget_subtitle === undefined ? this.props.subtitle:xatkit_widget_subtitle;
-        //const senderPlaceHolder = window.sender_place_holder === undefined ? this.props.senderPlaceHolder:window.sender_place_holder;
-        //const toggleChat = window.xatkit_start_minimized === undefined ? this.props.toggleChat : window.xatkit_start_minimized;
-        if(this.props.toggleChat) {
-            toggleWidget();}
-        const socket = io(server);
-        socket.on('bot_message', function(msgObject) {
 
+        if(!this.props.startMinimized) {
+            toggleWidget();}
+        const urlPattern =/(^https?:\/\/[^\/]+)\/?(.*)/i;
+        /*
+         * If the provided URL contains a base path the result array will contain the following information:
+         * [0] full path (e.g. http://localhost:5001/test)
+         * [1] server URL (e.g. http://localhost:5001)
+         * [2] base path (e.g. test)
+         * If the provided URL does not contain a base path the result array will contain the following information:
+         * [0] full path
+         * [1] server URL
+         * [2] an empty string
+         */
+        const parsedUrl = server.match(urlPattern);
+        let serverUrl = server;
+        let basePath = '/socket.io';
+        if(parsedUrl.length !== null && parsedUrl.length === 3) {
+            if(parsedUrl[2] !== '') {
+                basePath = '/' + parsedUrl[2];
+            }
+            serverUrl = parsedUrl[1]
+        }
+        const socket = io(serverUrl, {
+            path : basePath
+        });
+        socket.on('bot_message', function(msgObject) {
             console.log(msgObject);
             console.log('Received bot message "' + msgObject.message + '"');
             addResponseMessage(msgObject.message);
-
         });
+
         this.state = {
             username: username,
             xatkit_server: server,
@@ -75,14 +93,14 @@ class XatkitWidget extends Component {
 XatkitWidget.propTypes = {
     title: PropTypes.string,
     subtitle: PropTypes.string,
-    toggleChat: PropTypes.bool,
+    startMinimized: PropTypes.bool,
     senderPlaceHolder: PropTypes.string
 }
 
 XatkitWidget.defaultProps = {
     title: 'Xatkit Chat',
     subtitle: 'Test your Xatkit bot here!',
-    toggleChat: true,
+    startMinimized: false,
     senderPlaceHolder: 'Type a message...'
 }
 
