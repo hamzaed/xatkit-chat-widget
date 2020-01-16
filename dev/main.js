@@ -1,5 +1,5 @@
 
-import {renderDefaultXatkitWidget,renderXatkitWidget} from "../src/utils/renderer";
+import {renderXatkitWidget} from "../src/utils/renderer";
 
-//renderXatkitWidget("xatkit-chat","test", undefined, true,undefined);
-renderDefaultXatkitWidget();
+renderXatkitWidget("xatkit-chat",window.title, window.subtitle, window.toggleChat,undefined);
+
