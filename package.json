@@ -1,6 +1,6 @@
 {
   "name": "xatkit-chat-widget",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Chat web widget for Xatkit",
   "main": "lib/index.js",
   "license": "MIT",
