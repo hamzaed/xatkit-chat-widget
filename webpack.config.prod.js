@@ -13,8 +13,8 @@ module.exports = [
   entry: './index.js',
   output: {
     path: path.join(__dirname, '/lib'),
-    filename: 'bundle.js',
-    library: 'react-chat-widget',
+    filename: 'index.js',
+    library: 'xatkit-chat-widget',
     libraryTarget: 'umd'
   },
   resolve: {
@@ -88,12 +88,12 @@ module.exports = [
   }
 },
   {
-    entry: './dev/main.js',
+    entry: './index.js',
     output: {
       path: path.join(__dirname, '/lib'),
-      filename: 'app.js',
-      library: 'react-chat-widget',
-      libraryTarget: 'umd'
+      filename: 'xatkit.js',
+      library: 'xatkit',
+      libraryTarget: 'var'
     },
     resolve: {
       extensions: ['.js']
