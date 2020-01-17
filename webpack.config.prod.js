@@ -69,7 +69,7 @@ module.exports = [
      * the following package: sudo apt-get install libpng16-dev
      */
     new MiniCssExtractPlugin({
-      filename: 'styles.css',
+      filename: 'xatkit.css',
       chunkFileName: '[id].css'
     }),
   ],
@@ -147,7 +147,7 @@ module.exports = [
        * the following package: sudo apt-get install libpng16-dev
        */
       new MiniCssExtractPlugin({
-        filename: 'styles.css',
+        filename: 'xatkit.css',
         chunkFileName: '[id].css'
       }),
     ],
