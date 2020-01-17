@@ -1,10 +1,11 @@
 {
   "name": "xatkit-chat-widget",
-  "version": "0.4.8",
+  "version": "0.5.0",
   "description": "Chat web widget for Xatkit",
-  "main": "lib/bundle.js",
-  "module": "index.js",
+  "main": "lib/index.js",
   "license": "MIT",
+  "bugs": "https://github.com/xatkit-bot-platform/xatkit-chat-widget/issues",
+  "repository": "git@github.com:xatkit-bot-platform/xatkit-chat-widget.git",
   "scripts": {
     "start": "webpack-dev-server --config webpack.config.dev.js",
     "build": "webpack --config ./webpack.config.prod.js",
