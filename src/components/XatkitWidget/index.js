@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import  ConnectedWidget from '../../index';
 
-import {addResponseMessage, toggleWidget} from '../../store/dispatcher'
+import {addResponseMessage, addUserMessage, setQuickButtons, toggleWidget} from '../../store/dispatcher'
 
 import io from 'socket.io-client';
 import PropTypes from "prop-types";
@@ -49,6 +49,9 @@ class XatkitWidget extends Component {
             console.log(msgObject);
             console.log('Received bot message "' + msgObject.message + '"');
             addResponseMessage(msgObject.message);
+            if(msgObject.quickButtonValues !== undefined) {
+                setQuickButtons(msgObject.quickButtonValues)
+            }
         });
 
         this.state = {
@@ -70,8 +73,10 @@ class XatkitWidget extends Component {
         this.state.socket.emit('user_message', {'message': newMessage, 'username': this.state.username});
 
     }
-    handleQuickButtonClicked = (newMessage) => {
-        //TODO
+    handleQuickButtonClicked = (e) => {
+        console.log("Clicked on " + e);
+        addUserMessage(e);
+        this.state.socket.emit('user_button_click', {'username': this.state.username, 'selectedValue': e})
 }
 
     render() {
