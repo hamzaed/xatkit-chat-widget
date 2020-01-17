@@ -20,3 +20,30 @@ npm install --save xatkit-chat-widget
 ```
 yarn add xatkit-chat-widget
 ```
+
+## Usage
+1. Using default values:
+
+```javascript
+import {renderDefaultXatkitWidget} from 'xatkit-chat-widget'
+import 'xatkit-chat-widget/lib/xatkit.css';
+
+renderDefaultXatkitWidget();
+```
+Your HTML page should include
+```html
+<div id="xatkit-chat"></div>
+```
+
+2. Using custom parameters
+
+```javascript
+import {renderXatkitWidget} from 'xatkit-chat-widget'
+import 'xatkit-chat-widget/lib/xatkit.css';
+
+renderXatkitWidget('my-id','My title', 'My subtitle', true,'My placeholder');
+```
+Your HTML page should include
+```html
+<div id="my-id"></div>
+```
