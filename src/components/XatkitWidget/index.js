@@ -19,8 +19,6 @@ class XatkitWidget extends Component {
      */
     constructor(props) {
         super(props);
-        const server = window.xatkit_server === undefined ? 'http://localhost:5001' : window.xatkit_server;
-        const username = window.xatkit_username === undefined ? 'username' : window.xatkit_username;
 
         if(!this.props.startMinimized) {
             toggleWidget();}
@@ -35,8 +33,8 @@ class XatkitWidget extends Component {
          * [1] server URL
          * [2] an empty string
          */
-        const parsedUrl = server.match(urlPattern);
-        let serverUrl = server;
+        const parsedUrl = this.props.server.match(urlPattern);
+        let serverUrl = this.props.server;
         let basePath = '/socket.io';
         if(parsedUrl.length !== null && parsedUrl.length === 3) {
             if(parsedUrl[2] !== '') {
@@ -54,8 +52,8 @@ class XatkitWidget extends Component {
         });
 
         this.state = {
-            username: username,
-            xatkit_server: server,
+            username: this.props.username,
+            xatkit_server: this.props.server,
             socket: socket
 
         };
@@ -91,6 +89,8 @@ class XatkitWidget extends Component {
 }
 
 XatkitWidget.propTypes = {
+    server: PropTypes.string,
+    username: PropTypes.string,
     title: PropTypes.string,
     subtitle: PropTypes.string,
     startMinimized: PropTypes.bool,
@@ -98,6 +98,8 @@ XatkitWidget.propTypes = {
 }
 
 XatkitWidget.defaultProps = {
+    server: 'http://localhost:5001',
+    username: 'username',
     title: 'Xatkit Chat',
     subtitle: 'Test your Xatkit bot here!',
     startMinimized: false,
