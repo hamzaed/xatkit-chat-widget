@@ -44,7 +44,7 @@ import 'xatkit-chat-widget/lib/xatkit.css';
 
 renderXatkitWidget('my-id','My title', 'My subtitle', true,'My placeholder');
 ```
-Your HTML page should include
+Your HTML page should include:
 ```html
 <div id="my-id"></div>
 ```
@@ -72,3 +72,24 @@ Your HTML page should include
 </body>
 </html>
 ```
+
+## API
+#### Methods 
+* **renderDefaultXatkitWidget**:
+    
+    - Method to render a chat widget with default parameters (default div id is `xatkit-chat`).
+    - parameter: none
+
+* **renderXatkitWidget**:
+    
+    - Method to render a chat widget using cunstom parameters.
+    - Parameters:
+
+| Parmeter            | Description           | Type  | Default value |
+| --------------------|:---------------------| -----|---------------|
+| elementId           | The ID of the div element | String |         |
+| title               | The title of the widget      |   String | Xatkit Chat |
+| subtitle            | the subtitle of the widget      |   Test your Xatkit bot here! | 
+| startMinimized      | Minimize the widget on load  |   Boolean | false | 
+| senderPlaceholder   | Placehoder text              |   String | Type a message... | 
+
