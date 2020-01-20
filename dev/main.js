@@ -1,6 +1,6 @@
 
-import {renderDefaultXatkitWidget, renderXatkitWidget} from "../index";
+import {renderXatkitWidget} from "../index";
 
-//renderXatkitWidget("xatkit-chat","My title", "My subtitle", false, "Write...");
-renderDefaultXatkitWidget();
+renderXatkitWidget();
+//renderXatkitWidget('http://server/url', 'bot','xatkit-chat','My title', 'My subtitle', true,'My placeholder');
 

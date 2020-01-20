@@ -1,14 +1,12 @@
 import XatkitWidget from './src/components/XatkitWidget';
 
 import {
-  renderXatkitWidget,
-  renderDefaultXatkitWidget
+  renderXatkitWidget
 } from "./src/utils/renderer";
 
 export  default XatkitWidget;
 
 export {
-  renderDefaultXatkitWidget,
   renderXatkitWidget
 };
 
