@@ -3,8 +3,8 @@
 .quick-buttons-container {
   background: $white;
   overflow-x: auto;
-  white-space: nowrap;
   padding: 10px;
+  white-space: initial;
 
   .quick-buttons {
     list-style: none;
@@ -15,6 +15,7 @@
     .quick-list-button {
       display: inline-block;
       margin-right: 10px;
+      margin-top: 2px;
     }
   }
 
