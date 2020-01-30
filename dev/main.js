@@ -1,6 +1,6 @@
 
 import {renderXatkitWidget} from "../index";
-
-renderXatkitWidget();
-//renderXatkitWidget('http://server/url', 'bot','xatkit-chat','My title', 'My subtitle', true,'My placeholder');
+import xatkitAvatar from '@assets/xatkit-avatar.png';
+//renderXatkitWidget();
+renderXatkitWidget(undefined, 'bot','xatkit-chat','My title', 'My subtitle', true,'My placeholder',xatkitAvatar );
 

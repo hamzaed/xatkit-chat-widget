@@ -2,7 +2,7 @@ import ReactDOM from "react-dom";
 import React from "react";
 import XatkitWidget from "../components/XatkitWidget";
 
-export function renderXatkitWidget(server, username,elementId,title,subtitle,startMinimized, senderPlaceholder ) {
+export function renderXatkitWidget(server, username,elementId,title,subtitle,startMinimized, senderPlaceholder, profileAvatar ) {
     const domElement = elementId === undefined ? document.getElementById('xatkit-chat') : document.getElementById(elementId);
     ReactDOM.render(<XatkitWidget
         server={server}
@@ -11,5 +11,6 @@ export function renderXatkitWidget(server, username,elementId,title,subtitle,sta
         subtitle={subtitle}
         startMinimized={startMinimized}
         senderPlaceHolder={senderPlaceholder}
+        profileAvatar={profileAvatar}
     />, domElement);
 }

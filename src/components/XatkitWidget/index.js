@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import  ConnectedWidget from '../../index';
+import xatkitAvatar from '@assets/xatkit-avatar.png';
 
 import {addResponseMessage, addUserMessage, setQuickButtons, toggleWidget} from '../../store/dispatcher'
 
@@ -87,6 +88,8 @@ class XatkitWidget extends Component {
                 senderPlaceHolder={this.props.senderPlaceHolder}
                 handleNewUserMessage={this.handleNewUserMessage}
                 handleQuickButtonClicked={this.handleQuickButtonClicked}
+                profileAvatar={this.props.profileAvatar}
+
 
             />
         );
@@ -99,7 +102,8 @@ XatkitWidget.propTypes = {
     title: PropTypes.string,
     subtitle: PropTypes.string,
     startMinimized: PropTypes.bool,
-    senderPlaceHolder: PropTypes.string
+    senderPlaceHolder: PropTypes.string,
+    profileAvatar: PropTypes.string
 }
 
 XatkitWidget.defaultProps = {
@@ -108,7 +112,8 @@ XatkitWidget.defaultProps = {
     title: 'Xatkit Chat',
     subtitle: 'Test your Xatkit bot here!',
     startMinimized: false,
-    senderPlaceHolder: 'Type a message...'
+    senderPlaceHolder: 'Type a message...',
+    profileAvatar: xatkitAvatar
 }
 
 
