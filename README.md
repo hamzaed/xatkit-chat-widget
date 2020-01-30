@@ -25,7 +25,7 @@ yarn add xatkit-chat-widget
 ### Using default values:
 
 ```javascript
-import {renderDefaultXatkitWidget} from 'xatkit-chat-widget'
+import {renderXatkitWidget} from 'xatkit-chat-widget'
 import 'xatkit-chat-widget/lib/xatkit.css';
 
 renderXatkitWidget();
@@ -62,7 +62,7 @@ renderXatkitWidget(server, username, elementId, title, subtitle, startMinimized,
 
 <script src="assets/xatkit.js"></script>
 <script>
-   xatkit.renderDefaultXatkitWidget();
+   xatkit.renderXatkitWidget();
   //xatkit.renderXatkitWidget(server, username, elementId, title, subtitle, startMinimized, senderPlaceHolder);
 </script>
 </body>
@@ -87,9 +87,9 @@ renderXatkitWidget(server, username, elementId, title, subtitle, startMinimized,
     | `elementId`       | String  | The identifier of the DOM element to attach the component to. | `document.getElementById('xatkit-chat')` (this means that you need to have a `<div id="xatkit-chat"></div>` element in your DOM) |
     | `title`           | String  | The title of the bot's widget                                | `"Xatkit Chat"`                                              |
     | `subtitle`        | String  | The subtitle of the bot's widget                             | `"Test your Xatkit bot here!"`                               |
-    | startMinimized    | Boolean | A flag telling whether the bot should start minimized        | `false`                                                      |
-    | senderPlaceHolder | String  | The place holder text in the input field when no input is provided | `"Type a message"`                                           |
+    | `startMinimized`    | Boolean | A flag telling whether the bot should start minimized        | `false`                                                      |
+    | `senderPlaceHolder` | String  | The place holder text in the input field when no input is provided | `"Type a message"`                                           |
     
     
 
-> **Note**: all the parameter are optional, if they are not specified they will be set to their default value detailed below.
+> **Note**: All the parameters are optional. If they are not specified, they will be set to their default value detailed above.
