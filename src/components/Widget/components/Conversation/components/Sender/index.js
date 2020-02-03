@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import send from '@assets/send_button.svg';
-import xatkit from '@assets/xatkit-logo.png';
+import xatkit from '@assets/built-with-xatkit.svg';
 
 import './style.scss';
 
