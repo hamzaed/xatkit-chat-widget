@@ -7,19 +7,24 @@ import xatkit from '@assets/built-with-xatkit.svg';
 import './style.scss';
 
 class Sender extends Component{
-  input = React.createRef();
+
+    constructor(props) {
+        super(props);
+        this.input = this.props.focus?React.createRef():this.props.focus;
+    }
 
   componentDidUpdate() {
-    this.input.current.focus();
+
+      this.input.current.focus();
   }
 
   render() {
-    const { sendMessage, placeholder, disabledInput, autofocus } = this.props;
+    const { sendMessage, placeholder, disabledInput, autofocus, focus } = this.props;
     return (
         <div>
           <form className="rcw-sender" onSubmit={sendMessage}>
             <input type="text" className="rcw-new-message" name="message" placeholder={placeholder}
-                   disabled={disabledInput} autoFocus={autofocus} autoComplete="off" ref={this.input}/>
+                   disabled={disabledInput} autoFocus={autofocus} autoComplete="off" ref={focus}/>
             <button type="submit" className="rcw-send">
               <img src={send} className="rcw-send-icon" alt="send"/>
             </button>
@@ -37,7 +42,8 @@ Sender.propTypes = {
   sendMessage: PropTypes.func,
   placeholder: PropTypes.string,
   disabledInput: PropTypes.bool,
-  autofocus: PropTypes.bool
+  autofocus: PropTypes.bool,
+    focus: PropTypes.object
 };
 
 export default Sender;
