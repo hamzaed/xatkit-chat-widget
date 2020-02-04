@@ -22,6 +22,7 @@ const ConnectedWidget = props =>
           autofocus={props.autofocus}
           customLauncher={props.launcher}
           launcherImage={props.launcherImage}
+          focus={props.focus}
       />
     </Provider>;
 
@@ -38,7 +39,8 @@ ConnectedWidget.propTypes = {
   badge: PropTypes.number,
   autofocus: PropTypes.bool,
   launcher: PropTypes.func,
-  launcherImage: PropTypes.string
+  launcherImage: PropTypes.string,
+  focus: PropTypes.object
 };
 
 ConnectedWidget.defaultProps = {

@@ -25,6 +25,7 @@ const Conversation = props =>
       placeholder={props.senderPlaceHolder}
       disabledInput={props.disabledInput}
       autofocus={props.autofocus}
+      focus={props.focus}
     />
   </div>;
 
@@ -38,7 +39,8 @@ Conversation.propTypes = {
   toggleChat: PropTypes.func,
   showCloseButton: PropTypes.bool,
   disabledInput: PropTypes.bool,
-  autofocus: PropTypes.bool
+  autofocus: PropTypes.bool,
+    focus: PropTypes.object
 };
 
 export default Conversation;

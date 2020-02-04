@@ -52,6 +52,7 @@ class Widget extends Component {
         autofocus={this.props.autofocus}
         customLauncher={this.props.customLauncher}
         launcherImage={this.props.launcherImage}
+        focus={this.props.focus}
       />
     );
   }
@@ -70,7 +71,8 @@ Widget.propTypes = {
   badge: PropTypes.number,
   autofocus: PropTypes.bool,
   customLauncher: PropTypes.func,
-  launcherImage: PropTypes.string
+  launcherImage: PropTypes.string,
+  focus: PropTypes.object
 
 };
 
