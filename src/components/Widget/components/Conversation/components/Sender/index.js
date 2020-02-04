@@ -10,11 +10,10 @@ class Sender extends Component{
 
     constructor(props) {
         super(props);
-        this.input = this.props.focus?React.createRef():this.props.focus;
+        this.input = !this.props.focus?React.createRef():this.props.focus;
     }
 
   componentDidUpdate() {
-
       this.input.current.focus();
   }
 
