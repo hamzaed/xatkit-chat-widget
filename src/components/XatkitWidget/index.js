@@ -3,6 +3,7 @@ import  ConnectedWidget from '../../index';
 import xatkitAvatar from '@assets/xatkit-avatar.png';
 import xatkitLogoNegative from '@assets/xatkit-avatar-negative.png';
 
+
 import {addResponseMessage, addUserMessage, setQuickButtons, toggleWidget} from '../../store/dispatcher'
 
 import io from 'socket.io-client';
@@ -21,7 +22,8 @@ class XatkitWidget extends Component {
      */
     constructor(props) {
         super(props);
-
+        this.inputRef = React.createRef();
+        console.log(this.inputRef);
         if(!this.props.startMinimized) {
             toggleWidget();}
         const urlPattern =/(^https?:\/\/[^\/]+)\/?(.*)/i;
@@ -51,9 +53,11 @@ class XatkitWidget extends Component {
             console.log(msgObject);
             console.log('Received bot message "' + msgObject.message + '"');
             addResponseMessage(msgObject.message);
+            console.log(msgObject.quickButtonValues)
             if(msgObject.quickButtonValues !== undefined) {
-                setQuickButtons(msgObject.quickButtonValues)
+                setQuickButtons(msgObject.quickButtonValues);
             }
+
         });
 
         this.state = {
@@ -71,29 +75,36 @@ class XatkitWidget extends Component {
 
 
     handleNewUserMessage = (newMessage) => {
-
         this.state.socket.emit('user_message', {'message': newMessage, 'username': this.state.username});
-
     }
+
     handleQuickButtonClicked = (e) => {
         console.log("Clicked on " + e);
         addUserMessage(e);
-        this.state.socket.emit('user_button_click', {'username': this.state.username, 'selectedValue': e})
+        this.state.socket.emit('user_button_click', {'username': this.state.username, 'selectedValue': e});
+        setQuickButtons([]);
+        this.inputRef.current.focus();
+
+
+
 }
 
     render() {
-        return (
+        const Comp = React.forwardRef((props, ref) => (
             <ConnectedWidget
-                title= {this.props.title}
-                subtitle= {this.props.subtitle}
-                senderPlaceHolder={this.props.senderPlaceHolder}
+                title= {props.title}
+                subtitle= {props.subtitle}
+                senderPlaceHolder={props.senderPlaceHolder}
                 handleNewUserMessage={this.handleNewUserMessage}
                 handleQuickButtonClicked={this.handleQuickButtonClicked}
-                profileAvatar={this.props.profileAvatar}
-                launcherImage={this.props.launcherImage}
-
+                profileAvatar={props.profileAvatar}
+                launcherImage={props.launcherImage}
+                focus={ref}
 
             />
+        ));
+        return (
+          <Comp {...this.props} ref={this.inputRef} />
         );
     }
 }
