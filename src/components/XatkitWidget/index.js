@@ -4,7 +4,7 @@ import xatkitAvatar from '@assets/xatkit-avatar.png';
 import xatkitLogoNegative from '@assets/xatkit-avatar-negative.png';
 
 
-import {addResponseMessage, addUserMessage, setQuickButtons, toggleWidget} from '../../store/dispatcher'
+import {addResponseMessage, addUserMessage, setQuickButtons, toggleWidget, toggleInputDisabled} from '../../store/dispatcher'
 
 import io from 'socket.io-client';
 import PropTypes from "prop-types";
@@ -23,7 +23,6 @@ class XatkitWidget extends Component {
     constructor(props) {
         super(props);
         this.inputRef = React.createRef();
-        console.log(this.inputRef);
         if(!this.props.startMinimized) {
             toggleWidget();}
         const urlPattern =/(^https?:\/\/[^\/]+)\/?(.*)/i;
@@ -54,8 +53,11 @@ class XatkitWidget extends Component {
             console.log('Received bot message "' + msgObject.message + '"');
             addResponseMessage(msgObject.message);
             console.log(msgObject.quickButtonValues)
-            if(msgObject.quickButtonValues !== undefined) {
+            if(msgObject.quickButtonValues !== undefined && msgObject.quickButtonValues.length > 0) {
                 setQuickButtons(msgObject.quickButtonValues);
+                toggleInputDisabled();
+
+
             }
 
         });
@@ -84,10 +86,13 @@ class XatkitWidget extends Component {
         this.state.socket.emit('user_button_click', {'username': this.state.username, 'selectedValue': e});
         setQuickButtons([]);
         this.inputRef.current.focus();
+        toggleInputDisabled(false);
 
 
 
-}
+
+
+    }
 
     render() {
         const Comp = React.forwardRef((props, ref) => (
