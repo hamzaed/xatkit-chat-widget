@@ -13,8 +13,8 @@ export function addLinkSnippet(link) {
   store.dispatch(actions.addLinkSnippet(link));
 }
 
-export function toggleMsgLoader() {
-  store.dispatch(actions.toggleMsgLoader());
+export function toggleMsgLoader(newValue) {
+  store.dispatch(actions.toggleMsgLoader(newValue));
 }
 
 export function renderCustomComponent(component, props, showAvatar = false) {

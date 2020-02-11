@@ -13,8 +13,8 @@ const behaviorReducer = {
   [actionTypes.TOGGLE_INPUT_DISABLED]: state =>
     state.update('disabledInput', disabledInput => !disabledInput),
 
-  [actionTypes.TOGGLE_MSG_LOADER]: state =>
-    state.update('msgLoader', msgLoader => !msgLoader)
+  [actionTypes.TOGGLE_MSG_LOADER]: (state, { newValue }) =>
+    state.update('msgLoader', () => newValue)
 };
 
 export default (state = initialState, action) => createReducer(behaviorReducer, state, action);

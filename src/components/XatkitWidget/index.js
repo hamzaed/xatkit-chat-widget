@@ -4,7 +4,7 @@ import xatkitAvatar from '@assets/xatkit-avatar.png';
 import xatkitLogoNegative from '@assets/xatkit-avatar-negative.png';
 
 
-import {addResponseMessage, addUserMessage, setQuickButtons, toggleWidget, toggleInputDisabled} from '../../store/dispatcher'
+import {addResponseMessage, addUserMessage, setQuickButtons, toggleWidget, toggleInputDisabled, toggleMsgLoader} from '../../store/dispatcher'
 
 import io from 'socket.io-client';
 import PropTypes from "prop-types";
@@ -56,10 +56,18 @@ class XatkitWidget extends Component {
             if(msgObject.quickButtonValues !== undefined && msgObject.quickButtonValues.length > 0) {
                 setQuickButtons(msgObject.quickButtonValues);
                 toggleInputDisabled();
-
-
             }
+            toggleMsgLoader(false);
 
+        });
+
+        socket.on('set_message_loader', function(setMessageLoaderObject) {
+            console.log(setMessageLoaderObject);
+            console.log(this);
+            console.log(this.props);
+            if(setMessageLoaderObject.enableLoader === true) {
+                toggleMsgLoader(true);
+            }
         });
 
         this.state = {

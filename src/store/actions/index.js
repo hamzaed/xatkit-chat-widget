@@ -26,9 +26,10 @@ export function addResponseMessage(text) {
   };
 }
 
-export function toggleMsgLoader() {
+export function toggleMsgLoader(newValue) {
   return {
-    type: actions.TOGGLE_MSG_LOADER
+    type: actions.TOGGLE_MSG_LOADER,
+    newValue
   }
 }
 
