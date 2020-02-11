@@ -1,10 +1,17 @@
-import React, { Component } from 'react';
-import  ConnectedWidget from '../../index';
+import React, {Component} from 'react';
+import ConnectedWidget from '../../index';
 import xatkitAvatar from '@assets/xatkit-avatar.png';
 import xatkitLogoNegative from '@assets/xatkit-avatar-negative.png';
 
 
-import {addResponseMessage, addUserMessage, setQuickButtons, toggleWidget, toggleInputDisabled, toggleMsgLoader} from '../../store/dispatcher'
+import {
+    addResponseMessage,
+    addUserMessage,
+    setQuickButtons,
+    toggleWidget,
+    toggleInputDisabled,
+    toggleMsgLoader,
+} from '../../store/dispatcher'
 
 import io from 'socket.io-client';
 import PropTypes from "prop-types";
@@ -23,9 +30,10 @@ class XatkitWidget extends Component {
     constructor(props) {
         super(props);
         this.inputRef = React.createRef();
-        if(!this.props.startMinimized) {
-            toggleWidget();}
-        const urlPattern =/(^https?:\/\/[^\/]+)\/?(.*)/i;
+        if (!this.props.startMinimized) {
+            toggleWidget();
+        }
+        const urlPattern = /(^https?:\/\/[^\/]+)\/?(.*)/i;
         /*
          * If the provided URL contains a base path the result array will contain the following information:
          * [0] full path (e.g. http://localhost:5001/test)
@@ -39,33 +47,29 @@ class XatkitWidget extends Component {
         const parsedUrl = this.props.server.match(urlPattern);
         let serverUrl = this.props.server;
         let basePath = '/socket.io';
-        if(parsedUrl.length !== null && parsedUrl.length === 3) {
-            if(parsedUrl[2] !== '') {
+        if (parsedUrl.length !== null && parsedUrl.length === 3) {
+            if (parsedUrl[2] !== '') {
                 basePath = '/' + parsedUrl[2];
             }
             serverUrl = parsedUrl[1]
         }
         const socket = io(serverUrl, {
-            path : basePath
+            path: basePath
         });
-        socket.on('bot_message', function(msgObject) {
+        socket.on('bot_message', function (msgObject) {
             console.log(msgObject);
             console.log('Received bot message "' + msgObject.message + '"');
             addResponseMessage(msgObject.message);
             console.log(msgObject.quickButtonValues)
-            if(msgObject.quickButtonValues !== undefined && msgObject.quickButtonValues.length > 0) {
+            if (msgObject.quickButtonValues !== undefined && msgObject.quickButtonValues.length > 0) {
                 setQuickButtons(msgObject.quickButtonValues);
                 toggleInputDisabled();
             }
             toggleMsgLoader(false);
-
         });
 
-        socket.on('set_message_loader', function(setMessageLoaderObject) {
-            console.log(setMessageLoaderObject);
-            console.log(this);
-            console.log(this.props);
-            if(setMessageLoaderObject.enableLoader === true) {
+        socket.on('set_message_loader', function (setMessageLoaderObject) {
+            if (setMessageLoaderObject.enableLoader === true) {
                 toggleMsgLoader(true);
             }
         });
@@ -97,16 +101,13 @@ class XatkitWidget extends Component {
         toggleInputDisabled(false);
 
 
-
-
-
     }
 
     render() {
         const Comp = React.forwardRef((props, ref) => (
             <ConnectedWidget
-                title= {props.title}
-                subtitle= {props.subtitle}
+                title={props.title}
+                subtitle={props.subtitle}
                 senderPlaceHolder={props.senderPlaceHolder}
                 handleNewUserMessage={this.handleNewUserMessage}
                 handleQuickButtonClicked={this.handleQuickButtonClicked}
@@ -117,7 +118,7 @@ class XatkitWidget extends Component {
             />
         ));
         return (
-          <Comp {...this.props} ref={this.inputRef} />
+            <Comp {...this.props} ref={this.inputRef}/>
         );
     }
 }
@@ -143,7 +144,6 @@ XatkitWidget.defaultProps = {
     profileAvatar: xatkitAvatar,
     launcherImage: xatkitLogoNegative
 }
-
 
 
 export default XatkitWidget;
