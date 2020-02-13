@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 import './style.scss';
+import PropTypes from 'prop-types';
 
 
 class QuickButtons extends Component {
@@ -16,6 +17,7 @@ class QuickButtons extends Component {
       <ComponentToRender
         onQuickButtonClicked={this.props.onQuickButtonClicked}
         button={button}
+        darkMode={this.props.darkMode}
       />
     );
   }
@@ -26,7 +28,7 @@ class QuickButtons extends Component {
     }
 
     return (
-      <div className="quick-buttons-container">
+      <div className={"quick-buttons-container" + (this.props.darkMode === true ? " dark-mode" : "")}>
         <ul className="quick-buttons">
           {
             this.props.buttons.map((button, index) =>
@@ -43,6 +45,7 @@ class QuickButtons extends Component {
 
 QuickButtons.propTypes = {
   buttons: ImmutablePropTypes.listOf(ImmutablePropTypes.map),
+  darkMode: PropTypes.bool
 };
 
 

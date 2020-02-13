@@ -11,6 +11,7 @@ import {
     toggleWidget,
     toggleInputDisabled,
     toggleMsgLoader,
+    toggleDarkMode
 } from '../../store/dispatcher'
 
 import io from 'socket.io-client';
@@ -56,6 +57,7 @@ class XatkitWidget extends Component {
         const socket = io(serverUrl, {
             path: basePath
         });
+        
         socket.on('bot_message', function (msgObject) {
             console.log(msgObject);
             console.log('Received bot message "' + msgObject.message + '"');
@@ -72,6 +74,10 @@ class XatkitWidget extends Component {
             if (setMessageLoaderObject.enableLoader === true) {
                 toggleMsgLoader(true);
             }
+        });
+
+        socket.on('toggle_dark_mode', function() {
+            toggleDarkMode();
         });
 
         this.state = {

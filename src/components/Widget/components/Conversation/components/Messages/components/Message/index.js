@@ -7,8 +7,10 @@ import markdownItLinkAttributes from 'markdown-it-link-attributes';
 import { PROP_TYPES } from '@constants';
 
 import './styles.scss';
+import PropTypes from "prop-types";
 
 class Message extends PureComponent {
+
   render() {
     const sanitizedHTML = markdownIt()
     .use(markdownItSup)
@@ -17,7 +19,7 @@ class Message extends PureComponent {
     .render(this.props.message.get('text'));
 
     return (
-      <div className={`rcw-${this.props.message.get('sender')}`}>
+      <div className={`rcw-${this.props.message.get('sender')}` + (this.props.darkMode === true ? " dark-mode" : "")}>
         <div className="rcw-message-text" dangerouslySetInnerHTML={{ __html: sanitizedHTML }} />
       </div>
     );
@@ -25,7 +27,8 @@ class Message extends PureComponent {
 }
 
 Message.propTypes = {
-  message: PROP_TYPES.MESSAGE
+  message: PROP_TYPES.MESSAGE,
+  darkMode: PropTypes.bool
 };
 
 export default Message;

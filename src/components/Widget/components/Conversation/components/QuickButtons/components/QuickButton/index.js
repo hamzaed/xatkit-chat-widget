@@ -6,7 +6,7 @@ class QuickButton extends PureComponent {
   render() {
     return (
       <button
-        className="quick-button"
+        className={"quick-button" + (this.props.darkMode === true ? " dark-mode" : "")}
         onClick={(event) => this.props.onQuickButtonClicked(event, this.props.button.get('value'))}
       >
         {this.props.button.get('label')}
@@ -17,7 +17,8 @@ class QuickButton extends PureComponent {
 
 QuickButton.propTypes = {
   label: PropTypes.string,
-  value: PropTypes.string
+  value: PropTypes.string,
+  darkMode : PropTypes.bool
 };
 
 export default QuickButton;

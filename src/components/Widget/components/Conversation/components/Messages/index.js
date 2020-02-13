@@ -9,6 +9,9 @@ import { scrollToBottom } from '@utils/messages';
 import Loader from './components/Loader';
 import './styles.scss';
 
+import xatkitAvatar from '@assets/xatkit-avatar.png'
+import xatkitAvatarWhite from '@assets/xatkit-avatar-white.png'
+
 class Messages extends Component {
   componentDidMount() {
     scrollToBottom(this.$message);
@@ -26,7 +29,7 @@ class Messages extends Component {
     if (message.get('type') === 'component') {
       return <ComponentToRender {...message.get('props')} />;
     }
-    return <ComponentToRender message={message} />;
+    return <ComponentToRender message={message} darkMode={this.props.darkMode} />;
   };
 
   shouldRenderAvatar = (message, index) => {
@@ -36,15 +39,24 @@ class Messages extends Component {
     }
   }
 
+  getProfileAvatar = () => {
+    if(this.props.darkMode === true) {
+      if (this.props.profileAvatar === xatkitAvatar) {
+        return xatkitAvatarWhite
+      }
+    }
+    return this.props.profileAvatar;
+  }
+
   render() {
     const { messages, profileAvatar, typing } = this.props;
     return (
-      <div id="messages" className="rcw-messages-container" ref={msg => this.$message = msg}>
+      <div id="messages" className={"rcw-messages-container" + (this.props.darkMode === true ? " dark-mode" : "")} ref={msg => this.$message = msg}>
         {messages.map((message, index) =>
           <div className="rcw-message" key={index}>
             {profileAvatar &&
               message.get('showAvatar') &&
-              <img src={profileAvatar} className="rcw-avatar" alt="profile" />
+              <img src={this.getProfileAvatar()} className="rcw-avatar" alt="profile" />
             }
             {this.getComponentToRender(message)}
           </div>
@@ -57,10 +69,11 @@ class Messages extends Component {
 
 Messages.propTypes = {
   messages: ImmutablePropTypes.listOf(ImmutablePropTypes.map),
+  darkMode: PropTypes.bool,
   profileAvatar: PropTypes.string
 };
 
 export default connect(store => ({
   messages: store.messages,
-  typing: store.behavior.get('msgLoader')
+  typing: store.behavior.get('msgLoader'),
 }))(Messages);

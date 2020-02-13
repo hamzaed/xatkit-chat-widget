@@ -9,6 +9,10 @@
 
 }
 
+.rcw-sender.dark-mode {
+  background-color: $dark;
+}
+
 .rcw-new-message {
   width: 100%;
   border: 0;
@@ -21,6 +25,11 @@
   }
 }
 
+.rcw-new-message.dark-mode {
+  background-color: $dark;
+  color: white
+}
+
 .rcw-send {
   background: $grey-2;
   border: 0;
@@ -28,6 +37,10 @@
   .rcw-send-icon {
     height: 25px;
   }
+}
+
+.rcw-send.dark-mode {
+  background-color: $dark;
 }
 
 @media screen and (max-width: 800px)  {
@@ -45,6 +58,10 @@
   border-radius: 0 0 10px 10px;
 
 }
+
+.xatkit.dark-mode {
+  background-color: $dark;
+}
 .xatkit-icon {
   background-color: $grey-2;
 
@@ -52,4 +69,8 @@
   float: right;
 
 
+}
+
+.xatkit-icon.dark-mode {
+  background-color: $dark;
 }

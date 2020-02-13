@@ -7,8 +7,8 @@ import close from '@assets/clear-button.svg';
 import Badge from './components/Badge';
 import './style.scss';
 
-const Launcher = ({ toggle, chatOpened, badge,launcherImage}) =>
-  <button type="button" className={chatOpened ? 'rcw-launcher rcw-hide-sm' : 'rcw-launcher'} onClick={toggle}>
+const Launcher = ({ toggle, chatOpened, badge,launcherImage, darkMode}) =>
+  <button type="button" className={(chatOpened ? 'rcw-launcher rcw-hide-sm' : 'rcw-launcher') + (darkMode === true ? " dark-mode" : "")} onClick={toggle}>
     <Badge badge={badge} />
     {chatOpened ?
       <img src={close} className="rcw-close-launcher" alt="" /> :
@@ -20,7 +20,8 @@ Launcher.propTypes = {
   toggle: PropTypes.func,
   chatOpened: PropTypes.bool,
   badge: PropTypes.number,
-  launcherImage: PropTypes.string
+  launcherImage: PropTypes.string,
+  darkMode: PropTypes.bool
 };
 
 export default connect(store => ({

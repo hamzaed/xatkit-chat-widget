@@ -10,6 +10,10 @@
   -webkit-overflow-scrolling: touch;
 }
 
+.rcw-messages-container.dark-mode {
+  background-color: $light-dark;
+}
+
 .rcw-full-screen {
 
   .rcw-messages-container {

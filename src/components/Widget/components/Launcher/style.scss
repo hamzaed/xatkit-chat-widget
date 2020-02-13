@@ -18,6 +18,10 @@
   }
 }
 
+.rcw-launcher.dark-mode {
+  background-color: $dark;
+}
+
 .rcw-open-launcher {
   @include animation(0, 0.5s, rotation-rl);
 }

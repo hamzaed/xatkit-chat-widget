@@ -16,6 +16,7 @@ const WidgetLayout = props => (
       <Conversation
         title={props.title}
         subtitle={props.subtitle}
+        darkMode={props.darkMode}
         sendMessage={props.onSendMessage}
         senderPlaceHolder={props.senderPlaceHolder}
         onQuickButtonClicked={props.onQuickButtonClicked}
@@ -37,6 +38,7 @@ const WidgetLayout = props => (
         toggle={props.onToggleConversation}
         badge={props.badge}
         launcherImage={props.launcherImage}
+        darkMode={props.darkMode}
       />
     }
   </div>
@@ -46,6 +48,7 @@ WidgetLayout.propTypes = {
   title: PropTypes.string,
   titleAvatar: PropTypes.string,
   subtitle: PropTypes.string,
+  darkMode: PropTypes.bool,
   onSendMessage: PropTypes.func,
   onToggleConversation: PropTypes.func,
   showChat: PropTypes.bool,
@@ -64,5 +67,6 @@ WidgetLayout.propTypes = {
 
 export default connect(store => ({
   showChat: store.behavior.get('showChat'),
-  disabledInput: store.behavior.get('disabledInput')
+  disabledInput: store.behavior.get('disabledInput'),
+  darkMode: store.behavior.get('darkMode')
 }))(WidgetLayout);

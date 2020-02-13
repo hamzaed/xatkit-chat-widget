@@ -21,6 +21,10 @@ export function renderCustomComponent(component, props, showAvatar = false) {
   store.dispatch(actions.renderCustomComponent(component, props, showAvatar));
 }
 
+export function toggleDarkMode() {
+  store.dispatch(actions.toggleDarkMode());
+}
+
 export function toggleWidget() {
   store.dispatch(actions.toggleChat());
 }

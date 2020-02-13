@@ -1,5 +1,11 @@
 import * as actions from './actionTypes';
 
+export function toggleDarkMode() {
+  return {
+    type: actions.TOGGLE_DARK_MODE
+  };
+}
+
 export function toggleChat() {
   return {
     type: actions.TOGGLE_CHAT

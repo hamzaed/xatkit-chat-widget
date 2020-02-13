@@ -14,3 +14,12 @@
     color: $white;
   }
 }
+
+.quick-button.dark-mode {
+  border: 2px solid $dark;
+  color: $white;
+
+  &:active {
+    background-color: $dark;
+  }
+}

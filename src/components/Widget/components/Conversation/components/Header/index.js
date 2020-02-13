@@ -5,9 +5,8 @@ import close from '@assets/clear-button.svg';
 
 import './style.scss';
 
-
-const Header = ({ title, subtitle, toggleChat, showCloseButton, titleAvatar }) =>
-  <div className="rcw-header">
+const Header = ({ title, subtitle, toggleChat, darkMode, showCloseButton, titleAvatar }) =>
+  <div className={"rcw-header" + (darkMode===true? " dark-mode" : "")}>
     {showCloseButton &&
       <button className="rcw-close-button" onClick={toggleChat}>
         <img src={close} className="rcw-close" alt="close" />
@@ -24,6 +23,7 @@ Header.propTypes = {
   title: PropTypes.string,
   subtitle: PropTypes.string,
   toggleChat: PropTypes.func,
+  darkMode: PropTypes.bool,
   showCloseButton: PropTypes.bool,
   titleAvatar: PropTypes.string
 };
