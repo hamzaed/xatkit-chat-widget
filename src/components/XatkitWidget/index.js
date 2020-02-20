@@ -46,6 +46,13 @@ class XatkitWidget extends Component {
          * [2] an empty string
          */
         const parsedUrl = this.props.server.match(urlPattern);
+        if(parsedUrl === null) {
+            /*
+             * The provided URL doesn't match the pattern, we need to log an error and stop here.
+             */
+            console.error("The provided URL " + this.props.server + " is not a valid URL")
+            return
+        }
         let serverUrl = this.props.server;
         let basePath = '/socket.io';
         if (parsedUrl.length !== null && parsedUrl.length === 3) {
@@ -57,7 +64,7 @@ class XatkitWidget extends Component {
         const socket = io(serverUrl, {
             path: basePath
         });
-        
+
         socket.on('bot_message', function (msgObject) {
             console.log(msgObject);
             console.log('Received bot message "' + msgObject.message + '"');
