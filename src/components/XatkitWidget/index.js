@@ -32,7 +32,6 @@ class XatkitWidget extends Component {
     constructor(props) {
         super(props);
         this.inputRef = React.createRef();
-        let inputRef = this.inputRef
         if (!this.props.startMinimized) {
             toggleWidget();
         }
@@ -67,6 +66,7 @@ class XatkitWidget extends Component {
             path: basePath
         });
 
+        let buttonsPlaceholder = this.props.buttonsPlaceholder;
         socket.on('bot_message', function (msgObject) {
             console.log(msgObject);
             console.log('Received bot message "' + msgObject.message + '"');
@@ -75,7 +75,7 @@ class XatkitWidget extends Component {
             if (msgObject.quickButtonValues !== undefined && msgObject.quickButtonValues.length > 0) {
                 setQuickButtons(msgObject.quickButtonValues);
                 toggleInputDisabled();
-                setPlaceholder("Choose an option");
+                setPlaceholder(buttonsPlaceholder);
             }
             toggleMsgLoader(false);
         });
@@ -148,7 +148,8 @@ XatkitWidget.propTypes = {
     startMinimized: PropTypes.bool,
     senderPlaceHolder: PropTypes.string,
     profileAvatar: PropTypes.string,
-    launcherImage: PropTypes.string
+    launcherImage: PropTypes.string,
+    buttonsPlaceholder: PropTypes.string
 }
 
 XatkitWidget.defaultProps = {
@@ -159,7 +160,8 @@ XatkitWidget.defaultProps = {
     startMinimized: false,
     senderPlaceHolder: 'Type a message...',
     profileAvatar: xatkitAvatar,
-    launcherImage: xatkitLogoNegative
+    launcherImage: xatkitLogoNegative,
+    buttonsPlaceholder: "Choose an option"
 }
 
 
