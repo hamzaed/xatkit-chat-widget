@@ -25,6 +25,10 @@ export function toggleDarkMode() {
   store.dispatch(actions.toggleDarkMode());
 }
 
+export function setPlaceholder(newValue) {
+  store.dispatch(actions.setPlaceholder(newValue));
+}
+
 export function toggleWidget() {
   store.dispatch(actions.toggleChat());
 }

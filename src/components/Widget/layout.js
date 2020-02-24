@@ -68,5 +68,6 @@ WidgetLayout.propTypes = {
 export default connect(store => ({
   showChat: store.behavior.get('showChat'),
   disabledInput: store.behavior.get('disabledInput'),
-  darkMode: store.behavior.get('darkMode')
+  darkMode: store.behavior.get('darkMode'),
+  senderPlaceHolder: store.behavior.get('placeholder')
 }))(WidgetLayout);

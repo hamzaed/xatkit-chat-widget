@@ -11,7 +11,8 @@ import {
     toggleWidget,
     toggleInputDisabled,
     toggleMsgLoader,
-    toggleDarkMode
+    toggleDarkMode,
+    setPlaceholder
 } from '../../store/dispatcher'
 
 import io from 'socket.io-client';
@@ -31,6 +32,7 @@ class XatkitWidget extends Component {
     constructor(props) {
         super(props);
         this.inputRef = React.createRef();
+        let inputRef = this.inputRef
         if (!this.props.startMinimized) {
             toggleWidget();
         }
@@ -73,6 +75,7 @@ class XatkitWidget extends Component {
             if (msgObject.quickButtonValues !== undefined && msgObject.quickButtonValues.length > 0) {
                 setQuickButtons(msgObject.quickButtonValues);
                 toggleInputDisabled();
+                setPlaceholder("Choose an option");
             }
             toggleMsgLoader(false);
         });
@@ -112,6 +115,7 @@ class XatkitWidget extends Component {
         setQuickButtons([]);
         this.inputRef.current.focus();
         toggleInputDisabled(false);
+        setPlaceholder(this.props.senderPlaceHolder);
 
 
     }

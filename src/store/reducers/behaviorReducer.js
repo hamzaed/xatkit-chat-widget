@@ -17,7 +17,10 @@ const behaviorReducer = {
     state.update('msgLoader', () => newValue),
 
   [actionTypes.TOGGLE_DARK_MODE]: state =>
-      state.update('darkMode', darkMode => !darkMode)
+      state.update('darkMode', darkMode => !darkMode),
+
+  [actionTypes.SET_PLACE_HOLDER]: (state, {newValue}) =>
+      state.update('placeholder',  () => newValue)
 };
 
 export default (state = initialState, action) => createReducer(behaviorReducer, state, action);

@@ -18,6 +18,14 @@ export function toggleInputDisabled() {
   };
 }
 
+
+export function setPlaceholder(newValue) {
+  return {
+    type: actions.SET_PLACE_HOLDER,
+    newValue
+  };
+}
+
 export function addUserMessage(text) {
   return {
     type: actions.ADD_NEW_USER_MESSAGE,
