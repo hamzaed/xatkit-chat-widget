@@ -35,6 +35,7 @@ class XatkitWidget extends Component {
         if (!this.props.startMinimized) {
             toggleWidget();
         }
+        setPlaceholder(this.props.senderPlaceHolder);
         const urlPattern = /(^https?:\/\/[^\/]+)\/?(.*)/i;
         /*
          * If the provided URL contains a base path the result array will contain the following information:
