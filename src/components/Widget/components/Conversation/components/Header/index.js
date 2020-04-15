@@ -6,13 +6,13 @@ import close from '@assets/clear-button.svg';
 import './style.scss';
 
 const Header = ({ title, subtitle, toggleChat, darkMode, showCloseButton, titleAvatar }) =>
-  <div className={"rcw-header" + (darkMode===true? " dark-mode" : "")}>
+  <div className={"xatkit-header" + (darkMode===true? " dark-mode" : "")}>
     {showCloseButton &&
-      <button className="rcw-close-button" onClick={toggleChat}>
-        <img src={close} className="rcw-close" alt="close" />
+      <button className="xatkit-close-button" onClick={toggleChat}>
+        <img src={close} className="xatkit-close" alt="close" />
       </button>
     }
-    <h4 className="rcw-title">
+    <h4 className="xatkit-title">
       {titleAvatar && <img src={titleAvatar} className="avatar" alt="profile" />}
       {title}
     </h4>

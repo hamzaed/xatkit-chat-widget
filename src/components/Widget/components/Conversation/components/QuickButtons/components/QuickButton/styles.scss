@@ -1,6 +1,6 @@
 @import "variables.scss";
 
-.quick-button {
+.xatkit-quick-button {
   background: none;
   border-radius: 15px;
   border: 2px solid $xatkit-color;
@@ -15,7 +15,7 @@
   }
 }
 
-.quick-button.dark-mode {
+.xatkit-quick-button.dark-mode {
   border: 2px solid $dark;
   color: $white;
 

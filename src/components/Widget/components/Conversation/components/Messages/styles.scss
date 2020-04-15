@@ -1,7 +1,7 @@
 @import 'variables.scss';
 @import 'common.scss';
 
-.rcw-messages-container {
+.xatkit-messages-container {
   background-color: $white;
   height: 50vh;
   max-height: 410px;
@@ -10,19 +10,19 @@
   -webkit-overflow-scrolling: touch;
 }
 
-.rcw-messages-container.dark-mode {
+.xatkit-messages-container.dark-mode {
   background-color: $light-dark;
 }
 
-.rcw-full-screen {
+.xatkit-full-screen {
 
-  .rcw-messages-container {
+  .xatkit-messages-container {
     @include messages-container-fs;
   }
 }
 
 @media screen and (max-width: 800px)  {
-  .rcw-messages-container {
+  .xatkit-messages-container {
     @include messages-container-fs;
   }
 }

@@ -1,6 +1,6 @@
 @import 'variables.scss';
 
-.rcw-sender {
+.xatkit-sender {
   align-items: center;
   display: flex;
   background-color: $grey-2;
@@ -9,11 +9,11 @@
 
 }
 
-.rcw-sender.dark-mode {
+.xatkit-sender.dark-mode {
   background-color: $dark;
 }
 
-.rcw-new-message {
+.xatkit-new-message {
   width: 100%;
   border: 0;
   background-color: $grey-2;
@@ -25,26 +25,26 @@
   }
 }
 
-.rcw-new-message.dark-mode {
+.xatkit-new-message.dark-mode {
   background-color: $dark;
   color: white
 }
 
-.rcw-send {
+.xatkit-send {
   background: $grey-2;
   border: 0;
 
-  .rcw-send-icon {
+  .xatkit-send-icon {
     height: 25px;
   }
 }
 
-.rcw-send.dark-mode {
+.xatkit-send.dark-mode {
   background-color: $dark;
 }
 
 @media screen and (max-width: 800px)  {
-  .rcw-sender {
+  .xatkit-sender {
     border-radius: 0;
     flex-shrink: 0;
   }

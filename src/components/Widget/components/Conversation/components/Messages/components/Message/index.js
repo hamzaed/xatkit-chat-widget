@@ -19,8 +19,8 @@ class Message extends PureComponent {
     .render(this.props.message.get('text'));
 
     return (
-      <div className={`rcw-${this.props.message.get('sender')}` + (this.props.darkMode === true ? " dark-mode" : "")}>
-        <div className="rcw-message-text" dangerouslySetInnerHTML={{ __html: sanitizedHTML }} />
+      <div className={`xatkit-${this.props.message.get('sender')}` + (this.props.darkMode === true ? " dark-mode" : "")}>
+        <div className="xatkit-message-text" dangerouslySetInnerHTML={{ __html: sanitizedHTML }} />
       </div>
     );
   }

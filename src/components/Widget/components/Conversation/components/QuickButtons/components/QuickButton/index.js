@@ -6,7 +6,7 @@ class QuickButton extends PureComponent {
   render() {
     return (
       <button
-        className={"quick-button" + (this.props.darkMode === true ? " dark-mode" : "")}
+        className={"xatkit-quick-button" + (this.props.darkMode === true ? " dark-mode" : "")}
         onClick={(event) => this.props.onQuickButtonClicked(event, this.props.button.get('value'))}
       >
         {this.props.button.get('label')}

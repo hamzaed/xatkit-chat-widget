@@ -28,11 +28,11 @@ class QuickButtons extends Component {
     }
 
     return (
-      <div className={"quick-buttons-container" + (this.props.darkMode === true ? " dark-mode" : "")}>
-        <ul className="quick-buttons">
+      <div className={"xatkit-quick-buttons-container" + (this.props.darkMode === true ? " dark-mode" : "")}>
+        <ul className="xatkit-quick-buttons">
           {
             this.props.buttons.map((button, index) =>
-              <li className="quick-list-button" key={index}>
+              <li className="xatkit-quick-list-button" key={index}>
                 {this.getComponentToRender(button)}
               </li>
             )

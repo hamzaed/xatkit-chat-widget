@@ -1,20 +1,20 @@
 @import 'variables.scss';
 @import 'common.scss';
 
-.rcw-snippet {
+.xatkit-snippet {
   @include message-bubble($grey-2);
 }
 
-.rcw-snippet-title {
+.xatkit-snippet-title {
   margin: 0;
 }
 
-.rcw-snippet-details {
+.xatkit-snippet-details {
   border-left: 2px solid $green-1;
   margin-top: 5px;
   padding-left: 10px;
 }
 
-.rcw-link {
+.xatkit-link {
   font-size: 12px;
 }

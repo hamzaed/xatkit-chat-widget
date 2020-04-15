@@ -2,7 +2,7 @@
 @import 'variables.scss';
 @import 'animation.scss';
 
-.rcw-launcher {
+.xatkit-launcher {
   @include animation(0, 0.5s, slide-in);
   align-self: flex-end;
   background-color: $xatkit-color;
@@ -18,25 +18,25 @@
   }
 }
 
-.rcw-launcher.dark-mode {
+.xatkit-launcher.dark-mode {
   background-color: $dark;
 }
 
-.rcw-open-launcher {
+.xatkit-open-launcher {
   @include animation(0, 0.5s, rotation-rl);
 }
 
-.rcw-close-launcher {
+.xatkit-close-launcher {
   width: 20px;
   @include animation(0, 0.5s, rotation-lr);
 }
 
 @media screen and (max-width: 800px){
-  .rcw-launcher {
+  .xatkit-launcher {
     @include launcher-fs;
   }
 
-  .rcw-hide-sm {
+  .xatkit-hide-sm {
     display: none;
   }
 }

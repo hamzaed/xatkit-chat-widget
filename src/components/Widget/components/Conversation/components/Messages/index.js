@@ -51,12 +51,12 @@ class Messages extends Component {
   render() {
     const { messages, profileAvatar, typing } = this.props;
     return (
-      <div id="messages" className={"rcw-messages-container" + (this.props.darkMode === true ? " dark-mode" : "")} ref={msg => this.$message = msg}>
+      <div id="xatkit-messages" className={"xatkit-messages-container" + (this.props.darkMode === true ? " dark-mode" : "")} ref={msg => this.$message = msg}>
         {messages.map((message, index) =>
-          <div className="rcw-message" key={index}>
+          <div className="xatkit-message" key={index}>
             {profileAvatar &&
               message.get('showAvatar') &&
-              <img src={this.getProfileAvatar()} className="rcw-avatar" alt="profile" />
+              <img src={this.getProfileAvatar()} className="xatkit-avatar" alt="profile" />
             }
             {this.getComponentToRender(message)}
           </div>

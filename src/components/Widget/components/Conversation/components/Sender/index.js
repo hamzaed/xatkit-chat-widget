@@ -28,11 +28,11 @@ class Sender extends Component{
     const { sendMessage, placeholder, disabledInput, autofocus, focus } = this.props;
     return (
         <div>
-          <form className={"rcw-sender" + (this.props.darkMode === true ? " dark-mode" : "")} onSubmit={sendMessage}>
-            <input type="text" className={"rcw-new-message" + (this.props.darkMode === true ? " dark-mode" : "")} name="message" placeholder={placeholder}
+          <form className={"xatkit-sender" + (this.props.darkMode === true ? " dark-mode" : "")} onSubmit={sendMessage}>
+            <input type="text" className={"xatkit-new-message" + (this.props.darkMode === true ? " dark-mode" : "")} name="message" placeholder={placeholder}
                    disabled={disabledInput} autoFocus={autofocus} autoComplete="off" ref={focus}/>
-            <button type="submit" className={"rcw-send" + (this.props.darkMode === true ? " dark-mode" : "")}>
-              <img src={send} className="rcw-send-icon" alt="send"/>
+            <button type="submit" className={"xatkit-send" + (this.props.darkMode === true ? " dark-mode" : "")}>
+              <img src={send} className="xatkit-send-icon" alt="send"/>
             </button>
           </form>
           <div className={"xatkit" + (this.props.darkMode === true ? " dark-mode" : "")}>

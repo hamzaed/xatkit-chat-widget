@@ -8,11 +8,11 @@ import Badge from './components/Badge';
 import './style.scss';
 
 const Launcher = ({ toggle, chatOpened, badge,launcherImage, darkMode}) =>
-  <button type="button" className={(chatOpened ? 'rcw-launcher rcw-hide-sm' : 'rcw-launcher') + (darkMode === true ? " dark-mode" : "")} onClick={toggle}>
+  <button type="button" className={(chatOpened ? 'xatkit-launcher xatkit-hide-sm' : 'xatkit-launcher') + (darkMode === true ? " dark-mode" : "")} onClick={toggle}>
     <Badge badge={badge} />
     {chatOpened ?
-      <img src={close} className="rcw-close-launcher" alt="" /> :
-      <img src={launcherImage.undefined?openLauncher:launcherImage} className="rcw-open-launcher" alt="" />
+      <img src={close} className="xatkit-close-launcher" alt="" /> :
+      <img src={launcherImage.undefined?openLauncher:launcherImage} className="xatkit-open-launcher" alt="" />
     }
   </button>;
 
