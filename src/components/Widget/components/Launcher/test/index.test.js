@@ -24,7 +24,7 @@ describe('<Launcher />', () => {
     const badge = 0;
     const launcherImage = openLauncher;
     const launcherComponent = createMessageComponent({ toggle, chatOpened ,badge,launcherImage});
-    launcherComponent.find('.rcw-launcher').simulate('click');
+    launcherComponent.find('.xatkit-launcher').simulate('click');
     expect(toggle).toBeCalled();
   });
 
@@ -34,14 +34,14 @@ describe('<Launcher />', () => {
     const badge = 0;
     const launcherImage = openLauncher;
     const launcherComponent = createMessageComponent({ toggle, chatOpened, badge, launcherImage});
-    expect(launcherComponent.find('.rcw-open-launcher')).toHaveLength(1);
+    expect(launcherComponent.find('.xatkit-open-launcher')).toHaveLength(1);
   });
 
   it('should render the close-launcher image when chatOpened = true', () => {
     const toggle = jest.fn();
     const chatOpened = true;
     const launcherComponent = createMessageComponent({ toggle, chatOpened });
-    expect(launcherComponent.find('.rcw-close-launcher')).toHaveLength(1);
+    expect(launcherComponent.find('.xatkit-close-launcher')).toHaveLength(1);
   });
 
   it('should render Badge component when closed and new message is in', () => {

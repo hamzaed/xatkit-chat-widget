@@ -35,7 +35,7 @@ describe('<Messages />', () => {
     expect(messagesComponent.find(Snippet)).toHaveLength(1);
   });
 
-  it('should reder a custom component', () => {
+  it('should render a custom component', () => {
     expect(messagesComponent.find(Dummy)).toHaveLength(1);
   });
 });
