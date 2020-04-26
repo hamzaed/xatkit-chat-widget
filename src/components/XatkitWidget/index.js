@@ -106,13 +106,13 @@ class XatkitWidget extends Component {
 
 
     handleNewUserMessage = (newMessage) => {
-        this.state.socket.emit('user_message', {'message': newMessage, 'username': this.state.username, 'hostname': this.props.hostname, 'url':this.props.url});
+        this.state.socket.emit('user_message', {'message': newMessage, 'username': this.state.username, 'hostname': this.props.hostname, 'url':this.props.url, 'origin': this.props.origin});
     }
 
     handleQuickButtonClicked = (e) => {
         console.log("Clicked on " + e);
         addUserMessage(e);
-        this.state.socket.emit('user_button_click', {'username': this.state.username, 'selectedValue': e, 'hostname': this.props.hostname, 'url':this.props.url});
+        this.state.socket.emit('user_button_click', {'username': this.state.username, 'selectedValue': e, 'hostname': this.props.hostname, 'url':this.props.url, 'origin': this.props.origin});
         setQuickButtons([]);
         this.inputRef.current.focus();
         toggleInputDisabled(false);
@@ -152,7 +152,8 @@ XatkitWidget.propTypes = {
     launcherImage: PropTypes.string,
     buttonsPlaceholder: PropTypes.string,
     hostname: PropTypes.string,
-    url: PropTypes.string
+    url: PropTypes.string,
+    origin: PropTypes.string
 }
 
 XatkitWidget.defaultProps = {
@@ -166,7 +167,8 @@ XatkitWidget.defaultProps = {
     launcherImage: xatkitLogoNegative,
     buttonsPlaceholder: "Choose an option",
     hostname: window.location.hostname,
-    url: window.location.href
+    url: window.location.href,
+    origin: window.location.origin
 }
 
 
