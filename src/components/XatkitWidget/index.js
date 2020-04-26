@@ -166,7 +166,7 @@ XatkitWidget.defaultProps = {
     launcherImage: xatkitLogoNegative,
     buttonsPlaceholder: "Choose an option",
     hostname: window.location.hostname,
-    url: window.location.url
+    url: window.location.href
 }
 
 
