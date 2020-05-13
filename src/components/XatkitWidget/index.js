@@ -67,6 +67,13 @@ class XatkitWidget extends Component {
             path: basePath
         });
 
+        /*
+         * Send additional information identifying the session when the socket connection is opened.
+         */
+        socket.on('connect', function() {
+            socket.emit('init', {'hostname': props.hostname, 'url': props.url, 'origin': props.origin});
+        });
+
         let buttonsPlaceholder = this.props.buttonsPlaceholder;
         socket.on('bot_message', function (msgObject) {
             console.log(msgObject);
@@ -106,13 +113,13 @@ class XatkitWidget extends Component {
 
 
     handleNewUserMessage = (newMessage) => {
-        this.state.socket.emit('user_message', {'message': newMessage, 'username': this.state.username, 'hostname': this.props.hostname, 'url':this.props.url, 'origin': this.props.origin});
+        this.state.socket.emit('user_message', {'message': newMessage, 'username': this.state.username});
     }
 
     handleQuickButtonClicked = (e) => {
         console.log("Clicked on " + e);
         addUserMessage(e);
-        this.state.socket.emit('user_button_click', {'username': this.state.username, 'selectedValue': e, 'hostname': this.props.hostname, 'url':this.props.url, 'origin': this.props.origin});
+        this.state.socket.emit('user_button_click', {'username': this.state.username, 'selectedValue': e});
         setQuickButtons([]);
         this.inputRef.current.focus();
         toggleInputDisabled(false);
