@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import ConnectedWidget from '../../index';
 import xatkitAvatar from '@assets/xatkit-avatar.png';
-import xatkitLogoNegative from '@assets/xatkit-avatar-negative.png';
+import xatkitLogoNegative from '@assets/xatkit-avatar-negative.svg';
 
 
 import {

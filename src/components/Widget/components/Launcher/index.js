@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import openLauncher from '@assets/xatkit-avatar-negative.png';
 import close from '@assets/clear-button.svg';
 import Badge from './components/Badge';
 import './style.scss';
@@ -12,7 +11,7 @@ const Launcher = ({ toggle, chatOpened, badge,launcherImage, darkMode}) =>
     <Badge badge={badge} />
     {chatOpened ?
       <img src={close} className="xatkit-close-launcher" alt="" /> :
-      <img src={launcherImage.undefined?openLauncher:launcherImage} className="xatkit-open-launcher" alt="" />
+      <img src={launcherImage} className="xatkit-open-launcher" alt="" />
     }
   </button>;
 
