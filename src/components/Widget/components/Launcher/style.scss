@@ -2,7 +2,7 @@
 @import 'variables.scss';
 @import 'animation.scss';
 
-.xatkit-launcher {
+.xatkit-widget-container > .xatkit-launcher {
   @include animation(0, 0.5s, slide-in);
   align-self: flex-end;
   background-color: $xatkit-color;
@@ -15,8 +15,13 @@
   padding: 0;
   line-height: 1;
 
+  &:hover {
+    background-color: $xatkit-color;
+  }
+
   &:focus {
     outline: none;
+    background-color: $xatkit-color;
   }
 }
 

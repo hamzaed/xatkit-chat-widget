@@ -1,7 +1,6 @@
 @import 'variables.scss';
 
-.xatkit-launcher {
-  .xatkit-badge{
+.xatkit-launcher > .xatkit-badge {
     position: fixed;
     top: -10px;
     right: -5px;
@@ -12,5 +11,12 @@
     text-align: center;
     line-height: 25px;
     border-radius: 50%;
+
+  &:hover {
+    background-color: $red;
+  }
+
+  &:focus {
+    background-color: $red;
   }
 }
