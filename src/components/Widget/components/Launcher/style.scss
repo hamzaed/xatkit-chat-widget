@@ -12,8 +12,8 @@
   height: 60px;
   margin-top: 10px;
   width: 60px;
-  padding-left: 0px;
-  padding-right: 0px;
+  padding: 0;
+  line-height: 1;
 
   &:focus {
     outline: none;
@@ -27,6 +27,9 @@
 .xatkit-open-launcher {
   @include animation(0, 0.5s, rotation-rl);
   width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  max-width: none;
 }
 
 .xatkit-close-launcher {
