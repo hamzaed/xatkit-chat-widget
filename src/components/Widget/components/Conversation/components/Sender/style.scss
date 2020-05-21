@@ -12,7 +12,7 @@
   background-color: $dark;
 }
 
-.xatkit-new-message {
+.xatkit-sender > .xatkit-new-message {
   width: 100%;
   border: 0;
   background-color: $grey-2;
@@ -25,17 +25,22 @@
   }
 }
 
-.xatkit-new-message.dark-mode {
+.xatkit-sender > .xatkit-new-message.dark-mode {
   background-color: $dark;
   color: white
 }
 
-.xatkit-send {
+.xatkit-sender > .xatkit-send {
   background: $grey-2;
   border: 0;
   font-size: 13px;
 
   &:hover {
+    background: $grey-2;
+    cursor: pointer;
+  }
+
+  &:focus {
     background: $grey-2;
     cursor: pointer;
   }
@@ -46,7 +51,7 @@
   }
 }
 
-.xatkit-send.dark-mode {
+.xatkit-sender > .xatkit-send.dark-mode {
   background-color: $dark;
 }
 

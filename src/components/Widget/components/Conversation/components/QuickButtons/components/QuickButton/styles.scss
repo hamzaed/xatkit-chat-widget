@@ -1,6 +1,6 @@
 @import "variables.scss";
 
-.xatkit-quick-button {
+.xatkit-quick-list-button > .xatkit-quick-button {
   background: none;
   border-radius: 15px;
   border: 2px solid $xatkit-color;
@@ -15,13 +15,17 @@
     background: none;
   }
 
+  &:focus {
+    background: none;
+  }
+
   &:active {
     background: $xatkit-color;
     color: $white;
   }
 }
 
-.xatkit-quick-button.dark-mode {
+.xatkit-quick-list-button > .xatkit-quick-button.dark-mode {
   border: 2px solid $dark;
   color: $white;
 
