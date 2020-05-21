@@ -8,6 +8,12 @@
   padding: 5px 10px;
   cursor: pointer;
   outline: 0;
+  color: $dark;
+  font-size: 13px;
+
+  &:hover {
+    background: none;
+  }
 
   &:active {
     background: $xatkit-color;
@@ -18,6 +24,10 @@
 .xatkit-quick-button.dark-mode {
   border: 2px solid $dark;
   color: $white;
+
+  &:hover {
+    background: none;
+  }
 
   &:active {
     background-color: $dark;
