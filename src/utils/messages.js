@@ -4,6 +4,7 @@ import { MESSAGES_TYPES, MESSAGE_SENDER, MESSAGE_BOX_SCROLL_DURATION } from '@co
 import Message from '@messagesComponents/Message';
 import Snippet from '@messagesComponents/Snippet';
 import QuickButton from '@quickButtonsComponents/QuickButton';
+import SnippetWithImg from "@messagesComponents/SnippetWithImg";
 
 export function createNewMessage(text, sender) {
   return Map({
@@ -25,6 +26,19 @@ export function createLinkSnippet(link) {
     sender: MESSAGE_SENDER.RESPONSE,
     showAvatar: true
   });
+}
+
+export function createLinkSnippetWithImg(link) {
+  return Map( {
+    type: MESSAGES_TYPES.SNIPPET.LINK,
+    component: SnippetWithImg,
+    title: link.title,
+    link: link.link,
+    img: link.img,
+    target: link.target || '_blank',
+    sender: MESSAGE_SENDER.RESPONSE,
+    showAvatar: false
+  })
 }
 
 export function createComponentMessage(component, props, showAvatar) {

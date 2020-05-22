@@ -38,6 +38,20 @@ export const PROP_TYPES = {
       MESSAGE_SENDER.CLIENT,
       MESSAGE_SENDER.RESPONSE
     ])
+  }),
+
+  SNIPPET_WITH_IMG: ImmutablePropTypes.contains({
+    type: PropTypes.oneOf([
+      MESSAGES_TYPES.TEXT,
+      MESSAGES_TYPES.SNIPPET.LINK
+    ]),
+    title: PropTypes.string,
+    link: PropTypes.string,
+    img: PropTypes.string,
+    sender: PropTypes.oneOf([
+      MESSAGE_SENDER.CLIENT,
+      MESSAGE_SENDER.RESPONSE
+    ])
   })
 };
 

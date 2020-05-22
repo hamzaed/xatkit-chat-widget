@@ -1,0 +1,35 @@
+@import 'variables.scss';
+@import 'common.scss';
+
+.xatkit-img-snippet {
+  //@include message-bubble($grey-2);
+  font-family: $message-font-family;
+  margin-left: 50px;
+}
+
+.xatkit-img-snippet-title {
+  margin: 0;
+  margin-left: 5px;
+  width: 65%;
+  max-width: 65%;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 16px;
+  height: 3.6em;
+  max-height: 3.6em;
+  overflow: hidden;
+  font-weight: bold;
+  line-height: normal;
+  word-wrap: break-word;
+  color: inherit;
+  text-decoration: none;
+}
+
+.xatkit-img-snippet-img {
+  margin: 0;
+  width: 3.6em;
+  height: 3.6em;
+  display: inline-block;
+  border: 1px solid black;
+  vertical-align: middle;
+}

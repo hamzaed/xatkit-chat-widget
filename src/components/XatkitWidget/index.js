@@ -12,7 +12,8 @@ import {
     toggleInputDisabled,
     toggleMsgLoader,
     toggleDarkMode,
-    setPlaceholder
+    setPlaceholder,
+    addLinkSnippetWithImg
 } from '../../store/dispatcher'
 
 import io from 'socket.io-client';
@@ -86,6 +87,10 @@ class XatkitWidget extends Component {
                 setPlaceholder(buttonsPlaceholder);
             }
             toggleMsgLoader(false);
+        });
+
+        socket.on('link_snippet_with_img', function(snippetObject) {
+            addLinkSnippetWithImg(snippetObject);
         });
 
         socket.on('set_message_loader', function (setMessageLoaderObject) {

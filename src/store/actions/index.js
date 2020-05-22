@@ -54,6 +54,13 @@ export function addLinkSnippet(link) {
   };
 }
 
+export function addLinkSnippetWithImg(link) {
+  return {
+    type: actions.ADD_NEW_LINK_SNIPPET_WITH_IMG,
+    link
+  }
+}
+
 export function renderCustomComponent(component, props, showAvatar) {
   return {
     type: actions.ADD_COMPONENT_MESSAGE,

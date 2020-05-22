@@ -1,7 +1,7 @@
 import { List } from 'immutable';
 
 import { createReducer } from '@utils/store';
-import { createNewMessage, createLinkSnippet, createComponentMessage } from '@utils/messages';
+import { createNewMessage, createLinkSnippet, createComponentMessage, createLinkSnippetWithImg } from '@utils/messages';
 import { MESSAGE_SENDER } from '@constants';
 
 import * as actionTypes from '../actions/actionTypes';
@@ -17,6 +17,9 @@ const messagesReducer = {
 
   [actionTypes.ADD_NEW_LINK_SNIPPET]: (state, { link }) =>
     state.push(createLinkSnippet(link, MESSAGE_SENDER.RESPONSE)),
+
+  [actionTypes.ADD_NEW_LINK_SNIPPET_WITH_IMG]: (state, { link }) =>
+      state.push(createLinkSnippetWithImg(link, MESSAGE_SENDER.RESPONSE)),
 
   [actionTypes.ADD_COMPONENT_MESSAGE]: (state, { component, props, showAvatar }) =>
     state.push(createComponentMessage(component, props, showAvatar)),
