@@ -106,14 +106,23 @@ class XatkitWidget extends Component {
         this.state = {
             username: this.props.username,
             xatkit_server: this.props.server,
-            socket: socket
-
+            socket: socket,
+            connected: false
         };
 
 
         socket.on('connect', () => {
             window.xatkit_session = socket.id
+            this.setState({
+                'connected' : true
+            });
         });
+
+        socket.on('connect_error', function() {
+            this.setState({
+                'connected' : false
+            });
+        }.bind(this))
     }
 
 
@@ -134,6 +143,9 @@ class XatkitWidget extends Component {
     }
 
     render() {
+        if(this.state.connected === false) {
+            return null;
+        }
         const Comp = React.forwardRef((props, ref) => (
             <ConnectedWidget
                 title={props.title}
