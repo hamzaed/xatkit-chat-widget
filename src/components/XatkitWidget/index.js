@@ -122,7 +122,7 @@ class XatkitWidget extends Component {
             this.setState({
                 'connected' : false
             });
-        }.bind(this))
+        }.bind(this));
     }
 
 
