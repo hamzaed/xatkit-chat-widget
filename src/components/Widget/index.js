@@ -7,6 +7,14 @@ import { toggleChat, addUserMessage } from '@actions';
 import WidgetLayout from './layout';
 
 class Widget extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      previousInput : ""
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.fullScreenMode) {
       this.props.dispatch(toggleChat());
@@ -22,6 +30,10 @@ class Widget extends Component {
     const userInput = event.target.message.value;
     if (userInput.trim()) {
       this.props.dispatch(addUserMessage(userInput));
+      this.setState({
+        previousInput : userInput
+      });
+
       this.props.handleNewUserMessage(userInput);
     }
     event.target.message.value = '';
@@ -53,6 +65,7 @@ class Widget extends Component {
         customLauncher={this.props.customLauncher}
         launcherImage={this.props.launcherImage}
         focus={this.props.focus}
+        previousInput={this.state.previousInput}
       />
     );
   }
@@ -72,7 +85,8 @@ Widget.propTypes = {
   autofocus: PropTypes.bool,
   customLauncher: PropTypes.func,
   launcherImage: PropTypes.string,
-  focus: PropTypes.object
+  focus: PropTypes.object,
+  previousInput: PropTypes.string
 
 };
 
