@@ -119,6 +119,7 @@ class XatkitWidget extends Component {
         });
 
         socket.on('connect_error', function() {
+            console.log("Cannot connect to the Xatkit server");
             this.setState({
                 'connected' : false
             });
