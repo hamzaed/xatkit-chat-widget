@@ -158,6 +158,7 @@ module.exports = [
     output: {
       path: path.join(__dirname, '/lib'),
       filename: 'xatkit.min.js',
+      sourceMapFilename: 'xatkit.min.js.map',
       library: 'xatkit',
       libraryTarget: 'var'
     },
@@ -206,7 +207,9 @@ module.exports = [
         }
       ]
     },
+    devtool: 'source-map',
     plugins: [
+
       /**
        * Known issue for the CSS Extract Plugin in Ubuntu 16.04: You'll need to install
        * the following package: sudo apt-get install libpng16-dev
@@ -219,6 +222,7 @@ module.exports = [
     optimization: {
       minimizer: [
         new UglifyJsPlugin({
+          sourceMap: true,
           cache: true,
           parallel: true
         }),
