@@ -2,6 +2,7 @@ import ReactDOM from "react-dom";
 import React from "react";
 import XatkitWidget from "../components/XatkitWidget";
 import xatkitAvatar from '@assets/xatkit-avatar.png';
+import xatkitLogoNegative from '@assets/xatkit-avatar-negative.svg';
 
 export function renderXatkitWidget(server, username,elementId,title,subtitle,startMinimized, senderPlaceholder, profileAvatar, launcherImage, buttonsPlaceholder, hostname, url, origin) {
     /*
@@ -13,7 +14,19 @@ export function renderXatkitWidget(server, username,elementId,title,subtitle,sta
         console.log("Empty string provided as avatar, using the default Xatkit avatar");
         avatar = xatkitAvatar;
     }
+
+    /*
+    * Check if the provided launcherImage is an empty string, in this case we display the default Xatkit logo and log
+    * * and error in the console.
+    * */
+    let launcher = launcherImage;
+    if(launcher === "") {
+        console.log("Empty string provided as launcher, using the default Xatkit launcher");
+        launcher = xatkitLogoNegative;
+    }
+
     const domElement = elementId === undefined ? document.getElementById('xatkit-chat') : document.getElementById(elementId);
+
     ReactDOM.render(<XatkitWidget
         server={server}
         username={username}
@@ -22,7 +35,7 @@ export function renderXatkitWidget(server, username,elementId,title,subtitle,sta
         startMinimized={startMinimized}
         senderPlaceHolder={senderPlaceholder}
         profileAvatar={avatar}
-        launcherImage={launcherImage}
+        launcherImage={launcher}
         buttonsPlaceholder={buttonsPlaceholder}
         hostname={hostname}
         url={url}
