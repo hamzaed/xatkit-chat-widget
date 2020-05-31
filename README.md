@@ -68,8 +68,10 @@ renderXatkitWidget(server, username, elementId, title, subtitle, startMinimized,
 </body>
 </html>
 ```
-> Note: We also provide [a source map](https://raw.githubusercontent.com/xatkit-bot-platform/xatkit-chat-widget/gh-pages/bundles/xatkit.min.js.map) in case you need to debug the widget.
+- Extra resources: 
 
+    - [xatkit.min.js.map](https://raw.githubusercontent.com/xatkit-bot-platform/xatkit-chat-widget/gh-pages/bundles/xatkit.min.js.map): the source map of xatkit.min.js.
+    - [xatkit.css](https://raw.githubusercontent.com/xatkit-bot-platform/xatkit-chat-widget/gh-pages/bundles/xatkit.css): the non-minified version of xatkit.min.css.
 
 
 
@@ -81,7 +83,6 @@ renderXatkitWidget(server, username, elementId, title, subtitle, startMinimized,
   
     - Renders the Xatkit chat widget using custom parameters.
     - Parameters:
-    <br>
     <br>
    
     | Parameter           | Type    | Required |Description                                                  | Default Value                                                |
