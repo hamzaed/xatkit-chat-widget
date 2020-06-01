@@ -3,7 +3,7 @@
 @import 'animation.scss';
 
 .xatkit-widget-container > .xatkit-launcher {
-  @include animation(0, 0.5s, slide-in);
+  @include animation(0s, 0.5s, slide-in);
   align-self: flex-end;
   background-color: $xatkit-color;
   border: 0;
@@ -30,7 +30,7 @@
 }
 
 .xatkit-open-launcher {
-  @include animation(0, 0.5s, rotation-rl);
+  @include animation(0s, 0.5s, rotation-rl);
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -39,7 +39,7 @@
 
 .xatkit-close-launcher {
   width: 20px;
-  @include animation(0, 0.5s, rotation-lr);
+  @include animation(0s, 0.5s, rotation-lr);
 }
 
 @media screen and (max-width: 800px){

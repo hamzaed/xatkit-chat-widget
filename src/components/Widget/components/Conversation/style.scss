@@ -6,13 +6,13 @@
 
 
 .xatkit-conversation-container {
-  @include animation(0, 0.5s, slide-in);
+  @include animation(0s, 0.5s, slide-in);
   border-radius: 10px;
   box-shadow: 0px 2px 10px 1px $grey-3;
 }
 
 .xatkit-slide-out {
-  @include animation(0, 0.5s, slide-out);
+  @include animation(0s, 0.5s, slide-out);
 }
 
 .xatkit-full-screen {
