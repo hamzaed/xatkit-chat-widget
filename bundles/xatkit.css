@@ -565,17 +565,17 @@
             transform: translateY(10px); } }
 
 .xatkit-widget-container > .xatkit-launcher {
-  -webkit-animation-delay: 0;
+  -webkit-animation-delay: 0s;
   -webkit-animation-duration: 0.5s;
   -webkit-animation-name: slide-in;
   -webkit-animation-fill-mode: forwards;
   /* this prevents the animation from restarting! */
-  -moz-animation-delay: 0;
+  -moz-animation-delay: 0s;
   -moz-animation-duration: 0.5s;
   -moz-animation-name: slide-in;
   -moz-animation-fill-mode: forwards;
   /* this prevents the animation from restarting! */
-  animation-delay: 0;
+  animation-delay: 0s;
   animation-duration: 0.5s;
   animation-name: slide-in;
   animation-fill-mode: forwards;
@@ -602,17 +602,17 @@
   background-color: #303030; }
 
 .xatkit-open-launcher {
-  -webkit-animation-delay: 0;
+  -webkit-animation-delay: 0s;
   -webkit-animation-duration: 0.5s;
   -webkit-animation-name: rotation-rl;
   -webkit-animation-fill-mode: forwards;
   /* this prevents the animation from restarting! */
-  -moz-animation-delay: 0;
+  -moz-animation-delay: 0s;
   -moz-animation-duration: 0.5s;
   -moz-animation-name: rotation-rl;
   -moz-animation-fill-mode: forwards;
   /* this prevents the animation from restarting! */
-  animation-delay: 0;
+  animation-delay: 0s;
   animation-duration: 0.5s;
   animation-name: rotation-rl;
   animation-fill-mode: forwards;
@@ -624,17 +624,17 @@
 
 .xatkit-close-launcher {
   width: 20px;
-  -webkit-animation-delay: 0;
+  -webkit-animation-delay: 0s;
   -webkit-animation-duration: 0.5s;
   -webkit-animation-name: rotation-lr;
   -webkit-animation-fill-mode: forwards;
   /* this prevents the animation from restarting! */
-  -moz-animation-delay: 0;
+  -moz-animation-delay: 0s;
   -moz-animation-duration: 0.5s;
   -moz-animation-name: rotation-lr;
   -moz-animation-fill-mode: forwards;
   /* this prevents the animation from restarting! */
-  animation-delay: 0;
+  animation-delay: 0s;
   animation-duration: 0.5s;
   animation-name: rotation-lr;
   animation-fill-mode: forwards;
