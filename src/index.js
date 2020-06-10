@@ -4,8 +4,17 @@ import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 
 import Widget from './components/Widget';
-import store from '../src/store/store';
+import {initStore} from '../src/store/store';
 
+
+export let store = null;
+const storage = localStorage;
+if (!store ) {
+  store = initStore(
+      storage,
+  );
+
+}
 const ConnectedWidget = props =>
     <Provider store={store}>
       <Widget
