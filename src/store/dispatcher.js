@@ -1,4 +1,4 @@
-import store from './store';
+import {store} from '../index';
 import * as actions from './actions';
 
 export function addUserMessage(text) {
@@ -51,4 +51,8 @@ export function isWidgetOpened() {
 
 export function setQuickButtons(buttons) {
   store.dispatch(actions.setQuickButtons(buttons));
+}
+
+export function pullSession() {
+  store.dispatch(actions.pullSession());
 }
