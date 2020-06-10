@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { toggleChat, addUserMessage } from '@actions';
 
 import WidgetLayout from './layout';
+import {pullSession} from "../../store/actions";
 
 class Widget extends Component {
 
@@ -13,6 +14,11 @@ class Widget extends Component {
     this.state = {
       previousInput : ""
     }
+  }
+
+  componentDidMount() {
+
+    this.props.dispatch(pullSession());
   }
 
   componentWillReceiveProps(nextProps) {

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
+import { List,Map } from 'immutable';
 import { connect } from 'react-redux';
 
 import { hideAvatar } from '@actions';
@@ -11,6 +12,9 @@ import './styles.scss';
 
 import xatkitAvatar from '@assets/xatkit-avatar.png'
 import xatkitAvatarWhite from '@assets/xatkit-avatar-white.png'
+import Message from './components/Message'
+
+import {MESSAGES_TYPES} from "@constants";
 
 class Messages extends Component {
   componentDidMount() {
@@ -23,14 +27,24 @@ class Messages extends Component {
 
   $message = null
 
-  getComponentToRender = message => {
-    const ComponentToRender = message.get('component');
-    const previousMessage = this.props.messages.get()
+  getComponentToRender = (message, index, isLast) => {
+    const ComponentToRender = (() => {
+      console.log(message.get('type'))
+      switch (message.get('type')) {
+        case MESSAGES_TYPES.TEXT: {
+          return Message;
+        }
+        default:
+          return null;
+      }
+    })();
     if (message.get('type') === 'component') {
-      return <ComponentToRender {...message.get('props')} />;
+      return <ComponentToRender id={index} {...message.get('props')} isLast={isLast} />;
     }
-    return <ComponentToRender message={message} darkMode={this.props.darkMode} />;
-  };
+    return <ComponentToRender id={index} message={message} isLast={isLast} />;
+
+  }
+
 
   shouldRenderAvatar = (message, index) => {
     const previousMessage = this.props.messages.get(index - 1);
@@ -50,6 +64,7 @@ class Messages extends Component {
 
   render() {
     const { messages, profileAvatar, typing } = this.props;
+    console.log(messages.get(0))
     return (
       <div id="xatkit-messages" className={"xatkit-messages-container" + (this.props.darkMode === true ? " dark-mode" : "")} ref={msg => this.$message = msg}>
         {messages.map((message, index) =>
@@ -74,6 +89,7 @@ Messages.propTypes = {
 };
 
 export default connect(store => ({
+  //messages: List(store.messages.map(message => Map(message))),
   messages: store.messages,
-  typing: store.behavior.get('msgLoader'),
+  typing: store.behavior.get('msgLoader')
 }))(Messages);
