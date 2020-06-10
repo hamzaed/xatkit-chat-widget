@@ -1,4 +1,4 @@
-import { List } from 'immutable';
+import { List, fromJS } from 'immutable';
 
 import { createReducer } from '@utils/store';
 import { createNewMessage, createLinkSnippet, createComponentMessage, createLinkSnippetWithImg } from '@utils/messages';
@@ -6,28 +6,64 @@ import { MESSAGE_SENDER } from '@constants';
 
 import * as actionTypes from '../actions/actionTypes';
 
-const initialState = List([]);
 
-const messagesReducer = {
-  [actionTypes.ADD_NEW_USER_MESSAGE]: (state, { text }) =>
-    state.push(createNewMessage(text, MESSAGE_SENDER.CLIENT)),
+function getLocalSession(storage, key) {
 
-  [actionTypes.ADD_NEW_RESPONSE_MESSAGE]: (state, { text }) =>
-    state.push(createNewMessage(text, MESSAGE_SENDER.RESPONSE)),
+  const cachedSession = storage.getItem(key);
+  let session = null;
+  if (cachedSession) {
 
-  [actionTypes.ADD_NEW_LINK_SNIPPET]: (state, { link }) =>
-    state.push(createLinkSnippet(link, MESSAGE_SENDER.RESPONSE)),
+    const parsedSession = JSON.parse(cachedSession);
 
-  [actionTypes.ADD_NEW_LINK_SNIPPET_WITH_IMG]: (state, { link }) =>
-      state.push(createLinkSnippetWithImg(link, MESSAGE_SENDER.RESPONSE)),
+    const formattedConversation = parsedSession.conversation
+        ? parsedSession.conversation
+        : [];
 
-  [actionTypes.ADD_COMPONENT_MESSAGE]: (state, { component, props, showAvatar }) =>
-    state.push(createComponentMessage(component, props, showAvatar)),
-
-  [actionTypes.DROP_MESSAGES]: () => List([]),
-
-  [actionTypes.HIDE_AVATAR]: (state, { index }) =>
-    state.update(index, message => message.set('showAvatar', false))
+    session = {
+      ...parsedSession,
+      conversation: formattedConversation
+    };
+  }
+   return session;
 }
 
-export default (state = initialState, action) => createReducer(messagesReducer, state, action);
+
+const storeMessageTo = storage => (conversation) => {
+
+  const localSession = getLocalSession(storage, "XATKIT_SESSION");
+  const newSession = {
+       ...localSession,
+    conversation: conversation.toJS()
+  };
+  storage.setItem('XATKIT_SESSION', JSON.stringify(newSession));
+  return conversation;
+};
+
+export default function(storage){
+  const initialState = List([]);
+
+  return function reducer(state = initialState, action){
+    const storeMessage = storeMessageTo(storage)
+    switch (action.type) {
+      case actionTypes.ADD_NEW_USER_MESSAGE: {
+        return storeMessage(state.push(createNewMessage(action.text, MESSAGE_SENDER.CLIENT)));
+      }
+      case actionTypes.ADD_NEW_RESPONSE_MESSAGE: {
+        return storeMessage(state.push(createNewMessage(action.text, MESSAGE_SENDER.RESPONSE)));
+      }
+      case actionTypes.PULL_SESSION: {
+
+        const localSession = getLocalSession(storage, 'XATKIT_SESSION');
+        console.log(localSession)
+        if (localSession) {
+          return fromJS(localSession.conversation);
+        }
+        return state;
+      }
+      default:
+        return state;
+    }
+
+    }
+  }
+
