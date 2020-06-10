@@ -88,3 +88,8 @@ export function setQuickButtons(buttons) {
     buttons
   }
 }
+export function pullSession() {
+  return {
+    type: actions.PULL_SESSION
+  };
+}
