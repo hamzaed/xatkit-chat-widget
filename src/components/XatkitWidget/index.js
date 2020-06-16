@@ -3,6 +3,8 @@ import ConnectedWidget from '../../index';
 import xatkitAvatar from '@assets/xatkit-avatar.png';
 import xatkitLogoNegative from '@assets/xatkit-avatar-negative.svg';
 
+import initXatkitClient from '../../XatkitClient'
+
 
 import {
     addResponseMessage,
@@ -32,51 +34,38 @@ class XatkitWidget extends Component {
      */
     constructor(props) {
         super(props);
+        this.state = {
+            username: this.props.username,
+            xatkit_server: this.props.server,
+            connected: false
+        };
+
+        this.socket = initXatkitClient({
+            server: this.props.server,
+            username: this.props.username,
+            hostname: this.props.hostname,
+            url: this.props.url,
+            origin: this.props.origin
+        },()=>{
+            window.xatkit_session = this.socket.id;
+            this.setState({
+            'connected' : true
+             });
+        }, (error) => {
+            console.log(error)
+            this.setState({
+                'connected' : false
+                })
+        })
+
         this.inputRef = React.createRef();
         if (!this.props.startMinimized) {
             toggleWidget();
         }
         setPlaceholder(this.props.senderPlaceHolder);
-        const urlPattern = /(^https?:\/\/[^\/]+)\/?(.*)/i;
-        /*
-         * If the provided URL contains a base path the result array will contain the following information:
-         * [0] full path (e.g. http://localhost:5001/test)
-         * [1] server URL (e.g. http://localhost:5001)
-         * [2] base path (e.g. test)
-         * If the provided URL does not contain a base path the result array will contain the following information:
-         * [0] full path
-         * [1] server URL
-         * [2] an empty string
-         */
-        const parsedUrl = this.props.server.match(urlPattern);
-        if(parsedUrl === null) {
-            /*
-             * The provided URL doesn't match the pattern, we need to log an error and stop here.
-             */
-            console.error("The provided URL " + this.props.server + " is not a valid URL")
-            return
-        }
-        let serverUrl = this.props.server;
-        let basePath = '/socket.io';
-        if (parsedUrl.length !== null && parsedUrl.length === 3) {
-            if (parsedUrl[2] !== '') {
-                basePath = '/' + parsedUrl[2];
-            }
-            serverUrl = parsedUrl[1]
-        }
-        const socket = io(serverUrl, {
-            path: basePath
-        });
-
-        /*
-         * Send additional information identifying the session when the socket connection is opened.
-         */
-        socket.on('connect', function() {
-            socket.emit('init', {'hostname': props.hostname, 'url': props.url, 'origin': props.origin});
-        });
 
         let buttonsPlaceholder = this.props.buttonsPlaceholder;
-        socket.on('bot_message', function (msgObject) {
+        this.socket.onBotMessage(msgObject => {
             console.log(msgObject);
             console.log('Received bot message "' + msgObject.message + '"');
             addResponseMessage(msgObject.message);
@@ -89,46 +78,10 @@ class XatkitWidget extends Component {
             toggleMsgLoader(false);
         });
 
-        socket.on('link_snippet_with_img', function(snippetObject) {
-            addLinkSnippetWithImg(snippetObject);
-        });
-
-        socket.on('set_message_loader', function (setMessageLoaderObject) {
-            if (setMessageLoaderObject.enableLoader === true) {
-                toggleMsgLoader(true);
-            }
-        });
-
-        socket.on('toggle_dark_mode', function() {
-            toggleDarkMode();
-        });
-
-        this.state = {
-            username: this.props.username,
-            xatkit_server: this.props.server,
-            socket: socket,
-            connected: false
-        };
-
-
-        socket.on('connect', () => {
-            window.xatkit_session = socket.id
-            this.setState({
-                'connected' : true
-            });
-        });
-
-        socket.on('connect_error', function() {
-            console.log("Cannot connect to the Xatkit server");
-            this.setState({
-                'connected' : false
-            });
-        }.bind(this));
     }
 
-
     handleNewUserMessage = (newMessage) => {
-        this.state.socket.emit('user_message', {'message': newMessage, 'username': this.state.username});
+        this.socket.send( newMessage);
     }
 
     handleQuickButtonClicked = (e) => {
@@ -140,13 +93,12 @@ class XatkitWidget extends Component {
         toggleInputDisabled(false);
         setPlaceholder(this.props.senderPlaceHolder);
 
-
     }
 
     render() {
-        if(this.state.connected === false) {
-            return null;
-        }
+        if(!this.state.connected)
+            return null
+
         const Comp = React.forwardRef((props, ref) => (
             <ConnectedWidget
                 title={props.title}
