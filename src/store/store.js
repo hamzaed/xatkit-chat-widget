@@ -4,9 +4,7 @@ import behavior from './reducers/behaviorReducer';
 import messages from './reducers/messagesReducer';
 import quickButtons from './reducers/quickButtonsReducer';
 
-function initStore(
-    storage = localStorage
-){
+export const initStore = (storage) => {
     const reducer = combineReducers({
         behavior: behavior,
         messages: messages(storage),
@@ -15,7 +13,6 @@ function initStore(
 
     return createStore(
         reducer,
-        //persistedState,
         process.env.NODE_ENV !== 'production' ?
             /* eslint-disable no-underscore-dangle */
             window.__REDUX_DEVTOOLS_EXTENSION__ &&
@@ -25,6 +22,3 @@ function initStore(
 
 
 }
-
-
-export { initStore }
