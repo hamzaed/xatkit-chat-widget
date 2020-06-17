@@ -96,26 +96,18 @@ class XatkitWidget extends Component {
     }
 
     render() {
-        if(!this.state.connected)
-            return null
-
-        const Comp = React.forwardRef((props, ref) => (
-            <ConnectedWidget
-                title={props.title}
-                subtitle={props.subtitle}
-                senderPlaceHolder={props.senderPlaceHolder}
+           return( <ConnectedWidget
+                title={this.props.title}
+                subtitle={this.props.subtitle}
+                senderPlaceHolder={this.props.senderPlaceHolder}
                 handleNewUserMessage={this.handleNewUserMessage}
                 handleQuickButtonClicked={this.handleQuickButtonClicked}
-                profileAvatar={props.profileAvatar}
-                launcherImage={props.launcherImage}
-                focus={ref}
+                profileAvatar={this.props.profileAvatar}
+                launcherImage={this.props.launcherImage}
+                storage={this.props.storage}
+                autoClear={this.props.autoClear}
 
-            />
-        ));
-        return (
-            <Comp {...this.props} ref={this.inputRef}/>
-        );
-    }
+            />)}
 }
 
 XatkitWidget.propTypes = {
@@ -130,7 +122,9 @@ XatkitWidget.propTypes = {
     buttonsPlaceholder: PropTypes.string,
     hostname: PropTypes.string,
     url: PropTypes.string,
-    origin: PropTypes.string
+    origin: PropTypes.string,
+    storage: PropTypes.string,
+    autoClear: PropTypes.bool
 }
 
 XatkitWidget.defaultProps = {

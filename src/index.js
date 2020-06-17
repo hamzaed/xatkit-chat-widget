@@ -7,33 +7,38 @@ import Widget from './components/Widget';
 import {initStore} from '../src/store/store';
 
 
-export let store = null;
-const storage = localStorage;
-if (!store ) {
-  store = initStore(
-      storage,
+let store = initStore(localStorage);
+
+
+const ConnectedWidget = props => {
+  const inputRef = React.createRef();
+  const Comp = React.forwardRef((props, ref) => (
+      <Provider store={store}>
+        <Widget
+            title={props.title}
+            titleAvatar={props.titleAvatar}
+            subtitle={props.subtitle}
+            handleNewUserMessage={props.handleNewUserMessage}
+            handleQuickButtonClicked={props.handleQuickButtonClicked}
+            senderPlaceHolder={props.senderPlaceHolder}
+            profileAvatar={props.profileAvatar}
+            showCloseButton={props.showCloseButton}
+            fullScreenMode={props.fullScreenMode}
+            badge={props.badge}
+            autofocus={props.autofocus}
+            customLauncher={props.launcher}
+            launcherImage={props.launcherImage}
+            focus={ref}
+            storage={props.storage}
+            autoClear={props.autoClear}
+        />
+      </Provider>
+  ));
+  return (
+      <Comp {...props} ref={inputRef}/>
   );
 
 }
-const ConnectedWidget = props =>
-    <Provider store={store}>
-      <Widget
-          title={props.title}
-          titleAvatar={props.titleAvatar}
-          subtitle={props.subtitle}
-          handleNewUserMessage={props.handleNewUserMessage}
-          handleQuickButtonClicked={props.handleQuickButtonClicked}
-          senderPlaceHolder={props.senderPlaceHolder}
-          profileAvatar={props.profileAvatar}
-          showCloseButton={props.showCloseButton}
-          fullScreenMode={props.fullScreenMode}
-          badge={props.badge}
-          autofocus={props.autofocus}
-          customLauncher={props.launcher}
-          launcherImage={props.launcherImage}
-          focus={props.focus}
-      />
-    </Provider>;
 
 ConnectedWidget.propTypes = {
   title: PropTypes.string,
@@ -59,4 +64,7 @@ ConnectedWidget.defaultProps = {
   autofocus: true
 };
 
-export default ConnectedWidget;
+export {
+  ConnectedWidget as default,
+    store
+};
