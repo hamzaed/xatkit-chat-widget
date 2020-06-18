@@ -6,14 +6,64 @@ import { toggleChat, addUserMessage } from '@actions';
 
 import WidgetLayout from './layout';
 import {pullSession} from "../../store/actions";
+import {
+  addResponseMessage,
+  setPlaceholder,
+  setQuickButtons,
+  toggleInputDisabled, toggleMsgLoader,
+  toggleWidget
+} from "../../store/dispatcher";
+import initXatkitClient from "../../XatkitClient";
+
 
 class Widget extends Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
+      username: this.props.username,
+      xatkit_server: this.props.server,
+      connected: false,
       previousInput : ""
+    };
+    this.socket = initXatkitClient({
+      server: this.props.server,
+      username: this.props.username,
+      hostname: this.props.hostname,
+      url: this.props.url,
+      origin: this.props.origin
+    },()=>{
+      window.xatkit_session = this.socket.id;
+      this.setState({
+        'connected' : true
+      });
+    }, (error) => {
+      console.log(error)
+      this.setState({
+        'connected' : false
+      })
+    })
+
+    this.inputRef = React.createRef();
+    if (!this.props.startMinimized) {
+      toggleWidget();
     }
+    setPlaceholder(this.props.senderPlaceHolder);
+
+    let buttonsPlaceholder = this.props.buttonsPlaceholder;
+    this.socket.onBotMessage(msgObject => {
+      console.log(msgObject);
+      console.log('Received bot message "' + msgObject.message + '"');
+      addResponseMessage(msgObject.message);
+      console.log(msgObject.quickButtonValues)
+      if (msgObject.quickButtonValues !== undefined && msgObject.quickButtonValues.length > 0) {
+        setQuickButtons(msgObject.quickButtonValues);
+        toggleInputDisabled();
+        setPlaceholder(buttonsPlaceholder);
+      }
+      toggleMsgLoader(false);
+    });
   }
 
   componentDidMount() {
@@ -40,17 +90,22 @@ class Widget extends Component {
         previousInput : userInput
       });
 
-      this.props.handleNewUserMessage(userInput);
+      this.socket.send( userInput);
     }
     event.target.message.value = '';
   }
 
+
+
   handleQuickButtonClicked = (event, value) => {
     event.preventDefault();
-
-    if(this.props.handleQuickButtonClicked) {
-      this.props.handleQuickButtonClicked(value);
-    }
+    console.log("Clicked on " + value);
+    addUserMessage(value);
+    this.state.socket.emit('user_button_click', {'username': this.state.username, 'selectedValue': value});
+    setQuickButtons([]);
+    this.inputRef.current.focus();
+    toggleInputDisabled(false);
+    setPlaceholder(this.props.senderPlaceHolder);
   }
 
   render() {
@@ -81,8 +136,6 @@ Widget.propTypes = {
   title: PropTypes.string,
   titleAvatar: PropTypes.string,
   subtitle: PropTypes.string,
-  handleNewUserMessage: PropTypes.func.isRequired,
-  handleQuickButtonClicked: PropTypes.func.isRequired,
   senderPlaceHolder: PropTypes.string,
   profileAvatar: PropTypes.string,
   showCloseButton: PropTypes.bool,

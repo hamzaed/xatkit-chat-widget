@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom";
 import React from "react";
-import XatkitWidget from "./src/components/XatkitWidget";
+import ConnectedWidget from "./src";
 import xatkitAvatar from '@assets/xatkit-avatar.png';
 import xatkitLogoNegative from '@assets/xatkit-avatar-negative.svg';
 
@@ -29,7 +29,7 @@ const renderXatkitWidget = (args) => {
 
     const domElement = args.elementId === undefined ? document.getElementById('xatkit-chat') : document.getElementById(args.elementId);
 
-    ReactDOM.render(<XatkitWidget
+    ReactDOM.render(<ConnectedWidget
         server={args.server}
         username={args.username}
         title={args.widget?.title}

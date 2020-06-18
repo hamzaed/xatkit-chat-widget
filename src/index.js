@@ -5,7 +5,8 @@ import { Provider } from 'react-redux';
 
 import Widget from './components/Widget';
 import {initStore} from '../src/store/store';
-
+import xatkitAvatar from '@assets/xatkit-avatar.png';
+import xatkitLogoNegative from '@assets/xatkit-avatar-negative.svg';
 
 let store = initStore(localStorage);
 
@@ -15,22 +16,28 @@ const ConnectedWidget = props => {
   const Comp = React.forwardRef((props, ref) => (
       <Provider store={store}>
         <Widget
+            username={props.username}
+            startMinimized={props.startMinimized}
+            buttonsPlaceholder={props.buttonsPlaceHolder}
+            hostname={props.hostname}
+            url={props.url}
+            origin={props.origin}
             title={props.title}
-            titleAvatar={props.titleAvatar}
             subtitle={props.subtitle}
-            handleNewUserMessage={props.handleNewUserMessage}
-            handleQuickButtonClicked={props.handleQuickButtonClicked}
             senderPlaceHolder={props.senderPlaceHolder}
             profileAvatar={props.profileAvatar}
+            launcherImage={props.launcherImage}
+            storage={props.storage}
+            autoClear={props.autoClear}
+            server={props.server}
+            titleAvatar={props.titleAvatar}
             showCloseButton={props.showCloseButton}
             fullScreenMode={props.fullScreenMode}
             badge={props.badge}
             autofocus={props.autofocus}
             customLauncher={props.launcher}
-            launcherImage={props.launcherImage}
             focus={ref}
-            storage={props.storage}
-            autoClear={props.autoClear}
+
         />
       </Provider>
   ));
@@ -41,19 +48,26 @@ const ConnectedWidget = props => {
 }
 
 ConnectedWidget.propTypes = {
+  server: PropTypes.string,
+  username: PropTypes.string,
   title: PropTypes.string,
-  titleAvatar: PropTypes.string,
   subtitle: PropTypes.string,
-  handleNewUserMessage: PropTypes.func.isRequired,
-  handleQuickButtonClicked: PropTypes.func,
+  startMinimized: PropTypes.bool,
   senderPlaceHolder: PropTypes.string,
   profileAvatar: PropTypes.string,
+  launcherImage: PropTypes.string,
+  buttonsPlaceholder: PropTypes.string,
+  hostname: PropTypes.string,
+  url: PropTypes.string,
+  origin: PropTypes.string,
+  storage: PropTypes.string,
+  autoClear: PropTypes.bool,
+  titleAvatar: PropTypes.string,
   showCloseButton: PropTypes.bool,
   fullScreenMode: PropTypes.bool,
   badge: PropTypes.number,
   autofocus: PropTypes.bool,
   launcher: PropTypes.func,
-  launcherImage: PropTypes.string,
   focus: PropTypes.object
 };
 
@@ -61,8 +75,22 @@ ConnectedWidget.defaultProps = {
   showCloseButton: true,
   fullScreenMode: false,
   badge: 0,
-  autofocus: true
+  autofocus: true,
+  server: 'http://localhost:5001',
+  username: 'username',
+  title: 'Xatkit Chat',
+  subtitle: 'Test your Xatkit bot here!',
+  startMinimized: false,
+  senderPlaceHolder: 'Type a message...',
+  profileAvatar: xatkitAvatar,
+  launcherImage: xatkitLogoNegative,
+  buttonsPlaceholder: "Choose an option",
+  hostname: window.location.hostname,
+  url: window.location.href,
+  origin: window.location.origin
 };
+
+
 
 export {
   ConnectedWidget as default,
