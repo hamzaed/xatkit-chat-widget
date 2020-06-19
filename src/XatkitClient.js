@@ -1,29 +1,76 @@
-import socketio from './utils/socket'
+import io from "socket.io-client";
 
 
 
 class XatkitClient {
+
     constructor(args) {
-        this.socket = args.socket;
+
         this.username = args.username;
+        this.hostname = args.hostname;
+        this.serverUrl = args.serverUrl;
+        this.url = args.url;
+        this.origin = args.origin;
+        this.socket = io(args.serverUrl, {
+            path: args.basePath
+        });
     }
 
-    onBotMessage(callback){
-        this.socket.on('bot_message', (message) => {
-            callback(message)
+    onConnect(callback) {
+        this.socket.on('connect', () => {
+            this.socket.emit('init', { hostname: this.hostname, url: this.url, origin: this.origin })
+            callback();
         })
     }
 
-    send(message){
-        const botMessage = {
-            message: message,
-            username: this.username
+    onConnectionError(callback) {
+        this.socket.on('connect_error', error => {
+            console.log("Cannot connect to the Xatkit server");
+            callback(error)
+        })
+    }
+
+    //Add onBotAction pour dark mode
+
+    onBotMessage(type, callback) {
+        switch (type) {
+            case "text": this.socket.on('bot_message', (message) => {
+                callback(message)
+            }); break;
+
+            case "miniCard": {
+                this.socket.on('link_snippet_with_img', (message) => {
+                    callback(message);
+                })
+            }
         }
-        this.socket.emit('user_message', botMessage)
+
+    }
+
+    send(type, message){
+        switch (type) {
+            case "text": {
+                const botMessage = {
+                    message: message,
+                    username: this.username
+                }
+                this.socket.emit('user_message', botMessage)
+            }; break;
+
+            case "button": {
+                const botMessage = {
+                    selectedValue : message,
+                    username: this.username
+                }
+                this.socket.emit('user_button_click', botMessage);
+            }
+
+        }
+
     }
 }
 
-export default function initXatkitClient(args,connectCallback, errorCallback) {
+export default function initXatkitClient(args) {
     const {server, username, hostname, url, origin} = args;
     if(!server)
         throw new Error('Server is undefined')
@@ -42,10 +89,6 @@ export default function initXatkitClient(args,connectCallback, errorCallback) {
         }
         serverUrl = parsedUrl[1]
     }
-
-
-    const socket = socketio({serverUrl, path: basePath, hostname, url, origin},connectCallback,errorCallback)
-    console.log("perfect")
-    return new XatkitClient({socket, username}, connectCallback, errorCallback)
+    return new XatkitClient({serverUrl, path: basePath, hostname, url, origin, username})
 }
 
