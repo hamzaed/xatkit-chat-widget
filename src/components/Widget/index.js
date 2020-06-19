@@ -11,7 +11,8 @@ import {
   setPlaceholder,
   setQuickButtons,
   toggleInputDisabled, toggleMsgLoader,
-  toggleWidget
+  toggleWidget,
+    addLinkSnippetWithImg
 } from "../../store/dispatcher";
 import initXatkitClient from "../../XatkitClient";
 
@@ -20,39 +21,63 @@ class Widget extends Component {
 
   constructor(props) {
     super(props);
-
+    const {username, server, hostname, url, origin,storage} = props
+    this.storage = storage === 'session'?sessionStorage:localStorage
     this.state = {
-      username: this.props.username,
-      xatkit_server: this.props.server,
+      username,
+      xatkit_server: server,
       connected: false,
       previousInput : ""
     };
-    this.socket = initXatkitClient({
-      server: this.props.server,
-      username: this.props.username,
-      hostname: this.props.hostname,
-      url: this.props.url,
-      origin: this.props.origin
-    },()=>{
-      window.xatkit_session = this.socket.id;
-      this.setState({
-        'connected' : true
-      });
-    }, (error) => {
-      console.log(error)
-      this.setState({
-        'connected' : false
-      })
+    this.xatkitClient = initXatkitClient({
+      server,
+      username,
+      hostname,
+      url,
+      origin
     })
+  }
 
-    this.inputRef = React.createRef();
-    if (!this.props.startMinimized) {
+  componentDidMount() {
+    const {startMinimized, senderPlaceHolder, autoClear, dispatch}= this.props
+
+    this.handleOnConnect()
+    this.handleOnConnectionError()
+    if (!startMinimized) {
       toggleWidget();
     }
-    setPlaceholder(this.props.senderPlaceHolder);
+    setPlaceholder(senderPlaceHolder);
+    this.handleBotMessage();
+    if(autoClear) {
+      this.storage.clear();
+    } else {
+      dispatch(pullSession());
+    }
+  }
 
-    let buttonsPlaceholder = this.props.buttonsPlaceholder;
-    this.socket.onBotMessage(msgObject => {
+  handleOnConnect() {
+    this.xatkitClient.onConnect(
+        ()=>{
+          window.xatkit_session = this.xatkitClient.socket.id;
+          this.setState({
+                'connected' : true
+              })
+        })
+  }
+
+  handleOnConnectionError(){
+    this.xatkitClient.onConnectionError(
+        (error) => {
+          console.log(error)
+          this.setState({
+            'connected' : false
+          })
+        })
+  }
+
+  handleBotMessage(){
+    const {buttonsPlaceHolder} = this.props
+    this.xatkitClient.onBotMessage('text',msgObject => {
       console.log(msgObject);
       console.log('Received bot message "' + msgObject.message + '"');
       addResponseMessage(msgObject.message);
@@ -60,16 +85,17 @@ class Widget extends Component {
       if (msgObject.quickButtonValues !== undefined && msgObject.quickButtonValues.length > 0) {
         setQuickButtons(msgObject.quickButtonValues);
         toggleInputDisabled();
-        setPlaceholder(buttonsPlaceholder);
+        setPlaceholder(buttonsPlaceHolder);
       }
       toggleMsgLoader(false);
     });
+
+    this.xatkitClient.onBotMessage('miniCard', msgObject => {
+      addLinkSnippetWithImg(msgObject);
+    })
+
   }
 
-  componentDidMount() {
-
-    this.props.dispatch(pullSession());
-  }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.fullScreenMode) {
@@ -90,7 +116,7 @@ class Widget extends Component {
         previousInput : userInput
       });
 
-      this.socket.send( userInput);
+      this.xatkitClient.send('text',userInput);
     }
     event.target.message.value = '';
   }
@@ -98,12 +124,13 @@ class Widget extends Component {
 
 
   handleQuickButtonClicked = (event, value) => {
+    const {username} = this.props
     event.preventDefault();
     console.log("Clicked on " + value);
     addUserMessage(value);
-    this.state.socket.emit('user_button_click', {'username': this.state.username, 'selectedValue': value});
+    this.xatkitClient.send('button',value);
     setQuickButtons([]);
-    this.inputRef.current.focus();
+    //this.inputRef.current.focus();
     toggleInputDisabled(false);
     setPlaceholder(this.props.senderPlaceHolder);
   }
@@ -137,6 +164,7 @@ Widget.propTypes = {
   titleAvatar: PropTypes.string,
   subtitle: PropTypes.string,
   senderPlaceHolder: PropTypes.string,
+  buttonsPlaceHolder: PropTypes.string,
   profileAvatar: PropTypes.string,
   showCloseButton: PropTypes.bool,
   fullScreenMode: PropTypes.bool,
