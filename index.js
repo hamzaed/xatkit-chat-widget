@@ -42,6 +42,8 @@ const renderXatkitWidget = (args) => {
         hostname={args.location?.hostname}
         url={args.location?.url}
         origin={args.location?.origin}
+        storage={args.storage?.location}
+        autoClear={args.storage?.autoClear}
     />, domElement);
 }
 

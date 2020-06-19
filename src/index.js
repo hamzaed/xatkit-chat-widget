@@ -8,17 +8,22 @@ import {initStore} from '../src/store/store';
 import xatkitAvatar from '@assets/xatkit-avatar.png';
 import xatkitLogoNegative from '@assets/xatkit-avatar-negative.svg';
 
-let store = initStore(localStorage);
+let store = null;
+initStore(localStorage);
 
 
 const ConnectedWidget = props => {
+  const storage = props.storage === 'session'?sessionStorage:localStorage
+  if(!store){
+    store = initStore(storage)
+  }
   const inputRef = React.createRef();
   const Comp = React.forwardRef((props, ref) => (
       <Provider store={store}>
         <Widget
             username={props.username}
             startMinimized={props.startMinimized}
-            buttonsPlaceholder={props.buttonsPlaceHolder}
+            buttonsPlaceHolder={props.buttonsPlaceHolder}
             hostname={props.hostname}
             url={props.url}
             origin={props.origin}
@@ -56,7 +61,7 @@ ConnectedWidget.propTypes = {
   senderPlaceHolder: PropTypes.string,
   profileAvatar: PropTypes.string,
   launcherImage: PropTypes.string,
-  buttonsPlaceholder: PropTypes.string,
+  buttonsPlaceHolder: PropTypes.string,
   hostname: PropTypes.string,
   url: PropTypes.string,
   origin: PropTypes.string,
@@ -84,10 +89,11 @@ ConnectedWidget.defaultProps = {
   senderPlaceHolder: 'Type a message...',
   profileAvatar: xatkitAvatar,
   launcherImage: xatkitLogoNegative,
-  buttonsPlaceholder: "Choose an option",
+  buttonsPlaceHolder: "Choose an option",
   hostname: window.location.hostname,
   url: window.location.href,
-  origin: window.location.origin
+  origin: window.location.origin,
+  storage: 'local'
 };
 
 
