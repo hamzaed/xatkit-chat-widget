@@ -1,42 +1,12 @@
 import { List, fromJS } from 'immutable';
 
-import { createReducer } from '@utils/store';
-import { createNewMessage, createMiniCard, createLinkSnippet, createComponentMessage } from '../../utils/messages';
+
+import { createNewMessage, createMiniCard, createLinkSnippet, createComponentMessage } from '../../utils/helpers';
 import { MESSAGE_SENDER } from '@constants';
 
 import * as actionTypes from '../actions/actionTypes';
+import {storeMessageTo, getLocalSession} from '../../utils/helpers'
 
-
-function getLocalSession(storage, key) {
-
-  const cachedSession = storage.getItem(key);
-  let session = null;
-  if (cachedSession) {
-
-    const parsedSession = JSON.parse(cachedSession);
-
-    const formattedConversation = parsedSession.conversation
-        ? parsedSession.conversation
-        : [];
-
-    session = {
-      ...parsedSession,
-      conversation: formattedConversation
-    };
-  }
-   return session;
-}
-
-
-const storeMessageTo = storage => (conversation) => {
-
-  const localSession = getLocalSession(storage, "XATKIT_SESSION");
-  const newSession = {
-    conversation: conversation.toJS()
-  };
-  storage.setItem('XATKIT_SESSION', JSON.stringify(newSession));
-  return conversation;
-};
 
 export default function(storage){
   const initialState = List([]);

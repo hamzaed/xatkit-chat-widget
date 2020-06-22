@@ -103,3 +103,35 @@ export function createQuickButton(button) {
     value: button.value
   });
 }
+
+export function getLocalSession(storage, key) {
+
+  const cachedSession = storage.getItem(key);
+  let session = null;
+  if (cachedSession) {
+
+    const parsedSession = JSON.parse(cachedSession);
+
+    const formattedConversation = parsedSession.conversation
+        ? parsedSession.conversation
+        : [];
+    const sessionId = parsedSession.sessionId
+
+    session = {
+      ...parsedSession,
+      conversation: formattedConversation
+    };
+  }
+  return session;
+}
+
+
+export const storeMessageTo = storage => (conversation) => {
+
+  const localSession = getLocalSession(storage, "XATKIT_SESSION");
+  const newSession = {
+    conversation: conversation.toJS()
+  };
+  storage.setItem('XATKIT_SESSION', JSON.stringify(newSession));
+  return conversation;
+};
