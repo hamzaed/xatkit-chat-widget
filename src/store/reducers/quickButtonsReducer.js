@@ -1,12 +1,12 @@
 import { List } from 'immutable';
 import { createReducer } from '@utils/store';
-import { createQuickButton } from '../../utils/messages';
+import { createQuickButton } from '../../utils/helpers';
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = List([]);
 
 const quickButtonsReducer = {
-  [actionTypes.SET_QUICK_BUTTONS]: ( state, action ) => 
+  [actionTypes.SET_QUICK_BUTTONS]: ( state, action ) =>
     List(action.buttons.map(button => createQuickButton(button)))
 }
 
