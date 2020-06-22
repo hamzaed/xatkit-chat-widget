@@ -54,10 +54,10 @@ export function addLinkSnippet(link) {
   };
 }
 
-export function addLinkSnippetWithImg(link) {
+export function addMiniCard(miniCard) {
   return {
-    type: actions.ADD_NEW_LINK_SNIPPET_WITH_IMG,
-    link
+    type: actions.ADD_NEW_MINI_CARD,
+    miniCard
   }
 }
 

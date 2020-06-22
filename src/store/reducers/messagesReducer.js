@@ -1,7 +1,7 @@
 import { List, fromJS } from 'immutable';
 
 import { createReducer } from '@utils/store';
-import { createNewMessage, createLinkSnippet, createComponentMessage, createLinkSnippetWithImg } from '@utils/messages';
+import { createNewMessage, createMiniCard, createLinkSnippet, createComponentMessage } from '../../utils/messages';
 import { MESSAGE_SENDER } from '@constants';
 
 import * as actionTypes from '../actions/actionTypes';
@@ -32,7 +32,6 @@ const storeMessageTo = storage => (conversation) => {
 
   const localSession = getLocalSession(storage, "XATKIT_SESSION");
   const newSession = {
-       ...localSession,
     conversation: conversation.toJS()
   };
   storage.setItem('XATKIT_SESSION', JSON.stringify(newSession));
@@ -51,10 +50,12 @@ export default function(storage){
       case actionTypes.ADD_NEW_RESPONSE_MESSAGE: {
         return storeMessage(state.push(createNewMessage(action.text, MESSAGE_SENDER.RESPONSE)));
       }
+      case actionTypes.ADD_NEW_MINI_CARD: {
+        return storeMessage(state.push(createMiniCard(action.miniCard)))
+      }
       case actionTypes.PULL_SESSION: {
 
         const localSession = getLocalSession(storage, 'XATKIT_SESSION');
-        console.log(localSession)
         if (localSession) {
           return fromJS(localSession.conversation);
         }

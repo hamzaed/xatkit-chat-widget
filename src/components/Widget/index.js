@@ -12,7 +12,7 @@ import {
   setQuickButtons,
   toggleInputDisabled, toggleMsgLoader,
   toggleWidget,
-  addLinkSnippetWithImg,
+  addMiniCard,
     setConnected
 } from "../../store/dispatcher";
 import initXatkitClient from "../../XatkitClient";
@@ -92,7 +92,7 @@ class Widget extends Component {
     });
 
     this.xatkitClient.onBotMessage('miniCard', msgObject => {
-      addLinkSnippetWithImg(msgObject);
+      addMiniCard(msgObject);
     })
 
   }

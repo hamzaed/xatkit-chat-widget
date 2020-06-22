@@ -1,10 +1,10 @@
 import { Map } from 'immutable';
-import { MESSAGES_TYPES, MESSAGE_SENDER, MESSAGE_BOX_SCROLL_DURATION } from '@constants';
+import { MESSAGES_TYPES, MESSAGE_SENDER, MESSAGE_BOX_SCROLL_DURATION } from '../constants.js';
 
 import Message from '@messagesComponents/Message';
 import Snippet from '@messagesComponents/Snippet';
 import QuickButton from '@quickButtonsComponents/QuickButton';
-import SnippetWithImg from "@messagesComponents/SnippetWithImg";
+import SnippetWithImg from "@messagesComponents/MiniCard";
 
 export function createNewMessage(text, sender) {
   return Map({
@@ -28,14 +28,14 @@ export function createLinkSnippet(link) {
   });
 }
 
-export function createLinkSnippetWithImg(link) {
+export function createMiniCard(miniCard) {
   return Map( {
-    type: MESSAGES_TYPES.SNIPPET.LINK,
+    type: MESSAGES_TYPES.MINI_CARD,
     component: SnippetWithImg,
-    title: link.title,
-    link: link.link,
-    img: link.img,
-    target: link.target || '_blank',
+    title: miniCard.title,
+    link: miniCard.link,
+    img: miniCard.img,
+    target: miniCard.target || '_blank',
     sender: MESSAGE_SENDER.RESPONSE,
     showAvatar: false
   })
@@ -63,7 +63,7 @@ function sinEaseOut(t, b, c, d) {
 }
 
 /**
- * 
+ *
  * @param {*} target scroll target
  * @param {*} scrollStart
  * @param {*} scroll scroll distance

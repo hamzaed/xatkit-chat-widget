@@ -8,6 +8,7 @@ export const MESSAGE_SENDER = {
 
 export const MESSAGES_TYPES = {
   TEXT: 'text',
+  MINI_CARD: 'miniCard',
   SNIPPET: {
     LINK: 'snippet'
   },
@@ -40,11 +41,8 @@ export const PROP_TYPES = {
     ])
   }),
 
-  SNIPPET_WITH_IMG: ImmutablePropTypes.contains({
-    type: PropTypes.oneOf([
-      MESSAGES_TYPES.TEXT,
-      MESSAGES_TYPES.SNIPPET.LINK
-    ]),
+  MINI_CARD: ImmutablePropTypes.contains({
+    type: PropTypes.exact(MESSAGES_TYPES.MINI_CARD),
     title: PropTypes.string,
     link: PropTypes.string,
     img: PropTypes.string,

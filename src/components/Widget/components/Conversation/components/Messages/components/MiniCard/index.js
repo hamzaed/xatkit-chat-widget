@@ -7,7 +7,7 @@ import markdownItSup from 'markdown-it-sup';
 import markdownItSanitizer from 'markdown-it-sanitizer';
 import markdownItLinkAttributes from 'markdown-it-link-attributes';
 
-class SnippetWithImg extends PureComponent {
+class MiniCard extends PureComponent {
 
     render() {
         const sanitizedHTML = markdownIt()
@@ -25,8 +25,8 @@ class SnippetWithImg extends PureComponent {
     }
 }
 
-SnippetWithImg.propTypes = {
-    title: PROP_TYPES.SNIPPET_WITH_IMG
+MiniCard.propTypes = {
+    message: PROP_TYPES.MINI_CARD
 };
 
-export default SnippetWithImg;
+export default MiniCard;

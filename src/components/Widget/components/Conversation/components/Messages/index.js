@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import { List,Map } from 'immutable';
 import { connect } from 'react-redux';
 
 import { hideAvatar } from '@actions';
@@ -13,6 +12,7 @@ import './styles.scss';
 import xatkitAvatar from '@assets/xatkit-avatar.png'
 import xatkitAvatarWhite from '@assets/xatkit-avatar-white.png'
 import Message from './components/Message'
+import MiniCard from './components/MiniCard'
 
 import {MESSAGES_TYPES} from "@constants";
 
@@ -32,11 +32,12 @@ class Messages extends Component {
 
   getComponentToRender = (message, index, isLast) => {
     const ComponentToRender = (() => {
-      console.log(message.get('type'))
       switch (message.get('type')) {
         case MESSAGES_TYPES.TEXT: {
           return Message;
         }
+        case MESSAGES_TYPES.MINI_CARD:
+          return MiniCard;
         default:
           return null;
       }
@@ -67,7 +68,6 @@ class Messages extends Component {
 
   render() {
     const { messages, profileAvatar, typing, connected } = this.props;
-    console.log(messages.get(0))
     return (
       <div id="xatkit-messages" className={"xatkit-messages-container" + (this.props.darkMode === true ? " dark-mode" : "")} ref={msg => this.$message = msg}>
         {!connected &&
