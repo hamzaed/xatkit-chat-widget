@@ -4,7 +4,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
 import { hideAvatar } from '@actions';
-import { scrollToBottom } from '@utils/messages';
+import { scrollToBottom } from '@utils/helpers';
 
 import Loader from './components/Loader';
 import './styles.scss';
@@ -17,9 +17,7 @@ import MiniCard from './components/MiniCard'
 import {MESSAGES_TYPES} from "@constants";
 
 class Messages extends Component {
-  state = {
-    connected: false
-  }
+
   componentDidMount() {
     scrollToBottom(this.$message);
   }
