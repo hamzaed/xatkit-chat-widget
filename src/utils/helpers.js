@@ -120,9 +120,29 @@ export function getLocalSession(storage, key) {
     session = {
       ...parsedSession,
       conversation: formattedConversation
-    };
+    }
   }
   return session;
+}
+
+export function storeLocalSession(storage, key, sid) {
+
+  const cachedSession = storage.getItem(key);
+  let session;
+  if (cachedSession) {
+    const parsedSession = JSON.parse(cachedSession);
+    session = {
+      ...parsedSession,
+      session_id: sid
+    };
+  } else {
+    // No existing local session, create a new empty session with only session_id
+    session = {
+      session_id: sid
+    };
+  }
+  // Store updated session to storage
+  storage.setItem(key, JSON.stringify(session));
 }
 
 
@@ -130,6 +150,7 @@ export const storeMessageTo = storage => (conversation) => {
 
   const localSession = getLocalSession(storage, "XATKIT_SESSION");
   const newSession = {
+    ...localSession,
     conversation: conversation.toJS()
   };
   storage.setItem('XATKIT_SESSION', JSON.stringify(newSession));

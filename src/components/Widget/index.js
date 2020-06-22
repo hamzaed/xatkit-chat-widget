@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import {  SESSION_NAME } from '@constants';
 
 import { toggleChat, addUserMessage } from '@actions';
 
@@ -16,7 +17,9 @@ import {
     setConnected
 } from "../../store/dispatcher";
 import initXatkitClient from "../../XatkitClient";
-import set from "@babel/runtime/helpers/esm/set";
+
+import {getLocalSession,storeLocalSession } from '../../utils/helpers'
+
 
 
 class Widget extends Component {
@@ -26,9 +29,6 @@ class Widget extends Component {
     const {username, server, hostname, url, origin,storage} = props
     this.storage = storage === 'session'?sessionStorage:localStorage
     this.state = {
-      username,
-      xatkit_server: server,
-      connected: false,
       previousInput : ""
     };
     this.xatkitClient = initXatkitClient({
@@ -51,7 +51,7 @@ class Widget extends Component {
     setPlaceholder(senderPlaceHolder);
     this.handleBotMessage();
     if(autoClear) {
-      this.storage.clear();
+      this.storage.removeItem(SESSION_NAME);
     } else {
       dispatch(pullSession());
     }
@@ -61,6 +61,7 @@ class Widget extends Component {
     this.xatkitClient.onConnect(
         ()=>{
           window.xatkit_session = this.xatkitClient.socket.id;
+          storeLocalSession(this.storage, SESSION_NAME, this.xatkitClient.socket.id);
          setConnected(true)
 
         })
@@ -71,8 +72,6 @@ class Widget extends Component {
         (error) => {
           console.log(error)
           setConnected(false)
-
-
         })
   }
 

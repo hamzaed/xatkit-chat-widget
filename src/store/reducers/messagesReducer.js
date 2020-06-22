@@ -2,7 +2,7 @@ import { List, fromJS } from 'immutable';
 
 
 import { createNewMessage, createMiniCard, createLinkSnippet, createComponentMessage } from '../../utils/helpers';
-import { MESSAGE_SENDER } from '@constants';
+import { MESSAGE_SENDER, SESSION_NAME } from '@constants';
 
 import * as actionTypes from '../actions/actionTypes';
 import {storeMessageTo, getLocalSession} from '../../utils/helpers'
@@ -25,7 +25,7 @@ export default function(storage){
       }
       case actionTypes.PULL_SESSION: {
 
-        const localSession = getLocalSession(storage, 'XATKIT_SESSION');
+        const localSession = getLocalSession(storage, SESSION_NAME);
         if (localSession) {
           return fromJS(localSession.conversation);
         }
