@@ -17,6 +17,9 @@ import Message from './components/Message'
 import {MESSAGES_TYPES} from "@constants";
 
 class Messages extends Component {
+  state = {
+    connected: false
+  }
   componentDidMount() {
     scrollToBottom(this.$message);
   }
@@ -63,10 +66,13 @@ class Messages extends Component {
   }
 
   render() {
-    const { messages, profileAvatar, typing } = this.props;
+    const { messages, profileAvatar, typing, connected } = this.props;
     console.log(messages.get(0))
     return (
       <div id="xatkit-messages" className={"xatkit-messages-container" + (this.props.darkMode === true ? " dark-mode" : "")} ref={msg => this.$message = msg}>
+        {!connected &&
+        <div className="xatkit-server-error">
+          <div className="xatkit-error-message">Trying to reach the server...</div></div>}
         {messages.map((message, index) =>
           <div className="xatkit-message" key={index}>
             {profileAvatar &&
@@ -82,14 +88,18 @@ class Messages extends Component {
   }
 }
 
+
 Messages.propTypes = {
   messages: ImmutablePropTypes.listOf(ImmutablePropTypes.map),
   darkMode: PropTypes.bool,
-  profileAvatar: PropTypes.string
+  profileAvatar: PropTypes.string,
+  connected: PropTypes.bool
 };
 
 export default connect(store => ({
-  //messages: List(store.messages.map(message => Map(message))),
   messages: store.messages,
-  typing: store.behavior.get('msgLoader')
+  typing: store.behavior.get('msgLoader'),
+  connected: store.behavior.get('connected')
+
+
 }))(Messages);

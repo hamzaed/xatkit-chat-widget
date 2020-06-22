@@ -93,3 +93,11 @@ export function pullSession() {
     type: actions.PULL_SESSION
   };
 }
+
+export function setConnected(newValue){
+  return {
+    type: actions.SET_CONNECTED,
+    newValue
+
+  }
+}

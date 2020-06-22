@@ -12,9 +12,11 @@ import {
   setQuickButtons,
   toggleInputDisabled, toggleMsgLoader,
   toggleWidget,
-    addLinkSnippetWithImg
+  addLinkSnippetWithImg,
+    setConnected
 } from "../../store/dispatcher";
 import initXatkitClient from "../../XatkitClient";
+import set from "@babel/runtime/helpers/esm/set";
 
 
 class Widget extends Component {
@@ -59,9 +61,8 @@ class Widget extends Component {
     this.xatkitClient.onConnect(
         ()=>{
           window.xatkit_session = this.xatkitClient.socket.id;
-          this.setState({
-                'connected' : true
-              })
+         setConnected(true)
+
         })
   }
 
@@ -69,9 +70,9 @@ class Widget extends Component {
     this.xatkitClient.onConnectionError(
         (error) => {
           console.log(error)
-          this.setState({
-            'connected' : false
-          })
+          setConnected(false)
+
+
         })
   }
 

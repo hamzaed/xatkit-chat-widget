@@ -4,7 +4,7 @@ import { createReducer } from '@utils/store';
 
 import * as actionTypes from '../actions/actionTypes';
 
-const initialState = Map({ showChat: false, disabledInput: false, msgLoader: false, darkMode: false });
+const initialState = Map({ showChat: false, disabledInput: false, msgLoader: false, darkMode: false, connected: false });
 
 const behaviorReducer = {
   [actionTypes.TOGGLE_CHAT]: state =>
@@ -20,7 +20,9 @@ const behaviorReducer = {
       state.update('darkMode', darkMode => !darkMode),
 
   [actionTypes.SET_PLACE_HOLDER]: (state, {newValue}) =>
-      state.update('placeholder',  () => newValue)
+      state.update('placeholder',  () => newValue),
+  [actionTypes.SET_CONNECTED]: (state, {newValue}) =>
+      state.update('connected',() => newValue)
 };
 
 export default (state = initialState, action) => createReducer(behaviorReducer, state, action);

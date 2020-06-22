@@ -56,3 +56,6 @@ export function setQuickButtons(buttons) {
 export function pullSession() {
   store.dispatch(actions.pullSession());
 }
+export function setConnected(newValue){
+  store.dispatch(actions.setConnected(newValue))
+}
