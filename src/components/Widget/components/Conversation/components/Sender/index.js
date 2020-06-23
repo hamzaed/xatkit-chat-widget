@@ -4,6 +4,8 @@ import send from '@assets/send_button.svg';
 import xatkit from '@assets/built-with-xatkit.svg';
 import xatkitWhite from '@assets/built-with-xatkit-white.svg'
 import './style.scss';
+import { connect } from 'react-redux';
+import ImmutablePropTypes from "react-immutable-proptypes";
 
 class Sender extends Component{
 
@@ -11,11 +13,26 @@ class Sender extends Component{
         super(props);
         this.input = !this.props.focus?React.createRef():this.props.focus;
         this.state = {
-            textInput : ""
+            textInput : "",
+            currentMessageIndex: 0
         }
+        this.messages = props.messages
+        console.log('constructor',this.messages)
+
+
+        this.onSubmit = this.onSubmit.bind(this)
+        this.onChange = this.onChange.bind(this)
+        this.onKeyDown = this.onKeyDown.bind(this)
+        this.getUserMessages = this.getUserMessages.bind(this)
+
+        this.getUserMessages()
     }
 
     componentDidUpdate(prevProps, prevState) {
+    if(this.messages != prevProps.messages) {
+        this.messages = prevProps.messages
+        this.getUserMessages()
+    }
         this.input.current.focus();
         /*
          * Need to wrap this in a setTimeout, see
@@ -28,22 +45,37 @@ class Sender extends Component{
         },1)
     }
 
+
+    getUserMessages = () => {
+        this.userMessages = this.messages.filter( v => {
+            return v.get("sender") == "client" && v.get("type") == "text"
+        }).map(v => {
+            return v.get("text")
+        })
+    }
     getXatkitLogo = () => {
         if(this.props.darkMode === true) {
             return xatkitWhite
         } else {
             return xatkit
         }
-    };
+    }
 
     onKeyDown = (e) => {
-        if(e.key === 'ArrowUp' && this.props.disabledInput === false) {
+        let index = this.state.currentMessageIndex
+        const size = this.userMessages.size
+        if(e.key === 'ArrowUp' && this.props.disabledInput === false && index < size) {
+            index++
+            console.log("onKeyDown",this.userMessages)
             this.setState({
-                textInput : this.props.previousInput
+                textInput : this.userMessages.get(this.userMessages.size - index),
+                currentMessageIndex: index
             });
-        } else if(e.key === 'ArrowDown' && this.props.disabledInput === false) {
+        } else if(e.key === 'ArrowDown' && this.props.disabledInput === false && index > 0) {
+            index--
             this.setState({
-                textInput : ""
+                textInput : !index?"":this.userMessages.get(this.userMessages.size - index),
+                currentMessageIndex: index
             })
         }
     };
@@ -62,7 +94,8 @@ class Sender extends Component{
      */
     onSubmit = (e) => {
         this.setState({
-            textInput : ""
+            textInput : "",
+            currentMessageIndex: 0
         });
         this.props.sendMessage(e)
     }
@@ -73,7 +106,7 @@ class Sender extends Component{
             <div>
               <form className={"xatkit-sender" + (this.props.darkMode === true ? " dark-mode" : "")} onSubmit={this.onSubmit}>
                 <input type="text" className={"xatkit-new-message" + (this.props.darkMode === true ? " dark-mode" : "")} name="message" placeholder={placeholder}
-                       disabled={disabledInput} autoFocus={autofocus} autoComplete="off" ref={focus} onKeyDown={this.onKeyDown.bind(this)} value={this.state.textInput} onChange={this.onChange.bind(this)} />
+                       disabled={disabledInput} autoFocus={autofocus} autoComplete="off" ref={focus} onKeyDown={this.onKeyDown} value={this.state.textInput} onChange={this.onChange} />
                 <button type="submit" className={"xatkit-send" + (this.props.darkMode === true ? " dark-mode" : "")}>
                   <img src={send} className="xatkit-send-icon" alt="send"/>
                 </button>
@@ -94,7 +127,11 @@ Sender.propTypes = {
   darkMode: PropTypes.bool,
   autofocus: PropTypes.bool,
   focus: PropTypes.object,
-  previousInput : PropTypes.string
+  messages: ImmutablePropTypes.listOf(ImmutablePropTypes.map)
 };
 
-export default Sender;
+
+export default connect(store => ({
+    messages: store.messages
+
+}))(Sender);

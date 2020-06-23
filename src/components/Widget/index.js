@@ -18,7 +18,7 @@ import {
 } from "../../store/dispatcher";
 import initXatkitClient from "../../XatkitClient";
 
-import {getLocalSession,storeLocalSession } from '../../utils/helpers'
+import { getLocalSession,storeLocalSession } from '../../utils/helpers'
 
 
 
@@ -28,9 +28,7 @@ class Widget extends Component {
     super(props);
     const {username, server, hostname, url, origin,storage} = props
     this.storage = storage === 'session'?sessionStorage:localStorage
-    this.state = {
-      previousInput : ""
-    };
+
     this.xatkitClient = initXatkitClient({
       server,
       username,
@@ -112,10 +110,6 @@ class Widget extends Component {
     const userInput = event.target.message.value;
     if (userInput.trim()) {
       this.props.dispatch(addUserMessage(userInput));
-      this.setState({
-        previousInput : userInput
-      });
-
       this.xatkitClient.send('text',userInput);
     }
     event.target.message.value = '';
@@ -153,7 +147,6 @@ class Widget extends Component {
         customLauncher={this.props.customLauncher}
         launcherImage={this.props.launcherImage}
         focus={this.props.focus}
-        previousInput={this.state.previousInput}
       />
     );
   }

@@ -29,7 +29,6 @@ const Conversation = props =>
             autofocus={props.autofocus}
             focus={props.focus}
             darkMode={props.darkMode}
-            previousInput={props.previousInput}
         />
     </div>;
 
@@ -45,8 +44,7 @@ Conversation.propTypes = {
     disabledInput: PropTypes.bool,
     autofocus: PropTypes.bool,
     focus: PropTypes.object,
-    darkMode: PropTypes.bool,
-    previousInput : PropTypes.string
+    darkMode: PropTypes.bool
 };
 
 export default Conversation;
