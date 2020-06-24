@@ -2,13 +2,11 @@ import { createStore, combineReducers } from 'redux';
 
 import behavior from './reducers/behaviorReducer';
 import messages from './reducers/messagesReducer';
-import quickButtons from './reducers/quickButtonsReducer';
 
 export const initStore = (storage) => {
     const reducer = combineReducers({
         behavior: behavior,
-        messages: messages(storage),
-        quickButtons: quickButtons
+        messages: messages(storage)
     });
 
     return createStore(

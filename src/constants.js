@@ -9,6 +9,7 @@ export const MESSAGE_SENDER = {
 export const MESSAGES_TYPES = {
   TEXT: 'text',
   MINI_CARD: 'miniCard',
+  QUICK_BUTTONS: 'quickButtons',
   SNIPPET: {
     LINK: 'snippet'
   },

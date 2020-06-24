@@ -1,7 +1,13 @@
 import { List, fromJS } from 'immutable';
 
 
-import { createNewMessage, createMiniCard, createLinkSnippet, createComponentMessage } from '../../utils/helpers';
+import {
+  createNewMessage,
+  createMiniCard,
+  createLinkSnippet,
+  createComponentMessage,
+  createQuickButtons
+} from '../../utils/helpers';
 import { MESSAGE_SENDER, SESSION_NAME } from '@constants';
 
 import * as actionTypes from '../actions/actionTypes';
@@ -22,6 +28,9 @@ export default function(storage){
       }
       case actionTypes.ADD_NEW_MINI_CARD: {
         return storeMessage(state.push(createMiniCard(action.miniCard)))
+      }
+      case actionTypes.ADD_QUICK_BUTTONS: {
+          return storeMessage(state.push(createQuickButtons(action.buttons)))
       }
       case actionTypes.PULL_SESSION: {
 

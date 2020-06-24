@@ -1,10 +1,10 @@
-import { Map } from 'immutable';
+import { Map, List } from 'immutable';
 import { MESSAGES_TYPES, MESSAGE_SENDER, MESSAGE_BOX_SCROLL_DURATION } from '../constants.js';
 
 import Message from '@messagesComponents/Message';
 import Snippet from '@messagesComponents/Snippet';
-import QuickButton from '@quickButtonsComponents/QuickButton';
-import SnippetWithImg from "@messagesComponents/MiniCard";
+import QuickButtons from '@messagesComponents/QuickButtons';
+import MiniCard from "@messagesComponents/MiniCard";
 
 export function createNewMessage(text, sender) {
   return Map({
@@ -31,7 +31,7 @@ export function createLinkSnippet(link) {
 export function createMiniCard(miniCard) {
   return Map( {
     type: MESSAGES_TYPES.MINI_CARD,
-    component: SnippetWithImg,
+    component: MiniCard,
     title: miniCard.title,
     link: miniCard.link,
     img: miniCard.img,
@@ -96,13 +96,17 @@ export function scrollToBottom(messagesDiv) {
 }
 
 
-export function createQuickButton(button) {
+
+export function createQuickButtons(buttons) {
   return Map({
-    component: QuickButton,
-    label: button.label,
-    value: button.value
+    type: MESSAGES_TYPES.QUICK_BUTTONS,
+    component: QuickButtons,
+    buttons: List(buttons.map( button => {
+      return Map(button)
+    }))
   });
 }
+
 
 export function getLocalSession(storage, key) {
 

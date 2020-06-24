@@ -6,15 +6,15 @@ import {  SESSION_NAME } from '@constants';
 import { toggleChat, addUserMessage } from '@actions';
 
 import WidgetLayout from './layout';
-import {pullSession} from "../../store/actions";
+import { pullSession } from "../../store/actions";
 import {
   addResponseMessage,
   setPlaceholder,
-  setQuickButtons,
+  addQuickButtons,
   toggleInputDisabled, toggleMsgLoader,
   toggleWidget,
   addMiniCard,
-    setConnected
+  setConnected
 } from "../../store/dispatcher";
 import initXatkitClient from "../../XatkitClient";
 
@@ -81,7 +81,7 @@ class Widget extends Component {
       addResponseMessage(msgObject.message);
       console.log(msgObject.quickButtonValues)
       if (msgObject.quickButtonValues !== undefined && msgObject.quickButtonValues.length > 0) {
-        setQuickButtons(msgObject.quickButtonValues);
+        addQuickButtons(msgObject.quickButtonValues);
         toggleInputDisabled();
         setPlaceholder(buttonsPlaceHolder);
       }
@@ -123,7 +123,6 @@ class Widget extends Component {
     console.log("Clicked on " + value);
     addUserMessage(value);
     this.xatkitClient.send('button',value);
-    setQuickButtons([]);
     //this.inputRef.current.focus();
     toggleInputDisabled(false);
     setPlaceholder(this.props.senderPlaceHolder);

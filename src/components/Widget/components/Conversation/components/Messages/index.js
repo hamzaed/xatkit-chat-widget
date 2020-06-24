@@ -14,7 +14,9 @@ import xatkitAvatarWhite from '@assets/xatkit-avatar-white.png'
 import Message from './components/Message'
 import MiniCard from './components/MiniCard'
 
+
 import {MESSAGES_TYPES} from "@constants";
+import QuickButtons from "./components/QuickButtons";
 
 class Messages extends Component {
 
@@ -29,19 +31,28 @@ class Messages extends Component {
   $message = null
 
   getComponentToRender = (message, index, isLast) => {
+    const {onQuickButtonClicked} = this.props
     const ComponentToRender = (() => {
       switch (message.get('type')) {
         case MESSAGES_TYPES.TEXT: {
           return Message;
         }
-        case MESSAGES_TYPES.MINI_CARD:
+        case MESSAGES_TYPES.MINI_CARD: {
           return MiniCard;
+        }
+        case MESSAGES_TYPES.QUICK_BUTTONS: {
+          return QuickButtons
+        }
         default:
           return null;
       }
     })();
     if (message.get('type') === 'component') {
       return <ComponentToRender id={index} {...message.get('props')} isLast={isLast} />;
+    }
+    if(message.get('type') === MESSAGES_TYPES.QUICK_BUTTONS) {
+      return <ComponentToRender id={index} message={message} isLast={isLast}
+                                onQuickButtonClicked={onQuickButtonClicked}/>;
     }
     return <ComponentToRender id={index} message={message} isLast={isLast} />;
 
@@ -77,9 +88,10 @@ class Messages extends Component {
               message.get('showAvatar') &&
               <img src={this.getProfileAvatar()} className="xatkit-avatar" alt="profile" />
             }
-            {this.getComponentToRender(message)}
+            {this.getComponentToRender(message,index,index == (messages.size - 1))}
           </div>
         )}
+
         <Loader typing={typing} />
       </div>
     );

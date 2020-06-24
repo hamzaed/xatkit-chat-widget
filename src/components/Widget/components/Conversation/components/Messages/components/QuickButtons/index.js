@@ -3,6 +3,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 import './style.scss';
 import PropTypes from 'prop-types';
+import QuickButton from "./components/QuickButton";
 
 
 class QuickButtons extends Component {
@@ -12,26 +13,27 @@ class QuickButtons extends Component {
   }
 
   getComponentToRender(button) {
-    const ComponentToRender = button.get('component');
     return (
-      <ComponentToRender
+      <QuickButton
         onQuickButtonClicked={this.props.onQuickButtonClicked}
         button={button}
-        darkMode={this.props.darkMode}
+        disabled={!this.props.isLast}
+        //darkMode={this.props.darkMode}
       />
     );
   }
 
   render() {
-    if (!this.props.buttons.size) {
+    const {message, isLast} = this.props
+    if (!message.get('buttons').size) {
       return null;
     }
 
     return (
-      <div className={"xatkit-quick-buttons-container" + (this.props.darkMode === true ? " dark-mode" : "")}>
+      <div className="xatkit-quick-buttons-container">
         <ul className="xatkit-quick-buttons">
           {
-            this.props.buttons.map((button, index) =>
+            message.get('buttons').map((button, index) =>
               <li className="xatkit-quick-list-button" key={index}>
                 {this.getComponentToRender(button)}
               </li>
@@ -43,12 +45,6 @@ class QuickButtons extends Component {
   }
 }
 
-QuickButtons.propTypes = {
-  buttons: ImmutablePropTypes.listOf(ImmutablePropTypes.map),
-  darkMode: PropTypes.bool
-};
 
 
-export default connect((store) => ({
-  buttons: store.quickButtons
-}))(QuickButtons);
+export default QuickButtons;

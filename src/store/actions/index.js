@@ -82,9 +82,9 @@ export function hideAvatar() {
   };
 }
 
-export function setQuickButtons(buttons) {
+export function addQuickButtons(buttons) {
   return {
-    type: actions.SET_QUICK_BUTTONS,
+    type: actions.ADD_QUICK_BUTTONS,
     buttons
   }
 }

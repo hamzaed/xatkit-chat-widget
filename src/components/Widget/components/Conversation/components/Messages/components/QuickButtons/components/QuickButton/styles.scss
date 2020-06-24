@@ -20,6 +20,10 @@
     background: none;
   }
 
+  &:disabled {
+    cursor: not-allowed;
+  }
+
   &:active {
     background: $xatkit-color;
     color: $white;

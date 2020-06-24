@@ -49,8 +49,8 @@ export function isWidgetOpened() {
   return store.getState().behavior.get('showChat');
 }
 
-export function setQuickButtons(buttons) {
-  store.dispatch(actions.setQuickButtons(buttons));
+export function addQuickButtons(buttons) {
+  store.dispatch(actions.addQuickButtons(buttons));
 }
 
 export function pullSession() {
