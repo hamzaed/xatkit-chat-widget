@@ -11,6 +11,7 @@ configure({ adapter: new Adapter() });
 describe('<Widget />', () => {
   const profile = assetMock;
   const handleUserMessage = jest.fn();
+  const server = 'https://example.com'
   const newMessageEvent = {
     target: {
       message: {
@@ -26,6 +27,7 @@ describe('<Widget />', () => {
       handleNewUserMessage={handleUserMessage}
       profileAvatar={profile}
       dispatch={dispatch}
+      server={server}
     />
   );
 
@@ -37,11 +39,6 @@ describe('<Widget />', () => {
     const spyPreventDefault = jest.spyOn(newMessageEvent, 'preventDefault');
     widgetComponent.instance().handleMessageSubmit(newMessageEvent);
     expect(spyPreventDefault).toHaveBeenCalled();
-  });
-
-  it('should call prop when calling newMessageEvent', () => {
-    widgetComponent.instance().handleMessageSubmit(newMessageEvent);
-    expect(handleUserMessage).toBeCalled();
   });
 
   it('should clear the message input when newMessageEvent', () => {
