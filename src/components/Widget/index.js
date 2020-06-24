@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {  SESSION_NAME } from '@constants';
 
-import { toggleChat, addUserMessage } from '@actions';
 
 import WidgetLayout from './layout';
 import { pullSession } from "../../store/actions";
@@ -11,11 +10,13 @@ import {
   addResponseMessage,
   setPlaceholder,
   addQuickButtons,
-  toggleInputDisabled, toggleMsgLoader,
-  toggleWidget,
+  toggleInputDisabled,
+  toggleMsgLoader,
+  toggleChat,
   addMiniCard,
-  setConnected
-} from "../../store/dispatcher";
+  setConnected,
+  addUserMessage
+} from "../../store/actions";
 import initXatkitClient from "../../XatkitClient";
 
 import { getLocalSession,storeLocalSession } from '../../utils/helpers'
@@ -44,9 +45,9 @@ class Widget extends Component {
     this.handleOnConnect()
     this.handleOnConnectionError()
     if (!startMinimized) {
-      toggleWidget();
+      dispatch(toggleChat());
     }
-    setPlaceholder(senderPlaceHolder);
+    dispatch(setPlaceholder(senderPlaceHolder));
     this.handleBotMessage();
     if(autoClear) {
       this.storage.removeItem(SESSION_NAME);
@@ -56,40 +57,42 @@ class Widget extends Component {
   }
 
   handleOnConnect() {
+    const {dispatch} = this.props
     this.xatkitClient.onConnect(
         ()=>{
           window.xatkit_session = this.xatkitClient.socket.id;
           storeLocalSession(this.storage, SESSION_NAME, this.xatkitClient.socket.id);
-         setConnected(true)
+         dispatch(setConnected(true))
 
         })
   }
 
   handleOnConnectionError(){
+    const {dispatch} = this.props
     this.xatkitClient.onConnectionError(
         (error) => {
           console.log(error)
-          setConnected(false)
+          dispatch(setConnected(false))
         })
   }
 
   handleBotMessage(){
-    const {buttonsPlaceHolder} = this.props
+    const {buttonsPlaceHolder, dispatch} = this.props
     this.xatkitClient.onBotMessage('text',msgObject => {
       console.log(msgObject);
       console.log('Received bot message "' + msgObject.message + '"');
-      addResponseMessage(msgObject.message);
+      dispatch(addResponseMessage(msgObject.message));
       console.log(msgObject.quickButtonValues)
       if (msgObject.quickButtonValues !== undefined && msgObject.quickButtonValues.length > 0) {
-        addQuickButtons(msgObject.quickButtonValues);
-        toggleInputDisabled();
-        setPlaceholder(buttonsPlaceHolder);
+        dispatch(addQuickButtons(msgObject.quickButtonValues));
+        dispatch(toggleInputDisabled());
+        dispatch(setPlaceholder(buttonsPlaceHolder));
       }
-      toggleMsgLoader(false);
+      dispatch(toggleMsgLoader(false));
     });
 
     this.xatkitClient.onBotMessage('miniCard', msgObject => {
-      addMiniCard(msgObject);
+      dispatch(addMiniCard(msgObject));
     })
 
   }
@@ -118,14 +121,14 @@ class Widget extends Component {
 
 
   handleQuickButtonClicked = (event, value) => {
-    const {username} = this.props
+    const {username, dispatch} = this.props
     event.preventDefault();
     console.log("Clicked on " + value);
     addUserMessage(value);
     this.xatkitClient.send('button',value);
     //this.inputRef.current.focus();
-    toggleInputDisabled(false);
-    setPlaceholder(this.props.senderPlaceHolder);
+    dispatch(toggleInputDisabled(false));
+    dispatch(setPlaceholder(this.props.senderPlaceHolder));
   }
 
   render() {
