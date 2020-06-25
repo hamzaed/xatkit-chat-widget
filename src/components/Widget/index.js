@@ -126,7 +126,6 @@ class Widget extends Component {
     console.log("Clicked on " + value);
     addUserMessage(value);
     this.xatkitClient.send('button',value);
-    //this.inputRef.current.focus();
     dispatch(toggleInputDisabled(false));
     dispatch(setPlaceholder(this.props.senderPlaceHolder));
   }
@@ -145,10 +144,8 @@ class Widget extends Component {
         showCloseButton={this.props.showCloseButton}
         fullScreenMode={this.props.fullScreenMode}
         badge={this.props.badge}
-        autofocus={this.props.autofocus}
         customLauncher={this.props.customLauncher}
         launcherImage={this.props.launcherImage}
-        focus={this.props.focus}
       />
     );
   }
@@ -164,10 +161,8 @@ Widget.propTypes = {
   showCloseButton: PropTypes.bool,
   fullScreenMode: PropTypes.bool,
   badge: PropTypes.number,
-  autofocus: PropTypes.bool,
   customLauncher: PropTypes.func,
   launcherImage: PropTypes.string,
-  focus: PropTypes.object,
   previousInput: PropTypes.string
 
 };

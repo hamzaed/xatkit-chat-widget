@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 
 import Widget from './components/Widget';
-import {initStore} from '../src/store/store';
+import {initStore} from './store/store';
 import xatkitAvatar from '@assets/xatkit-avatar.png';
 import xatkitLogoNegative from '@assets/xatkit-avatar-negative.svg';
 
@@ -13,12 +13,11 @@ initStore(localStorage);
 
 
 const ConnectedWidget = props => {
-  const storage = props.storage === 'session'?sessionStorage:localStorage
+const storage = props.storage === 'session'?sessionStorage:localStorage
   if(!store){
     store = initStore(storage)
   }
-  const inputRef = React.createRef();
-  const Comp = React.forwardRef((props, ref) => (
+  return(
       <Provider store={store}>
         <Widget
             username={props.username}
@@ -41,16 +40,10 @@ const ConnectedWidget = props => {
             badge={props.badge}
             autofocus={props.autofocus}
             customLauncher={props.launcher}
-            focus={ref}
 
         />
-      </Provider>
-  ));
-  return (
-      <Comp {...props} ref={inputRef}/>
-  );
-
-}
+      </Provider>)
+    }
 
 ConnectedWidget.propTypes = {
   server: PropTypes.string,

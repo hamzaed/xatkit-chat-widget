@@ -25,8 +25,6 @@ const Conversation = props =>
             sendMessage={props.sendMessage}
             placeholder={props.senderPlaceHolder}
             disabledInput={props.disabledInput}
-            autofocus={props.autofocus}
-            focus={props.focus}
             darkMode={props.darkMode}
         />
     </div>;
@@ -42,7 +40,6 @@ Conversation.propTypes = {
     showCloseButton: PropTypes.bool,
     disabledInput: PropTypes.bool,
     autofocus: PropTypes.bool,
-    focus: PropTypes.object,
     darkMode: PropTypes.bool
 };
 
