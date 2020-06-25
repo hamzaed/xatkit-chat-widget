@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useRef } from 'react';
 import PropTypes from 'prop-types';
 import send from '@assets/send_button.svg';
 import xatkit from '@assets/built-with-xatkit.svg';
@@ -11,13 +11,12 @@ class Sender extends Component{
 
     constructor(props) {
         super(props);
-        this.input = !this.props.focus?React.createRef():this.props.focus;
+        this.input = React.createRef()
         this.state = {
             textInput : "",
             currentMessageIndex: 0
         }
         this.messages = props.messages
-        console.log('constructor',this.messages)
 
 
         this.onSubmit = this.onSubmit.bind(this)
@@ -28,27 +27,22 @@ class Sender extends Component{
         this.getUserMessages()
     }
 
+    componentDidMount() {
+        this.input.current.focus()
+    }
+
     componentDidUpdate(prevProps, prevState) {
-    if(this.messages != prevProps.messages) {
+        if(this.messages !== prevProps.messages) {
         this.messages = prevProps.messages
         this.getUserMessages()
-    }
-        this.input.current.focus();
-        /*
-         * Need to wrap this in a setTimeout, see
-         *  https://stackoverflow.com/questions/11723420/chrome-setselectionrange-not-work-in-oninput-handler.
-         *  Timeout 0 is enough for chrome, but is not enough for firefox.
-         */
-        setTimeout(() => {
-            this.input.current.selectionStart = this.input.current.value.length;
-            this.input.current.selectionEnd = this.input.current.value.length;
-        },1)
+        }
+        this.input.current.focus()
     }
 
 
     getUserMessages = () => {
         this.userMessages = this.messages.filter( v => {
-            return v.get("sender") == "client" && v.get("type") == "text"
+            return v.get("sender") === "client" && v.get("type") === "text"
         }).map(v => {
             return v.get("text")
         })
@@ -65,18 +59,21 @@ class Sender extends Component{
         let index = this.state.currentMessageIndex
         const size = this.userMessages.size
         if(e.key === 'ArrowUp' && this.props.disabledInput === false && index < size) {
+            e.preventDefault();
             index++
-            console.log("onKeyDown",this.userMessages)
+            const inputText = this.userMessages.get(this.userMessages.size - index)
             this.setState({
-                textInput : this.userMessages.get(this.userMessages.size - index),
-                currentMessageIndex: index
-            });
+                textInput : inputText,
+                currentMessageIndex: index},
+                () => this.input.current.selectionStart = this.input.current.selectionEnd = inputText.length)
+
         } else if(e.key === 'ArrowDown' && this.props.disabledInput === false && index > 0) {
             index--
+            const inputText = !index ?"" : this.userMessages.get(this.userMessages.size - index)
             this.setState({
-                textInput : !index?"":this.userMessages.get(this.userMessages.size - index),
+                textInput : inputText,
                 currentMessageIndex: index
-            })
+            }, () => this.input.current.selectionStart = this.input.current.selectionEnd = inputText.length)
         }
     };
 
@@ -101,12 +98,12 @@ class Sender extends Component{
     }
 
     render() {
-        const { sendMessage, placeholder, disabledInput, autofocus, focus } = this.props;
+        const { placeholder, disabledInput, autofocus } = this.props;
         return (
             <div>
               <form className={"xatkit-sender" + (this.props.darkMode === true ? " dark-mode" : "")} onSubmit={this.onSubmit}>
                 <input type="text" className={"xatkit-new-message" + (this.props.darkMode === true ? " dark-mode" : "")} name="message" placeholder={placeholder}
-                       disabled={disabledInput} autoFocus={autofocus} autoComplete="off" ref={focus} onKeyDown={this.onKeyDown} value={this.state.textInput} onChange={this.onChange} />
+                       disabled={disabledInput} autoFocus={autofocus} autoComplete="off" ref={this.input} onKeyDown={this.onKeyDown} value={this.state.textInput} onChange={this.onChange} />
                 <button type="submit" className={"xatkit-send" + (this.props.darkMode === true ? " dark-mode" : "")}>
                   <img src={send} className="xatkit-send-icon" alt="send"/>
                 </button>
@@ -126,7 +123,6 @@ Sender.propTypes = {
   disabledInput: PropTypes.bool,
   darkMode: PropTypes.bool,
   autofocus: PropTypes.bool,
-  focus: PropTypes.object,
   messages: ImmutablePropTypes.listOf(ImmutablePropTypes.map)
 };
 
