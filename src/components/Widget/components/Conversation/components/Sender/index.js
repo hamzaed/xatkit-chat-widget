@@ -1,4 +1,4 @@
-import React, { Component, useRef } from 'react';
+import React, { Component} from 'react';
 import PropTypes from 'prop-types';
 import send from '@assets/send_button.svg';
 import xatkit from '@assets/built-with-xatkit.svg';
@@ -39,7 +39,6 @@ class Sender extends Component{
         this.input.current.focus()
     }
 
-
     getUserMessages = () => {
         this.userMessages = this.messages.filter( v => {
             return v.get("sender") === "client" && v.get("type") === "text"
@@ -64,8 +63,7 @@ class Sender extends Component{
             const inputText = this.userMessages.get(this.userMessages.size - index)
             this.setState({
                 textInput : inputText,
-                currentMessageIndex: index},
-                () => this.input.current.selectionStart = this.input.current.selectionEnd = inputText.length)
+                currentMessageIndex: index})
 
         } else if(e.key === 'ArrowDown' && this.props.disabledInput === false && index > 0) {
             index--
@@ -73,7 +71,7 @@ class Sender extends Component{
             this.setState({
                 textInput : inputText,
                 currentMessageIndex: index
-            }, () => this.input.current.selectionStart = this.input.current.selectionEnd = inputText.length)
+            })
         }
     };
 
