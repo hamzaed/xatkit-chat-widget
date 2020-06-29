@@ -1,6 +1,5 @@
 
 import {renderXatkitWidget} from "../index";
-import XatkitWidget from "../src/components/XatkitWidget";
 renderXatkitWidget({
     server: undefined,
     username: undefined,
@@ -20,5 +19,9 @@ renderXatkitWidget({
     location: {
         hostname: undefined,
         url: undefined,
-        origin: undefined }
+        origin: undefined },
+    storage: {
+        location: 'local',
+        autoClear: false
+    }
 })
