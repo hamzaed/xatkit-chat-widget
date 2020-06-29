@@ -12,9 +12,9 @@ const renderXatkitWidget = (args) => {
     * and error in the console.
     */
     let avatar = args.widget?.images?.profileAvatar;
-    if(avatar === "") {
-      console.log("Empty string provided as avatar, using the default Xatkit avatar");
-      avatar = xatkitAvatar;
+    if (avatar === "") {
+        console.log("Empty string provided as avatar, using the default Xatkit avatar");
+        avatar = xatkitAvatar;
     }
 
     /*
@@ -22,9 +22,9 @@ const renderXatkitWidget = (args) => {
      * and error in the console.
      */
     let launcher = args.widget?.images?.launcherImage;
-    if(launcher === "") {
-      console.log("Empty string provided as launcher, using the default Xatkit launcher");
-      launcher = xatkitLogoNegative;
+    if (launcher === "") {
+        console.log("Empty string provided as launcher, using the default Xatkit launcher");
+        launcher = xatkitLogoNegative;
     }
 
     const domElement = args.elementId === undefined ? document.getElementById('xatkit-chat') : document.getElementById(args.elementId);
@@ -48,5 +48,5 @@ const renderXatkitWidget = (args) => {
 }
 
 export {
-  renderXatkitWidget
+    renderXatkitWidget
 }

@@ -1,7 +1,6 @@
 import io from "socket.io-client";
 
 
-
 class XatkitClient {
 
     constructor(args) {
@@ -18,7 +17,7 @@ class XatkitClient {
 
     onConnect(callback) {
         this.socket.on('connect', () => {
-            this.socket.emit('init', { hostname: this.hostname, url: this.url, origin: this.origin })
+            this.socket.emit('init', {hostname: this.hostname, url: this.url, origin: this.origin})
             callback();
         })
     }
@@ -34,9 +33,11 @@ class XatkitClient {
 
     onBotMessage(type, callback) {
         switch (type) {
-            case "text": this.socket.on('bot_message', (message) => {
-                callback(message)
-            }); break;
+            case "text":
+                this.socket.on('bot_message', (message) => {
+                    callback(message)
+                });
+                break;
 
             case "miniCard": {
                 this.socket.on('link_snippet_with_img', (message) => {
@@ -47,7 +48,7 @@ class XatkitClient {
 
     }
 
-    send(type, message){
+    send(type, message) {
         switch (type) {
             case "text": {
                 const botMessage = {
@@ -55,11 +56,12 @@ class XatkitClient {
                     username: this.username
                 }
                 this.socket.emit('user_message', botMessage)
-            }; break;
+            }
+                break;
 
             case "button": {
                 const botMessage = {
-                    selectedValue : message,
+                    selectedValue: message,
                     username: this.username
                 }
                 this.socket.emit('user_button_click', botMessage);
@@ -72,7 +74,7 @@ class XatkitClient {
 
 export default function initXatkitClient(args) {
     const {server, username, hostname, url, origin} = args;
-    if(!server)
+    if (!server)
         throw new Error('Server is undefined')
     const urlPattern = /(^https?:\/\/[^/]+)\/?(.*)/i
 

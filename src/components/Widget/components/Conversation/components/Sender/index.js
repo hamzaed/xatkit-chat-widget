@@ -1,19 +1,19 @@
-import React, { Component} from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import send from '@assets/send_button.svg';
 import xatkit from '@assets/built-with-xatkit.svg';
 import xatkitWhite from '@assets/built-with-xatkit-white.svg'
 import './style.scss';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import ImmutablePropTypes from "react-immutable-proptypes";
 
-class Sender extends Component{
+class Sender extends Component {
 
     constructor(props) {
         super(props);
         this.input = React.createRef()
         this.state = {
-            textInput : "",
+            textInput: "",
             currentMessageIndex: 0
         }
         this.messages = props.messages
@@ -32,22 +32,22 @@ class Sender extends Component{
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if(this.messages !== prevProps.messages) {
-        this.messages = prevProps.messages
-        this.getUserMessages()
+        if (this.messages !== prevProps.messages) {
+            this.messages = prevProps.messages
+            this.getUserMessages()
         }
         this.input.current.focus()
     }
 
     getUserMessages = () => {
-        this.userMessages = this.messages.filter( v => {
+        this.userMessages = this.messages.filter(v => {
             return v.get("sender") === "client" && v.get("type") === "text"
         }).map(v => {
             return v.get("text")
         })
     }
     getXatkitLogo = () => {
-        if(this.props.darkMode === true) {
+        if (this.props.darkMode === true) {
             return xatkitWhite
         } else {
             return xatkit
@@ -57,19 +57,20 @@ class Sender extends Component{
     onKeyDown = (e) => {
         let index = this.state.currentMessageIndex
         const size = this.userMessages.size
-        if(e.key === 'ArrowUp' && this.props.disabledInput === false && index < size) {
+        if (e.key === 'ArrowUp' && this.props.disabledInput === false && index < size) {
             e.preventDefault();
             index++
             const inputText = this.userMessages.get(this.userMessages.size - index)
             this.setState({
-                textInput : inputText,
-                currentMessageIndex: index})
+                textInput: inputText,
+                currentMessageIndex: index
+            })
 
-        } else if(e.key === 'ArrowDown' && this.props.disabledInput === false && index > 0) {
+        } else if (e.key === 'ArrowDown' && this.props.disabledInput === false && index > 0) {
             index--
-            const inputText = !index ?"" : this.userMessages.get(this.userMessages.size - index)
+            const inputText = !index ? "" : this.userMessages.get(this.userMessages.size - index)
             this.setState({
-                textInput : inputText,
+                textInput: inputText,
                 currentMessageIndex: index
             })
         }
@@ -80,7 +81,7 @@ class Sender extends Component{
      */
     onChange = (e) => {
         this.setState({
-            textInput : e.target.value
+            textInput: e.target.value
         });
     };
 
@@ -89,26 +90,33 @@ class Sender extends Component{
      */
     onSubmit = (e) => {
         this.setState({
-            textInput : "",
+            textInput: "",
             currentMessageIndex: 0
         });
         this.props.sendMessage(e)
     }
 
     render() {
-        const { placeholder, disabledInput, autofocus } = this.props;
+        const {placeholder, disabledInput, autofocus} = this.props;
         return (
             <div>
-              <form className={"xatkit-sender" + (this.props.darkMode === true ? " dark-mode" : "")} onSubmit={this.onSubmit}>
-                <input type="text" className={"xatkit-new-message" + (this.props.darkMode === true ? " dark-mode" : "")} name="message" placeholder={placeholder}
-                       disabled={disabledInput} autoFocus={autofocus} autoComplete="off" ref={this.input} onKeyDown={this.onKeyDown} value={this.state.textInput} onChange={this.onChange} />
-                <button type="submit" className={"xatkit-send" + (this.props.darkMode === true ? " dark-mode" : "")}>
-                  <img src={send} className="xatkit-send-icon" alt="send"/>
-                </button>
-              </form>
-              <div className={"xatkit" + (this.props.darkMode === true ? " dark-mode" : "")}>
-                <a href="https://xatkit.com/" rel="nofollow" target="_blank"><img src={this.getXatkitLogo()} className={"xatkit-icon" + (this.props.darkMode === true ? " dark-mode" : "")} alt="Xatkit"/></a>
-              </div>
+                <form className={"xatkit-sender" + (this.props.darkMode === true ? " dark-mode" : "")}
+                      onSubmit={this.onSubmit}>
+                    <input type="text"
+                           className={"xatkit-new-message" + (this.props.darkMode === true ? " dark-mode" : "")}
+                           name="message" placeholder={placeholder}
+                           disabled={disabledInput} autoFocus={autofocus} autoComplete="off" ref={this.input}
+                           onKeyDown={this.onKeyDown} value={this.state.textInput} onChange={this.onChange}/>
+                    <button type="submit"
+                            className={"xatkit-send" + (this.props.darkMode === true ? " dark-mode" : "")}>
+                        <img src={send} className="xatkit-send-icon" alt="send"/>
+                    </button>
+                </form>
+                <div className={"xatkit" + (this.props.darkMode === true ? " dark-mode" : "")}>
+                    <a href="https://xatkit.com/" rel="nofollow" target="_blank"><img src={this.getXatkitLogo()}
+                                                                                      className={"xatkit-icon" + (this.props.darkMode === true ? " dark-mode" : "")}
+                                                                                      alt="Xatkit"/></a>
+                </div>
             </div>
         );
     }
@@ -116,12 +124,12 @@ class Sender extends Component{
 }
 
 Sender.propTypes = {
-  sendMessage: PropTypes.func,
-  placeholder: PropTypes.string,
-  disabledInput: PropTypes.bool,
-  darkMode: PropTypes.bool,
-  autofocus: PropTypes.bool,
-  messages: ImmutablePropTypes.listOf(ImmutablePropTypes.map)
+    sendMessage: PropTypes.func,
+    placeholder: PropTypes.string,
+    disabledInput: PropTypes.bool,
+    darkMode: PropTypes.bool,
+    autofocus: PropTypes.bool,
+    messages: ImmutablePropTypes.listOf(ImmutablePropTypes.map)
 };
 
 

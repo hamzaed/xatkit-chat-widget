@@ -55,16 +55,17 @@
   background-color: $dark;
 }
 
-@media screen and (max-width: 800px)  {
+@media screen and (max-width: 800px) {
   .xatkit-sender {
     border-radius: 0;
     flex-shrink: 0;
   }
 }
+
 .xatkit {
 
   background-color: $grey-2;
-  overflow:auto;
+  overflow: auto;
   padding-right: 10px;
 
   border-radius: 0 0 10px 10px;
@@ -74,6 +75,7 @@
 .xatkit.dark-mode {
   background-color: $dark;
 }
+
 .xatkit-icon {
   background-color: $grey-2;
 
