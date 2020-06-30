@@ -17,29 +17,17 @@ import {
   toggleInputDisabled,
   toggleMsgLoader
 } from "../../store/actions";
-import initXatkitClient from "../../XatkitClient";
+
 
 import {storeLocalSession} from '../../utils/helpers'
 
 
 class Widget extends Component {
 
-    constructor(props) {
-        super(props);
-        const {username, server, hostname, url, origin, storage} = props
-        this.storage = storage === 'session' ? sessionStorage : localStorage
 
-        this.xatkitClient = initXatkitClient({
-            server,
-            username,
-            hostname,
-            url,
-            origin
-        })
-    }
 
     componentDidMount() {
-        const {startMinimized, senderPlaceHolder, autoClear, dispatch} = this.props
+        const {startMinimized, senderPlaceHolder, autoClear, dispatch, storage} = this.props
 
         this.handleOnConnect()
         this.handleOnConnectionError()
@@ -49,26 +37,27 @@ class Widget extends Component {
         dispatch(setPlaceholder(senderPlaceHolder));
         this.handleBotMessage();
         if (autoClear) {
-            this.storage.removeItem(SESSION_NAME);
+            storage.removeItem(SESSION_NAME);
         } else {
             dispatch(pullSession());
         }
     }
 
     handleOnConnect() {
-        const {dispatch} = this.props
-        this.xatkitClient.onConnect(
+        const {dispatch, xatkitClient, storage} = this.props
+        console.log(xatkitClient)
+        xatkitClient.onConnect(
             () => {
-                window.xatkit_session = this.xatkitClient.socket.id;
-                storeLocalSession(this.storage, SESSION_NAME, this.xatkitClient.socket.id);
+                window.xatkit_session = xatkitClient.socket.id;
+                storeLocalSession(storage, SESSION_NAME, xatkitClient.socket.id);
                 dispatch(setConnected(true))
 
             })
     }
 
     handleOnConnectionError() {
-        const {dispatch} = this.props
-        this.xatkitClient.onConnectionError(
+        const {dispatch, xatkitClient} = this.props
+        xatkitClient.onConnectionError(
             (error) => {
                 console.log(error)
                 dispatch(setConnected(false))
@@ -76,8 +65,8 @@ class Widget extends Component {
     }
 
     handleBotMessage() {
-        const {buttonsPlaceHolder, dispatch} = this.props
-        this.xatkitClient.onBotMessage('text', msgObject => {
+        const {buttonsPlaceHolder, dispatch, xatkitClient} = this.props
+        xatkitClient.onBotMessage('text', msgObject => {
             console.log(msgObject);
             console.log('Received bot message "' + msgObject.message + '"');
             dispatch(addResponseMessage(msgObject.message));
@@ -90,7 +79,7 @@ class Widget extends Component {
             dispatch(toggleMsgLoader(false));
         });
 
-        this.xatkitClient.onBotMessage('miniCard', msgObject => {
+        xatkitClient.onBotMessage('miniCard', msgObject => {
             dispatch(addMiniCard(msgObject));
         })
 
@@ -112,18 +101,18 @@ class Widget extends Component {
         const userInput = event.target.message.value;
         if (userInput.trim()) {
             this.props.dispatch(addUserMessage(userInput));
-            this.xatkitClient.send('text', userInput);
+            this.props.xatkitClient.send('text', userInput);
         }
         event.target.message.value = '';
     }
 
 
     handleQuickButtonClicked = (event, value) => {
-        const {username, dispatch} = this.props
+        const { xatkitClient, dispatch } = this.props
         event.preventDefault();
         console.log("Clicked on " + value);
         addUserMessage(value);
-        this.xatkitClient.send('button', value);
+        xatkitClient.send('button', value);
         dispatch(toggleInputDisabled(false));
         dispatch(setPlaceholder(this.props.senderPlaceHolder));
     }
@@ -161,7 +150,9 @@ Widget.propTypes = {
     badge: PropTypes.number,
     customLauncher: PropTypes.func,
     launcherImage: PropTypes.string,
-    previousInput: PropTypes.string
+    previousInput: PropTypes.string,
+    xatkitClient: PropTypes.object,
+    storage: PropTypes.object
 
 };
 

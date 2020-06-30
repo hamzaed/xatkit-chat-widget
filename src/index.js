@@ -6,12 +6,21 @@ import Widget from './components/Widget';
 import {initStore} from './store/store';
 import xatkitAvatar from '@assets/xatkit-avatar.png';
 import xatkitLogoNegative from '@assets/xatkit-avatar-negative.svg';
+import initXatkitClient from "./XatkitClient";
 
 let store = null;
-initStore(localStorage);
 
 
 const ConnectedWidget = props => {
+    const { server, username, hostname, url, origin } = props
+
+    const xatkitClient = initXatkitClient({
+        server,
+        username,
+        hostname,
+        url,
+        origin
+    })
     const storage = props.storage === 'session' ? sessionStorage : localStorage
     if (!store) {
         store = initStore(storage)
@@ -30,15 +39,15 @@ const ConnectedWidget = props => {
                 senderPlaceHolder={props.senderPlaceHolder}
                 profileAvatar={props.profileAvatar}
                 launcherImage={props.launcherImage}
-                storage={props.storage}
+                storage={storage}
                 autoClear={props.autoClear}
                 server={props.server}
                 titleAvatar={props.titleAvatar}
                 showCloseButton={props.showCloseButton}
                 fullScreenMode={props.fullScreenMode}
                 badge={props.badge}
-                autofocus={props.autofocus}
                 customLauncher={props.launcher}
+                xatkitClient = {xatkitClient}
 
             />
         </Provider>)
@@ -63,9 +72,8 @@ ConnectedWidget.propTypes = {
     showCloseButton: PropTypes.bool,
     fullScreenMode: PropTypes.bool,
     badge: PropTypes.number,
-    autofocus: PropTypes.bool,
     launcher: PropTypes.func,
-    focus: PropTypes.object
+    xatkitClient: PropTypes.object
 };
 
 ConnectedWidget.defaultProps = {
@@ -74,7 +82,7 @@ ConnectedWidget.defaultProps = {
     badge: 0,
     autofocus: true,
     server: 'http://localhost:5001',
-    username: 'username',
+    username: 'undefined',
     title: 'Xatkit Chat',
     subtitle: 'Test your Xatkit bot here!',
     startMinimized: false,
@@ -84,8 +92,7 @@ ConnectedWidget.defaultProps = {
     buttonsPlaceHolder: "Choose an option",
     hostname: window.location.hostname,
     url: window.location.href,
-    origin: window.location.origin,
-    storage: 'local'
+    origin: window.location.origin
 };
 
 
