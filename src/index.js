@@ -23,7 +23,7 @@ const ConnectedWidget = props => {
     })
     const storage = props.storage === 'session' ? sessionStorage : localStorage
     if (!store) {
-        store = initStore(storage)
+        store = initStore(storage,xatkitClient)
     }
     return (
         <Provider store={store}>

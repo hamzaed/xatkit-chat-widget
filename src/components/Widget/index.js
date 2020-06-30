@@ -116,7 +116,6 @@ class Widget extends Component {
         const userInput = event.target.message.value;
         if (userInput.trim()) {
             this.props.dispatch(addUserMessage(userInput));
-            this.props.xatkitClient.send('text', userInput);
         }
         event.target.message.value = '';
     }
