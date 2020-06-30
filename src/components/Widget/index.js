@@ -25,6 +25,13 @@ import {storeLocalSession} from '../../utils/helpers'
 class Widget extends Component {
 
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            fullScreenMode: props.fullScreenMode
+        }
+    }
+
 
     componentDidMount() {
         const {startMinimized, senderPlaceHolder, autoClear, dispatch, storage} = this.props
@@ -45,7 +52,6 @@ class Widget extends Component {
 
     handleOnConnect() {
         const {dispatch, xatkitClient, storage} = this.props
-        console.log(xatkitClient)
         xatkitClient.onConnect(
             () => {
                 window.xatkit_session = xatkitClient.socket.id;
@@ -85,12 +91,21 @@ class Widget extends Component {
 
     }
 
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (prevState.fullScreenMode !== nextProps.fullScreenMode) {
+            return {fullScreenMode: nextProps.fullScreenMode}
+        }
+        return null
+    }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.fullScreenMode) {
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if(prevState.fullScreenMode!==this.state.fullScreenMode){
             this.props.dispatch(toggleChat());
         }
     }
+
+
 
     toggleConversation = () => {
         this.props.dispatch(toggleChat());
