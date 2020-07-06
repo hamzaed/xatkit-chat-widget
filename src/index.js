@@ -10,7 +10,6 @@ import initXatkitClient from "./XatkitClient";
 
 let store = null;
 
-
 const ConnectedWidget = props => {
     const { server, username, hostname, url, origin } = props
 
@@ -21,7 +20,9 @@ const ConnectedWidget = props => {
         url,
         origin
     })
+
     const storage = props.storage === 'session' ? sessionStorage : localStorage
+
     if (!store) {
         store = initStore(storage,xatkitClient)
     }

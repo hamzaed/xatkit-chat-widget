@@ -7,8 +7,6 @@ import messages from './reducers/messagesReducer';
 export const initStore = (storage, xatkitClient) => {
 
     const middleware = store => next => (action) => {
-        console.log(action)
-        console.log(ADD_NEW_USER_MESSAGE)
         switch (action.type) {
             case ADD_NEW_USER_MESSAGE: {
                 xatkitClient.send('text', action.text);
