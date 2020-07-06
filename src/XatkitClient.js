@@ -10,6 +10,7 @@ class XatkitClient {
         this.serverUrl = args.serverUrl;
         this.url = args.url;
         this.origin = args.origin;
+        this.conversationId = args.conversationId
         this.socket = io(args.serverUrl, {
             path: args.basePath
         });
@@ -17,9 +18,16 @@ class XatkitClient {
 
     onConnect(callback) {
         this.socket.on('connect', () => {
-            this.socket.emit('init', {hostname: this.hostname, url: this.url, origin: this.origin})
+            this.socket.emit('init', { hostname: this.hostname, url: this.url, origin: this.origin, conversationId: this.conversationId })
             callback();
         })
+
+        this.socket.on('init_confirm', (session) => {
+            this.setConversationId((this.conversationId !== session.conversationId) && session.conversationId)
+            //callback();
+        })
+
+
     }
 
     onConnectionError(callback) {
@@ -27,6 +35,14 @@ class XatkitClient {
             console.log("Cannot connect to the Xatkit server");
             callback(error)
         })
+    }
+
+    setConversationId(conversationId) {
+        this.conversationId = conversationId
+    }
+
+    getConversationId() {
+        return this.conversationId
     }
 
     //Add onBotAction pour dark mode

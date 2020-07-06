@@ -19,7 +19,7 @@ import {
 } from "../../store/actions";
 
 
-import {storeLocalSession} from '../../utils/helpers'
+import { storeLocalSession, getLocalSession } from '../../utils/helpers'
 
 
 class Widget extends Component {
@@ -34,49 +34,57 @@ class Widget extends Component {
 
 
     componentDidMount() {
-        const {startMinimized, senderPlaceHolder, autoClear, dispatch, storage} = this.props
 
-        this.handleOnConnect()
-        this.handleOnConnectionError()
+       this.initializeWidget();
+
+
+    }
+
+    initializeWidget() {
+        const { dispatch, xatkitClient, storage, startMinimized, senderPlaceHolder, autoClear } = this.props
+
+
+
+
         if (!startMinimized) {
             dispatch(toggleChat());
         }
         dispatch(setPlaceholder(senderPlaceHolder));
-        this.handleBotMessage();
-        if (autoClear) {
+
+        let localId = null
+        const localSession = getLocalSession(storage, SESSION_NAME);
+        const lastUpdate = localSession && localSession.lastUpdate
+        const sessionAge = Date.now() - lastUpdate
+        if (autoClear || (sessionAge > 3*3600*1000)) {
             storage.removeItem(SESSION_NAME);
         } else {
-            dispatch(pullSession());
+            localId = this.getConversationId();
+            localId && xatkitClient.setConversationId(localId)
         }
-    }
 
-    handleOnConnect() {
-        const {dispatch, xatkitClient, storage} = this.props
         xatkitClient.onConnect(
             () => {
-                window.xatkit_session = xatkitClient.socket.id;
-                storeLocalSession(storage, SESSION_NAME, xatkitClient.socket.id);
+                const conversationId = xatkitClient.getConversationId()
+                storeLocalSession(storage, SESSION_NAME, conversationId);
+                if (conversationId && (conversationId === localId)) {
+                    dispatch(pullSession());
+                }
+                else {
+                    localId = conversationId
+                    storage.removeItem(SESSION_NAME);
+                }
                 dispatch(setConnected(true))
-
             })
-    }
 
-    handleOnConnectionError() {
-        const {dispatch, xatkitClient} = this.props
         xatkitClient.onConnectionError(
             (error) => {
                 console.log(error)
                 dispatch(setConnected(false))
             })
-    }
 
-    handleBotMessage() {
-        const {buttonsPlaceHolder, dispatch, xatkitClient} = this.props
         xatkitClient.onBotMessage('text', msgObject => {
-            console.log(msgObject);
             console.log('Received bot message "' + msgObject.message + '"');
             dispatch(addResponseMessage(msgObject.message));
-            console.log(msgObject.quickButtonValues)
             if (msgObject.quickButtonValues !== undefined && msgObject.quickButtonValues.length > 0) {
                 dispatch(addQuickButtons(msgObject.quickButtonValues));
                 dispatch(toggleInputDisabled());
@@ -105,7 +113,11 @@ class Widget extends Component {
         }
     }
 
-
+    getConversationId() {
+        const { storage } = this.props;
+        const localSession = getLocalSession(storage, SESSION_NAME);
+        return localSession ? localSession.conversation_id : null;
+    }
 
     toggleConversation = () => {
         this.props.dispatch(toggleChat());
