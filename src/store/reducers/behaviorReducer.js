@@ -10,8 +10,8 @@ const behaviorReducer = {
     [actionTypes.TOGGLE_CHAT]: state =>
         state.update('showChat', showChat => !showChat),
 
-    [actionTypes.TOGGLE_INPUT_DISABLED]: state =>
-        state.update('disabledInput', disabledInput => !disabledInput),
+    [actionTypes.TOGGLE_INPUT_DISABLED]: (state, {newValue}) =>
+        state.update('disabledInput', () => newValue),
 
     [actionTypes.TOGGLE_MSG_LOADER]: (state, {newValue}) =>
         state.update('msgLoader', () => newValue),

@@ -41,10 +41,7 @@ class Widget extends Component {
     }
 
     initializeWidget() {
-        const { dispatch, xatkitClient, storage, startMinimized, senderPlaceHolder, autoClear } = this.props
-
-
-
+        const { dispatch, xatkitClient, storage, startMinimized, senderPlaceHolder, autoClear, buttonsPlaceHolder } = this.props
 
         if (!startMinimized) {
             dispatch(toggleChat());
@@ -87,7 +84,7 @@ class Widget extends Component {
             dispatch(addResponseMessage(msgObject.message));
             if (msgObject.quickButtonValues !== undefined && msgObject.quickButtonValues.length > 0) {
                 dispatch(addQuickButtons(msgObject.quickButtonValues));
-                dispatch(toggleInputDisabled());
+                dispatch(toggleInputDisabled(true));
                 dispatch(setPlaceholder(buttonsPlaceHolder));
             }
             dispatch(toggleMsgLoader(false));
@@ -134,13 +131,13 @@ class Widget extends Component {
 
 
     handleQuickButtonClicked = (event, value) => {
-        const { xatkitClient, dispatch } = this.props
+        const { xatkitClient, senderPlaceHolder, dispatch } = this.props
         event.preventDefault();
         console.log("Clicked on " + value);
         addUserMessage(value);
         xatkitClient.send('button', value);
         dispatch(toggleInputDisabled(false));
-        dispatch(setPlaceholder(this.props.senderPlaceHolder));
+        dispatch(setPlaceholder(senderPlaceHolder));
     }
 
     render() {
