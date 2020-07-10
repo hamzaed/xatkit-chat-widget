@@ -107,6 +107,16 @@ export function createQuickButtons(buttons) {
 }
 
 
+export function makeQuickButtonClicked(quickButtons, buttonIndex) {
+    return quickButtons.set("buttons",quickButtons.get("buttons")
+        .update(buttonIndex, button => {
+            return button.set(
+                "clicked",
+                true
+            );
+        }))
+}
+
 export function getLocalSession(storage, key) {
 
     const cachedSession = storage.getItem(key);

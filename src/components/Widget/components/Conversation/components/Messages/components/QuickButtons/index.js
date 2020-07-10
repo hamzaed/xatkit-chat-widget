@@ -9,19 +9,21 @@ class QuickButtons extends Component {
         this.getComponentToRender = this.getComponentToRender.bind(this);
     }
 
-    getComponentToRender(button) {
+    getComponentToRender(button, index) {
         return (
             <QuickButton
                 onQuickButtonClicked={this.props.onQuickButtonClicked}
                 button={button}
                 disabled={!this.props.isLast}
+                quickButtonsIndex={this.props.index}
+                buttonIndex={index}
                 //darkMode={this.props.darkMode}
             />
         );
     }
 
     render() {
-        const {message, isLast} = this.props
+        const { message } = this.props
         if (!message.get('buttons').size) {
             return null;
         }
@@ -32,7 +34,7 @@ class QuickButtons extends Component {
                     {
                         message.get('buttons').map((button, index) =>
                             <li className="xatkit-quick-list-button" key={index}>
-                                {this.getComponentToRender(button)}
+                                {this.getComponentToRender(button,index)}
                             </li>
                         )
                     }

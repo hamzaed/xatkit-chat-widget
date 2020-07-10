@@ -1,12 +1,13 @@
-import {fromJS, List} from 'immutable';
+import { fromJS, List } from 'immutable';
 
 
 import {
-  createMiniCard,
-  createNewMessage,
-  createQuickButtons,
-  getLocalSession,
-  storeMessageTo
+    createMiniCard,
+    createNewMessage,
+    createQuickButtons,
+    getLocalSession,
+    storeMessageTo,
+    makeQuickButtonClicked
 } from '../../utils/helpers';
 import {MESSAGE_SENDER, SESSION_NAME} from '@constants';
 
@@ -31,6 +32,12 @@ export default function (storage) {
             case actionTypes.ADD_QUICK_BUTTONS: {
                 return storeMessage(state.push(createQuickButtons(action.buttons)))
             }
+            case actionTypes.SET_QUICK_BUTTON_CLICKED: {
+                return storeMessage(state.update(
+                    action.quickButtonsIndex, quickButtons =>
+                        makeQuickButtonClicked(quickButtons, action.buttonIndex)));
+            }
+
             case actionTypes.PULL_SESSION: {
 
                 const localSession = getLocalSession(storage, SESSION_NAME);

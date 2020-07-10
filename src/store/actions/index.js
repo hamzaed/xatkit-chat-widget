@@ -90,6 +90,15 @@ export function addQuickButtons(buttons) {
     }
 }
 
+export function setQuickButtonClicked(quickButtonsIndex, buttonIndex) {
+    return {
+        type: actions.SET_QUICK_BUTTON_CLICKED,
+        quickButtonsIndex,
+        buttonIndex
+    }
+}
+
+
 export function pullSession() {
     return {
         type: actions.PULL_SESSION

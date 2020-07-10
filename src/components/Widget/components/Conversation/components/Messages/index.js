@@ -52,7 +52,7 @@ class Messages extends Component {
         }
         if (message.get('type') === MESSAGES_TYPES.QUICK_BUTTONS) {
             return <ComponentToRender id={index} message={message} isLast={isLast}
-                                      onQuickButtonClicked={onQuickButtonClicked}/>;
+                                      onQuickButtonClicked={onQuickButtonClicked} index={index}/>;
         }
         return <ComponentToRender id={index} message={message} isLast={isLast}/>;
 
@@ -113,6 +113,4 @@ export default connect(store => ({
     messages: store.messages,
     typing: store.behavior.get('msgLoader'),
     connected: store.behavior.get('connected')
-
-
 }))(Messages);

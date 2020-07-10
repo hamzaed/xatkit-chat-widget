@@ -1,44 +1,41 @@
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import './styles.scss';
+import {connect} from "react-redux";
 
-class QuickButton extends PureComponent {
+import { setQuickButtonClicked } from "@actions"
+
+class QuickButton extends Component {
     constructor(props) {
         super(props);
-        this.getComponentToRender = this.getComponentToRender.bind(this)
+        this.handleQuickButtonClicked = this.handleQuickButtonClicked.bind(this)
     }
 
+    handleQuickButtonClicked(event){
+        const { onQuickButtonClicked, button, quickButtonsIndex, buttonIndex, dispatch } = this.props
 
-    getComponentToRender() {
-        const {darkMode, onQuickButtonClicked, button, disabled} = this.props
-        if (!disabled) {
-            return (<button
-                className={"xatkit-quick-button" + (darkMode ? " dark-mode" : "")}
-                onClick={(event) => onQuickButtonClicked(event, button.get('value'))}>
-                {button.get('label')}
-            </button>)
-        }
-
-        return (<button
-            className={"xatkit-quick-button" + (darkMode ? " dark-mode" : "")}
-            onClick={(event) => onQuickButtonClicked(event, button.get('value'))}
-            disabled>
-            {button.get('label')}
-        </button>)
+        dispatch(setQuickButtonClicked(quickButtonsIndex,buttonIndex))
+        onQuickButtonClicked(event, button.get('value'))
     }
+
 
     render() {
-
-        return (
-            this.getComponentToRender()
-        )
+        const { darkMode, button, disabled } = this.props
+        return (<button
+            className={"xatkit-quick-button" + (darkMode ? " dark-mode" : "") + (button.get("clicked")? " xatkit-quick-button-selected" : "")}
+            onClick={event => this.handleQuickButtonClicked(event)}
+            disabled={disabled}>
+            {button.get('label')}
+        </button>)
     }
 }
 
 QuickButton.propTypes = {
-    label: PropTypes.string,
-    value: PropTypes.string,
+    button: PropTypes.object,
+    onQuickButtonClicked: PropTypes.func,
+    buttonIndex: PropTypes.number,
+    disabled: PropTypes.bool,
     darkMode: PropTypes.bool
 };
 
-export default QuickButton;
+export default connect()(QuickButton);

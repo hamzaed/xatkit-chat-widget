@@ -42,3 +42,12 @@
     background-color: $dark;
   }
 }
+.xatkit-quick-list-button > .xatkit-quick-button-selected {
+  background: $xatkit-color;
+  color: $white;
+
+  &:hover {
+    background: $xatkit-color;
+  }
+
+}
