@@ -55,6 +55,7 @@ class Widget extends Component {
         if (autoClear || (sessionAge > 3*3600*1000)) {
             storage.removeItem(SESSION_NAME);
         } else {
+
             localId = this.getConversationId();
             localId && xatkitClient.setConversationId(localId)
         }
@@ -62,7 +63,6 @@ class Widget extends Component {
         xatkitClient.onConnect(
             () => {
                 const conversationId = xatkitClient.getConversationId()
-                storeLocalSession(storage, SESSION_NAME, conversationId);
                 if (conversationId && (conversationId === localId)) {
                     dispatch(pullSession());
                 }
@@ -70,6 +70,9 @@ class Widget extends Component {
                     localId = conversationId
                     storage.removeItem(SESSION_NAME);
                 }
+
+
+                storeLocalSession(storage, SESSION_NAME, conversationId);
                 dispatch(setConnected(true))
             })
 

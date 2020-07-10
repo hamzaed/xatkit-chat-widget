@@ -19,12 +19,11 @@ class XatkitClient {
     onConnect(callback) {
         this.socket.on('connect', () => {
             this.socket.emit('init', { hostname: this.hostname, url: this.url, origin: this.origin, conversationId: this.conversationId })
-            callback();
         })
 
         this.socket.on('init_confirm', (session) => {
-            this.setConversationId((this.conversationId !== session.conversationId) && session.conversationId)
-            //callback();
+            this.setConversationId(session.conversationId)
+            callback();
         })
 
 
