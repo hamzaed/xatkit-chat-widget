@@ -3,6 +3,9 @@ import {configure, shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 import assetMock from '@tests-mocks/fileMock';
+import StorageMock from "../../../../mocks/StorageMock";
+import XatkitClientMock from "../../../../mocks/XatkitClienMockt";
+
 import Widget from '../index';
 import WidgetLayout from '../layout';
 
@@ -12,6 +15,8 @@ describe('<Widget />', () => {
     const profile = assetMock;
     const handleUserMessage = jest.fn();
     const server = 'https://example.com'
+    const storage = new StorageMock()
+    const xatkitClientMock = new XatkitClientMock()
     const newMessageEvent = {
         target: {
             message: {
@@ -23,12 +28,15 @@ describe('<Widget />', () => {
     };
     const dispatch = jest.fn();
 
+
     const widgetComponent = shallow(
         <Widget.WrappedComponent
             handleNewUserMessage={handleUserMessage}
             profileAvatar={profile}
             dispatch={dispatch}
             server={server}
+            storage={storage}
+            xatkitClient={xatkitClientMock}
         />
     );
 
