@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {SESSION_NAME} from '@constants';
 
 
-import WidgetLayout from './layout';
+import WidgetLayout from "./layout";
 import {
   addMiniCard,
   addQuickButtons,
@@ -15,7 +15,8 @@ import {
   setPlaceholder,
   toggleChat,
   toggleInputDisabled,
-  toggleMsgLoader
+  toggleMsgLoader,
+  toggleDarkMode
 } from "../../store/actions";
 
 
@@ -47,6 +48,8 @@ class Widget extends Component {
             dispatch(toggleChat());
         }
         dispatch(setPlaceholder(senderPlaceHolder));
+
+        dispatch(toggleDarkMode())
 
         let localId = null
         const localSession = getLocalSession(storage, SESSION_NAME);

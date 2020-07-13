@@ -52,9 +52,9 @@ class Messages extends Component {
         }
         if (message.get('type') === MESSAGES_TYPES.QUICK_BUTTONS) {
             return <ComponentToRender id={index} message={message} isLast={isLast}
-                                      onQuickButtonClicked={onQuickButtonClicked} index={index}/>;
+                                      onQuickButtonClicked={onQuickButtonClicked} index={index} darkMode={this.props.darkMode}/>;
         }
-        return <ComponentToRender id={index} message={message} isLast={isLast}/>;
+        return <ComponentToRender id={index} message={message} isLast={isLast} darkMode={this.props.darkMode}/>;
 
     }
 

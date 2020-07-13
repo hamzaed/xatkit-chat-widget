@@ -17,19 +17,19 @@ class QuickButtons extends Component {
                 disabled={!this.props.isLast}
                 quickButtonsIndex={this.props.index}
                 buttonIndex={index}
-                //darkMode={this.props.darkMode}
+                darkMode={this.props.darkMode}
             />
         );
     }
 
     render() {
-        const { message } = this.props
+        const { message, darkMode } = this.props
         if (!message.get('buttons').size) {
             return null;
         }
 
         return (
-            <div className="xatkit-quick-buttons-container">
+            <div className={"xatkit-quick-buttons-container"+ (darkMode ? " dark-mode" : "")}>
                 <ul className="xatkit-quick-buttons">
                     {
                         message.get('buttons').map((button, index) =>

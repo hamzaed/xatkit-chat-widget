@@ -51,3 +51,8 @@
   }
 
 }
+.xatkit-quick-list-button > .xatkit-quick-button-selected.dark-mode {
+  background: $light-grey;
+  color: $dark;
+  font-weight: bold;
+}
