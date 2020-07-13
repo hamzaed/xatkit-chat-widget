@@ -8,7 +8,7 @@ import './style.scss';
 const Header = ({title, subtitle, toggleChat, darkMode, showCloseButton, titleAvatar}) =>
     <div className={"xatkit-header" + (darkMode === true ? " dark-mode" : "")}>
         {showCloseButton &&
-        <button className="xatkit-close-button" onClick={toggleChat}>
+        <button className={ "xatkit-close-button" +  (darkMode ? " dark-mode" : "") } onClick={toggleChat}>
             <img src={close} className="xatkit-close" alt="close"/>
         </button>
         }

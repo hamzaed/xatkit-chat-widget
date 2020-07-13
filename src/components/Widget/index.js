@@ -49,8 +49,6 @@ class Widget extends Component {
         }
         dispatch(setPlaceholder(senderPlaceHolder));
 
-        dispatch(toggleDarkMode())
-
         let localId = null
         const localSession = getLocalSession(storage, SESSION_NAME);
         const lastUpdate = localSession && localSession.lastUpdate
@@ -73,7 +71,6 @@ class Widget extends Component {
                     localId = conversationId
                     storage.removeItem(SESSION_NAME);
                 }
-
 
                 storeLocalSession(storage, SESSION_NAME, conversationId);
                 dispatch(setConnected(true))
@@ -100,6 +97,7 @@ class Widget extends Component {
             dispatch(addMiniCard(msgObject));
         })
 
+        xatkitClient.onBotAction('darkMode', () => dispatch(toggleDarkMode()))
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {

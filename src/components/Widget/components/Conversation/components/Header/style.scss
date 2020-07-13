@@ -37,6 +37,8 @@
   }
 }
 
+
+
 .xatkit-full-screen {
 
   .xatkit-header {
@@ -49,6 +51,10 @@
 
   .xatkit-close-button {
     @include close-button-fs;
+  }
+
+  .xatkit-close-button.dark-mode {
+    background-color: $dark;
   }
 
   .xatkit-close {
@@ -68,6 +74,13 @@
 
     .xatkit-close-button {
       @include close-button-fs;
+      .dark-mode {
+        background-color: $dark;
+      }
+    }
+
+    .xatkit-close-button.dark-mode {
+        background-color: $dark;
     }
 
     .xatkit-close {
