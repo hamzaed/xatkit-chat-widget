@@ -14,17 +14,16 @@ class Sender extends Component {
         this.input = React.createRef()
         this.state = {
             textInput: "",
+            messages: props.messages? props.messages : [],
             currentMessageIndex: 0
         }
-        this.messages = props.messages
-
 
         this.onSubmit = this.onSubmit.bind(this)
         this.onChange = this.onChange.bind(this)
         this.onKeyDown = this.onKeyDown.bind(this)
         this.getUserMessages = this.getUserMessages.bind(this)
+        this.userMessages = this.getUserMessages()
 
-        this.getUserMessages()
     }
 
     componentDidMount() {
@@ -32,15 +31,21 @@ class Sender extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (this.messages !== prevProps.messages) {
-            this.messages = prevProps.messages
-            this.getUserMessages()
+        if (this.state.messages !== prevState.messages) {
+            this.userMessages = this.getUserMessages()
         }
         this.input.current.focus()
     }
 
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (prevState.messages !== nextProps.messages) {
+            return {messages: nextProps.messages}
+        }
+        return null
+    }
+
     getUserMessages = () => {
-        this.userMessages = this.messages.filter(v => {
+        return this.state.messages.filter(v => {
             return v.get("sender") === "client" && v.get("type") === "text"
         }).map(v => {
             return v.get("text")
