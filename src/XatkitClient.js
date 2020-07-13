@@ -44,21 +44,32 @@ class XatkitClient {
         return this.conversationId
     }
 
-    //Add onBotAction pour dark mode
+    onBotAction(type, callback) {
+        switch (type) {
+            case "darkMode":
+                this.socket.on('toggle_dark_mode', function() {
+                callback();
+            }); break;
+
+            default:
+                throw new Error('Unknown action ' + type + '.');
+        }
+    }
 
     onBotMessage(type, callback) {
         switch (type) {
             case "text":
                 this.socket.on('bot_message', (message) => {
                     callback(message)
-                });
-                break;
+                }); break;
 
-            case "miniCard": {
+            case "miniCard":
                 this.socket.on('link_snippet_with_img', (message) => {
                     callback(message);
-                })
-            }
+                }); break;
+
+            default:
+                throw new Error('Unknown message type: ' + type + '.');
         }
 
     }
@@ -70,9 +81,9 @@ class XatkitClient {
                     message: message,
                     username: this.username
                 }
-                this.socket.emit('user_message', botMessage)
-            }
+                this.socket.emit('user_message', botMessage);
                 break;
+            }
 
             case "button": {
                 const botMessage = {
@@ -80,7 +91,11 @@ class XatkitClient {
                     username: this.username
                 }
                 this.socket.emit('user_button_click', botMessage);
+                break;
             }
+
+            default:
+                throw new Error('Unknown message type: ' + type + '.');
 
         }
 
