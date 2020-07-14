@@ -118,7 +118,7 @@ class Sender extends Component {
                     </button>
                 </form>
                 <div className={"xatkit" + (this.props.darkMode === true ? " dark-mode" : "")}>
-                    <a href="https://xatkit.com/" rel="nofollow" target="_blank"><img src={this.getXatkitLogo()}
+                    <a href="https://xatkit.com/" rel="nofollow noreferrer" target="_blank"><img src={this.getXatkitLogo()}
                                                                                       className={"xatkit-icon" + (this.props.darkMode === true ? " dark-mode" : "")}
                                                                                       alt="Xatkit"/></a>
                 </div>
