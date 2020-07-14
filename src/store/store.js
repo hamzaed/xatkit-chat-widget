@@ -1,16 +1,35 @@
-import { createStore, combineReducers } from 'redux';
+import {combineReducers, createStore, applyMiddleware, compose} from 'redux';
+import {ADD_NEW_USER_MESSAGE} from './actions/actionTypes'
 
 import behavior from './reducers/behaviorReducer';
 import messages from './reducers/messagesReducer';
-import quickButtons from './reducers/quickButtonsReducer';
 
-const reducer = combineReducers({ behavior, messages, quickButtons });
+export const initStore = (storage, xatkitClient) => {
 
-export default createStore(
-  reducer,
-  process.env.NODE_ENV !== 'production' ?
-    /* eslint-disable no-underscore-dangle */
-    window.__REDUX_DEVTOOLS_EXTENSION__ &&
-    window.__REDUX_DEVTOOLS_EXTENSION__() : ''
-    /* eslint-enable */
-);
+    const middleware = store => next => (action) => {
+        switch (action.type) {
+            case ADD_NEW_USER_MESSAGE: {
+                xatkitClient.send('text', action.text);
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+        next(action)
+    }
+
+    const reducer = combineReducers({
+        behavior: behavior,
+        messages: messages(storage)
+    });
+
+    const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+    return createStore(
+        reducer,
+        composeEnhancer(applyMiddleware(middleware))
+    )
+
+
+}

@@ -1,4 +1,4 @@
-@mixin animation ($delay, $duration, $animation) {
+@mixin animation($delay, $duration, $animation) {
   -webkit-animation-delay: $delay;
   -webkit-animation-duration: $duration;
   -webkit-animation-name: $animation;
@@ -15,7 +15,7 @@
   animation-fill-mode: forwards; /* this prevents the animation from restarting! */
 }
 
-@mixin keyframes ($animation-name) {
+@mixin keyframes($animation-name) {
   @-webkit-keyframes #{$animation-name} {
     @content;
   }
@@ -30,7 +30,7 @@
 }
 
 @include keyframes(rotation-lr) {
-  from  {
+  from {
     transform: rotate(-90deg);
   }
   to {
@@ -39,7 +39,7 @@
 }
 
 @include keyframes(rotation-rl) {
-  from  {
+  from {
     transform: rotate(90deg);
   }
   to {

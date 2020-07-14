@@ -1,33 +1,55 @@
-import { List } from 'immutable';
+import { fromJS, List } from 'immutable';
 
-import { createReducer } from '@utils/store';
-import { createNewMessage, createLinkSnippet, createComponentMessage, createLinkSnippetWithImg } from '@utils/messages';
-import { MESSAGE_SENDER } from '@constants';
+
+import {
+    createMiniCard,
+    createNewMessage,
+    createQuickButtons,
+    getLocalSession,
+    storeMessageTo,
+    makeQuickButtonClicked
+} from '../../utils/helpers';
+import {MESSAGE_SENDER, SESSION_NAME} from '@constants';
 
 import * as actionTypes from '../actions/actionTypes';
 
-const initialState = List([]);
 
-const messagesReducer = {
-  [actionTypes.ADD_NEW_USER_MESSAGE]: (state, { text }) =>
-    state.push(createNewMessage(text, MESSAGE_SENDER.CLIENT)),
+export default function (storage) {
+    const initialState = List([]);
 
-  [actionTypes.ADD_NEW_RESPONSE_MESSAGE]: (state, { text }) =>
-    state.push(createNewMessage(text, MESSAGE_SENDER.RESPONSE)),
+    return function reducer(state = initialState, action) {
+        const storeMessage = storeMessageTo(storage)
+        switch (action.type) {
+            case actionTypes.ADD_NEW_USER_MESSAGE: {
+                return storeMessage(state.push(createNewMessage(action.text, MESSAGE_SENDER.CLIENT)));
+            }
+            case actionTypes.ADD_NEW_RESPONSE_MESSAGE: {
+                return storeMessage(state.push(createNewMessage(action.text, MESSAGE_SENDER.RESPONSE)));
+            }
+            case actionTypes.ADD_NEW_MINI_CARD: {
+                return storeMessage(state.push(createMiniCard(action.miniCard)))
+            }
+            case actionTypes.ADD_QUICK_BUTTONS: {
+                return storeMessage(state.push(createQuickButtons(action.buttons)))
+            }
+            case actionTypes.SET_QUICK_BUTTON_CLICKED: {
+                return storeMessage(state.update(
+                    action.quickButtonsIndex, quickButtons =>
+                        makeQuickButtonClicked(quickButtons, action.buttonIndex)));
+            }
 
-  [actionTypes.ADD_NEW_LINK_SNIPPET]: (state, { link }) =>
-    state.push(createLinkSnippet(link, MESSAGE_SENDER.RESPONSE)),
+            case actionTypes.PULL_SESSION: {
 
-  [actionTypes.ADD_NEW_LINK_SNIPPET_WITH_IMG]: (state, { link }) =>
-      state.push(createLinkSnippetWithImg(link, MESSAGE_SENDER.RESPONSE)),
+                const localSession = getLocalSession(storage, SESSION_NAME);
+                if (localSession) {
+                    return fromJS(localSession.conversation);
+                }
+                return state;
+            }
+            default:
+                return state;
+        }
 
-  [actionTypes.ADD_COMPONENT_MESSAGE]: (state, { component, props, showAvatar }) =>
-    state.push(createComponentMessage(component, props, showAvatar)),
-
-  [actionTypes.DROP_MESSAGES]: () => List([]),
-
-  [actionTypes.HIDE_AVATAR]: (state, { index }) =>
-    state.update(index, message => message.set('showAvatar', false))
+    }
 }
 
-export default (state = initialState, action) => createReducer(messagesReducer, state, action);

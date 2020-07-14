@@ -20,6 +20,10 @@
     background: none;
   }
 
+  &:disabled {
+    cursor: not-allowed;
+  }
+
   &:active {
     background: $xatkit-color;
     color: $white;
@@ -37,4 +41,18 @@
   &:active {
     background-color: $dark;
   }
+}
+.xatkit-quick-list-button > .xatkit-quick-button-selected {
+  background: $xatkit-color;
+  color: $white;
+
+  &:hover {
+    background: $xatkit-color;
+  }
+
+}
+.xatkit-quick-list-button > .xatkit-quick-button-selected.dark-mode {
+  background: $light-grey;
+  color: $dark;
+  font-weight: bold;
 }
