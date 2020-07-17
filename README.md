@@ -113,7 +113,22 @@ renderXatkitWidget(args);
 }
 ```
    
-  
+| Parameter           | Type    | Required |Description                                                  | Default Value                                                |
+| --------------------| ------- | ---------|--------------------------------------------------- | ------------------------------------------------------------ |
+| `server`            | String  | NO       | The location of the Xatkit server to connect the component to (this URL must be the URL of the ReactPlatform *socket.io* endpoint) | `"http://localhost:5001"` (the default location of the ReactPlatform's *socket.io* server ) |
+| `username`          | String  | NO       | The name of the user currently conversing with the bot       | `'username'`                                                 |
+| `elementId`         | String  | NO       | The identifier of the DOM element to attach the component to. | `'xatkit-chat'` (this means that you need to have a `<div id="xatkit-chat"></div>` element in your DOM) |
+| `widget.title`             | String  | NO       | The title of the bot's widget                                | `'Xatkit Chat'`                                              |
+| `widget.subtitle`          | String  | NO       | The subtitle of the bot's widget                             | `'Test your Xatkit bot here!'`                               |
+| `widget.startMinimized`    | Boolean | NO       | A flag telling whether the bot should start minimized        | `false`                                                      |
+| `widget.placeHolders.sender` | String  | NO       | The place holder text in the input field when no input is provided | `"Type a message"`     |                                |
+| `widget.placeHolders.buttons`| String  | NO       | The place holder text in the input field when quick buttons are provided | `'Choose an option'`      |                    
+| `widget.images.profileAvatar`     | String  | NO       | The URL of the image to display next to bot messages  | ![](https://raw.githubusercontent.com/xatkit-bot-platform/xatkit-chat-widget/master/assets/xatkit-avatar.png)                                           | 
+| `widget.images.launcherImage`     | String  | NO       | The URL of the image to use in the launcher |<img src="https://raw.githubusercontent.com/xatkit-bot-platform/xatkit-chat-widget/master/assets/xatkit-avatar-negative.svg" alt="drawing" width="46"/>                | 
+| `location.hostname`          | String  | NO       | Custom hostname of the web page loading the widget  | The result of `location.hostname`                                   | 
+| `location.url`               | String  | NO       | Custom URL of the web page loading the widget |  The result of `location.href`                                           | | `location.origin`            | String  | NO       | Custom origin (protocol, hostname, port number) of the web page loading the widget  |  The result of `location.origin`    | 
+| `storage.location`            | String  | NO    | Storage location of the user session. The possible values are `local` for `localStorage` and `session` for | `sessionStorage`  |  `local`   |            
+| `storage.autoClear` | Boolean  | NO       | A flag telling wether to clear the session after reloading the page  |  `false`                                           | 
 
 Notes: 
 - Widget adapted from [react-chat-widget](https://github.com/Wolox/react-chat-widget).
