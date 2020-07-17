@@ -93,7 +93,9 @@ ConnectedWidget.defaultProps = {
     buttonsPlaceHolder: "Choose an option",
     hostname: window.location.hostname,
     url: window.location.href,
-    origin: window.location.origin
+    origin: window.location.origin,
+    autoClear: false,
+    storage: "local"
 };
 
 
