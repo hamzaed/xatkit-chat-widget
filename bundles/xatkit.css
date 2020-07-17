@@ -48,6 +48,9 @@
   top: 20px;
   width: 40px; }
 
+.xatkit-full-screen .xatkit-close-button.dark-mode {
+  background-color: #303030; }
+
 .xatkit-full-screen .xatkit-close {
   width: 20px;
   height: 20px; }
@@ -68,6 +71,10 @@
     right: 10px;
     top: 20px;
     width: 40px; }
+    .xatkit-conversation-container .xatkit-close-button .dark-mode {
+      background-color: #303030; }
+  .xatkit-conversation-container .xatkit-close-button.dark-mode {
+    background-color: #303030; }
   .xatkit-conversation-container .xatkit-close {
     width: 20px;
     height: 20px; } }
@@ -141,6 +148,28 @@
 .xatkit-link {
   font-size: 12px; }
 
+.xatkit-quick-buttons-container {
+  background: #fff;
+  overflow-x: auto;
+  padding: 10px;
+  white-space: initial;
+  margin: 0 auto; }
+  .xatkit-quick-buttons-container .xatkit-quick-buttons {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center; }
+    .xatkit-quick-buttons-container .xatkit-quick-buttons .xatkit-quick-list-button {
+      display: inline-block;
+      margin-right: 10px;
+      margin-top: 4px; }
+  @media screen and (max-width: 800px) {
+    .xatkit-quick-buttons-container {
+      padding-bottom: 15px; } }
+
+.xatkit-quick-buttons-container.dark-mode {
+  background-color: #424242; }
+
 .xatkit-quick-list-button > .xatkit-quick-button {
   background: none;
   border-radius: 15px;
@@ -156,6 +185,8 @@
     background: none; }
   .xatkit-quick-list-button > .xatkit-quick-button:focus {
     background: none; }
+  .xatkit-quick-list-button > .xatkit-quick-button:disabled {
+    cursor: not-allowed; }
   .xatkit-quick-list-button > .xatkit-quick-button:active {
     background: #ee2a14;
     color: #fff; }
@@ -167,6 +198,17 @@
     background: none; }
   .xatkit-quick-list-button > .xatkit-quick-button.dark-mode:active {
     background-color: #303030; }
+
+.xatkit-quick-list-button > .xatkit-quick-button-selected {
+  background: #ee2a14;
+  color: #fff; }
+  .xatkit-quick-list-button > .xatkit-quick-button-selected:hover {
+    background: #ee2a14; }
+
+.xatkit-quick-list-button > .xatkit-quick-button-selected.dark-mode {
+  background: #bdbdbd;
+  color: #303030;
+  font-weight: bold; }
 
 .xatkit-img-snippet {
   font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -265,6 +307,27 @@
     height: 100%;
     max-height: none; } }
 
+.xatkit-server-error {
+  position: fixed;
+  display: block;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  z-index: 1300; }
+  .xatkit-server-error .xatkit-error-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    color: white;
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%); }
+
 .xatkit-sender {
   -ms-flex-align: center;
       align-items: center;
@@ -330,27 +393,6 @@
 
 .xatkit-icon.dark-mode {
   background-color: #303030; }
-
-.xatkit-quick-buttons-container {
-  background: #fff;
-  overflow-x: auto;
-  padding: 10px;
-  white-space: initial; }
-  .xatkit-quick-buttons-container .xatkit-quick-buttons {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    text-align: center; }
-    .xatkit-quick-buttons-container .xatkit-quick-buttons .xatkit-quick-list-button {
-      display: inline-block;
-      margin-right: 10px;
-      margin-top: 4px; }
-  @media screen and (max-width: 800px) {
-    .xatkit-quick-buttons-container {
-      padding-bottom: 15px; } }
-
-.xatkit-quick-buttons-container.dark-mode {
-  background-color: #424242; }
 
 @-webkit-keyframes rotation-lr {
   from {
