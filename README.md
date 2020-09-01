@@ -125,8 +125,9 @@ renderXatkitWidget(args);
 | `widget.placeHolders.buttons`| String  | NO       | The place holder text in the input field when quick buttons are provided | `'Choose an option'`      |                    
 | `widget.images.profileAvatar`     | String  | NO       | The URL of the image to display next to bot messages  | ![](https://raw.githubusercontent.com/xatkit-bot-platform/xatkit-chat-widget/master/assets/xatkit-avatar.png)                                           | 
 | `widget.images.launcherImage`     | String  | NO       | The URL of the image to use in the launcher |<img src="https://raw.githubusercontent.com/xatkit-bot-platform/xatkit-chat-widget/master/assets/xatkit-avatar-negative.svg" alt="drawing" width="46"/>                | 
-| `location.hostname`          | String  | NO       | Custom hostname of the web page loading the widget  | The result of `location.hostname`                                   | 
-| `location.url`               | String  | NO       | Custom URL of the web page loading the widget |  The result of `location.href`                                           | | `location.origin`            | String  | NO       | Custom origin (protocol, hostname, port number) of the web page loading the widget  |  The result of `location.origin`    | 
+| `location.hostname`          | String  | NO       | Custom hostname of the web page loading the widget (e.g. example.com)  | The result of `location.hostname`                                   | 
+| `location.url`               | String  | NO       | Custom URL of the web page loading the widget (e.g. http://example.com/my-chatbot?param=value) |  The result of `location.href`    |                                       |
+| `location.origin`            | String  | NO       | Custom origin (protocol, hostname, port number) of the web page loading the widget (e.g. http://example.com)  |  The result of `location.origin`    | 
 | `storage.location`            | String  | NO    | Storage location of the user session. The possible values are `local` for `localStorage` and `session` for | `sessionStorage`  |  `local`   |            
 | `storage.autoClear` | Boolean  | NO       | A flag telling wether to clear the session after reloading the page  |  `false`                                           | 
 
