@@ -154,7 +154,7 @@ export function storeLocalSession(storage, conversation_id) {
             conversation_id: conversation_id
         };
     }
-    storage.setItem(key, JSON.stringify(session));
+    storage.setItem(SESSION_NAME, JSON.stringify(session));
 }
 
 
