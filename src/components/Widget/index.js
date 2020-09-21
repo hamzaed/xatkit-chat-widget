@@ -50,7 +50,7 @@ class Widget extends Component {
         dispatch(setPlaceholder(senderPlaceHolder));
 
         let localId = null
-        const localSession = getLocalSession(storage, SESSION_NAME);
+        const localSession = getLocalSession(storage);
         const lastUpdate = localSession && localSession.lastUpdate
         const sessionAge = Date.now() - lastUpdate
         if (autoClear || (sessionAge > 3*3600*1000)) {
@@ -66,13 +66,12 @@ class Widget extends Component {
                 const conversationId = xatkitClient.getConversationId()
                 if (conversationId && (conversationId === localId)) {
                     dispatch(pullSession());
-                }
-                else {
+                } else {
                     localId = conversationId
                     storage.removeItem(SESSION_NAME);
                 }
 
-                storeLocalSession(storage, SESSION_NAME, conversationId);
+                storeLocalSession(storage, conversationId);
                 dispatch(setConnected(true))
             })
 
