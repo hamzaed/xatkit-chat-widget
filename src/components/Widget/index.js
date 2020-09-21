@@ -127,18 +127,17 @@ class Widget extends Component {
         event.preventDefault();
         const userInput = event.target.message.value;
         if (userInput.trim()) {
-            this.props.dispatch(addUserMessage(userInput));
+            this.props.dispatch(addUserMessage('text', userInput));
         }
         event.target.message.value = '';
     }
 
 
     handleQuickButtonClicked = (event, value) => {
-        const { xatkitClient, senderPlaceHolder, dispatch } = this.props
+        const { senderPlaceHolder, dispatch } = this.props
         event.preventDefault();
         console.log("Clicked on " + value);
-        addUserMessage(value);
-        xatkitClient.send('button', value);
+        dispatch(addUserMessage('button',value));
         dispatch(toggleInputDisabled(false));
         dispatch(setPlaceholder(senderPlaceHolder));
     }

@@ -9,7 +9,7 @@ export const initStore = (storage, xatkitClient) => {
     const middleware = store => next => (action) => {
         switch (action.type) {
             case ADD_NEW_USER_MESSAGE: {
-                xatkitClient.send('text', action.text);
+                xatkitClient.send(action.messageType, action.text);
                 break;
             }
             default: {
