@@ -20,16 +20,22 @@
     "javascript"
   ],
   "dependencies": {
+    "classnames": "^2.2.6",
     "immutable": "^3.8.1",
     "markdown-it": "^8.4.1",
     "markdown-it-link-attributes": "^2.1.0",
     "markdown-it-sanitizer": "^0.4.3",
     "markdown-it-sup": "^1.0.0",
+    "primeicons": "^3.0.0-rc.1",
+    "primereact": "^4.2.1",
     "prop-types": "^15.5.10",
+    "react-clamp-lines": "^3.0.2",
     "react-dom": "^16.12.0",
     "react-immutable-proptypes": "^2.1.0",
+    "react-lines-ellipsis": "^0.14.1",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
+    "shiitake": "^3.0.2",
     "socket.io-client": "^2.3.0"
   },
   "devDependencies": {

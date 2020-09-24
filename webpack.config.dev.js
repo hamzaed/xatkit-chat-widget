@@ -25,6 +25,12 @@ module.exports = {
   },
   module: {
     rules: [
+      { test: /\.(eot|woff|woff2|ttf)$/,
+        loader: "url-loader"
+      },
+      { test: /\.css$/,
+        loader: "css-loader"
+      },
       {
         test: /\.js$/,
         exclude: /node_modules/,

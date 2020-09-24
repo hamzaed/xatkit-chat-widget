@@ -2,11 +2,14 @@ import React, {Component} from 'react';
 import ConnectedWidget from '../../index';
 import xatkitAvatar from '@assets/xatkit-avatar.png';
 import xatkitLogoNegative from '@assets/xatkit-avatar-negative.svg';
+import CarouselMessage from "../Widget/components/Conversation/components/Messages/components/CarouselMessage";
+import CardMessage from "../Widget/components/Conversation/components/Messages/components/CardMessage";
 
 
 import {
     addResponseMessage,
     addUserMessage,
+    renderCustomComponent,
     setQuickButtons,
     toggleWidget,
     toggleInputDisabled,
@@ -126,6 +129,10 @@ class XatkitWidget extends Component {
         }.bind(this));
     }
 
+    componentDidMount() {
+        renderCustomComponent(CarouselMessage,{items: [{image: 'https://via.placeholder.com/100'},{image: 'https://via.placeholder.com/100'}]},true)
+        renderCustomComponent(CardMessage,{image: 'https://via.placeholder.com/100',title: 'Test',content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum  "},true)
+    }
 
     handleNewUserMessage = (newMessage) => {
         this.state.socket.emit('user_message', {'message': newMessage, 'username': this.state.username});

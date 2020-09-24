@@ -1,0 +1,22 @@
+
+
+.xatkit-card-message {
+
+  &.xatkit-response {
+    padding: 0;
+  }
+  .xatkit-card-image {
+    width: 100%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  .xatkit-card-data {
+    padding: 0.6em;
+  }
+
+
+  h4 {
+    margin: 0em;
+  }
+
+}
