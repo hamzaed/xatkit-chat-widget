@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Provider} from 'react-redux';
-
+import { Provider } from 'react-redux';
 import Widget from './components/Widget';
 import {initStore} from './store/store';
 import xatkitAvatar from '@assets/xatkit-avatar.png';

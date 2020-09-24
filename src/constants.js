@@ -53,5 +53,7 @@ export const PROP_TYPES = {
         ])
     })
 };
+
 export const SESSION_NAME = 'XATKIT_SESSION'
+
 export const MESSAGE_BOX_SCROLL_DURATION = 400;

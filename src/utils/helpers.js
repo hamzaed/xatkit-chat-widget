@@ -6,6 +6,8 @@ import Snippet from '@messagesComponents/Snippet';
 import QuickButtons from '@messagesComponents/QuickButtons';
 import MiniCard from "@messagesComponents/MiniCard";
 
+import {SESSION_NAME} from '@constants';
+
 export function createNewMessage(text, sender) {
     return Map({
         type: MESSAGES_TYPES.TEXT,
@@ -117,9 +119,8 @@ export function makeQuickButtonClicked(quickButtons, buttonIndex) {
         }))
 }
 
-export function getLocalSession(storage, key) {
-
-    const cachedSession = storage.getItem(key);
+export function getLocalSession(storage) {
+    const cachedSession = storage.getItem(SESSION_NAME);
     let session = null;
     if (cachedSession) {
 
@@ -137,9 +138,8 @@ export function getLocalSession(storage, key) {
     return session;
 }
 
-export function storeLocalSession(storage, key, conversation_id) {
-
-    const cachedSession = storage.getItem(key);
+export function storeLocalSession(storage, conversation_id) {
+    const cachedSession = storage.getItem(SESSION_NAME);
     let session;
     if (cachedSession) {
         const parsedSession = JSON.parse(cachedSession);
@@ -152,18 +152,16 @@ export function storeLocalSession(storage, key, conversation_id) {
             conversation_id: conversation_id
         };
     }
-    storage.setItem(key, JSON.stringify(session));
+    storage.setItem(SESSION_NAME, JSON.stringify(session));
 }
 
-
 export const storeMessageTo = storage => (conversation) => {
-
-    const localSession = getLocalSession(storage, "XATKIT_SESSION");
+    const localSession = getLocalSession(storage, SESSION_NAME);
     const newSession = {
         ...localSession,
         conversation: conversation.toJS(),
         lastUpdate: Date.now()
     };
-    storage.setItem('XATKIT_SESSION', JSON.stringify(newSession));
+    storage.setItem(SESSION_NAME, JSON.stringify(newSession));
     return conversation;
 };

@@ -27,9 +27,10 @@ export function setPlaceholder(newValue) {
     };
 }
 
-export function addUserMessage(text) {
+export function addUserMessage(messageType, text) {
     return {
         type: actions.ADD_NEW_USER_MESSAGE,
+        messageType,
         text
     };
 }
@@ -109,6 +110,5 @@ export function setConnected(newValue) {
     return {
         type: actions.SET_CONNECTED,
         newValue
-
     }
 }
