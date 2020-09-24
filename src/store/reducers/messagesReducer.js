@@ -39,7 +39,6 @@ export default function (storage) {
             }
 
             case actionTypes.PULL_SESSION: {
-
                 const localSession = getLocalSession(storage, SESSION_NAME);
                 if (localSession) {
                     return fromJS(localSession.conversation);

@@ -23,7 +23,6 @@ class Sender extends Component {
         this.onKeyDown = this.onKeyDown.bind(this)
         this.getUserMessages = this.getUserMessages.bind(this)
         this.userMessages = this.getUserMessages()
-
     }
 
     componentDidMount() {
@@ -140,5 +139,4 @@ Sender.propTypes = {
 
 export default connect(store => ({
     messages: store.messages
-
 }))(Sender);

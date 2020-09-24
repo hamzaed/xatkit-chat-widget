@@ -30,6 +30,4 @@ export const initStore = (storage, xatkitClient) => {
         reducer,
         composeEnhancer(applyMiddleware(middleware))
     )
-
-
 }

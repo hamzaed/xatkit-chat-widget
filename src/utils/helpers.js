@@ -120,7 +120,6 @@ export function makeQuickButtonClicked(quickButtons, buttonIndex) {
 }
 
 export function getLocalSession(storage) {
-
     const cachedSession = storage.getItem(SESSION_NAME);
     let session = null;
     if (cachedSession) {
@@ -140,7 +139,6 @@ export function getLocalSession(storage) {
 }
 
 export function storeLocalSession(storage, conversation_id) {
-
     const cachedSession = storage.getItem(SESSION_NAME);
     let session;
     if (cachedSession) {
@@ -157,9 +155,7 @@ export function storeLocalSession(storage, conversation_id) {
     storage.setItem(SESSION_NAME, JSON.stringify(session));
 }
 
-
 export const storeMessageTo = storage => (conversation) => {
-
     const localSession = getLocalSession(storage, SESSION_NAME);
     const newSession = {
         ...localSession,
