@@ -97,7 +97,7 @@ renderXatkitWidget(args);
          buttons
       },
       images:{
-         ProfileAvatar,
+         profileAvatar,
          launcherImage
       }
    },
