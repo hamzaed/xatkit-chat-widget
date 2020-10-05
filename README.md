@@ -142,7 +142,7 @@ Beyond the configuration properties above, you can directly modify the CSS to ad
 
 For advanced modifications, you should look at how we use SASS as a preprocessor to define the style of the widget. This help us rely on some handy features such as variables and mixin. The file ```variables.scss``` located at at ```/srs/scss``` contains the variables that we use across the widget to define the style. More precisely, this file contains the colors and  the fonts we use in the widget. 
 
-```CSS
+```properties
 $green-1: #35e65d;
 $grey-0: #808080;
 $grey-1: #cdd8ec;
@@ -169,7 +169,7 @@ $xatkit-light-color: #F3E5F5;
 
 And you'll get this cool new widget look
 
-
+![Violet Xatkit Widget Example](https://raw.githubusercontent.com/wiki/xatkit-bot-platform/xatkit/img/widget-color.png)
 
 ### Overriding the Xatkit style
 
