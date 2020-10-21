@@ -206,3 +206,19 @@ We'll illustrate this with the background color only. You should look for all th
 .xatkit-widget-container > .xatkit-launcher:focus {
   background-color: #7B1FA2; !important;}
 ```
+
+As a second example, see how you can render the xatkit widget on the bottom-left side
+
+```
+.xatkit-widget-container > .xatkit-launcher {
+    align-self: unset !important;
+}
+.xatkit-widget-container {
+    right: unset !important;
+    margin: 0 0 20px 20px !important;
+}
+```
+
+
+
+
