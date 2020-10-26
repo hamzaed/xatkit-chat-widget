@@ -27115,9 +27115,10 @@ function setPlaceholder(newValue) {
     newValue: newValue
   };
 }
-function addUserMessage(text) {
+function addUserMessage(messageType, text) {
   return {
     type: ADD_NEW_USER_MESSAGE,
+    messageType: messageType,
     text: text
   };
 }
@@ -27561,6 +27562,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 
 
+
 function createNewMessage(text, sender) {
   return Object(immutable["Map"])({
     type: MESSAGES_TYPES.TEXT,
@@ -27663,8 +27665,8 @@ function makeQuickButtonClicked(quickButtons, buttonIndex) {
     return button.set("clicked", true);
   }));
 }
-function getLocalSession(storage, key) {
-  var cachedSession = storage.getItem(key);
+function getLocalSession(storage) {
+  var cachedSession = storage.getItem(SESSION_NAME);
   var session = null;
 
   if (cachedSession) {
@@ -27677,8 +27679,8 @@ function getLocalSession(storage, key) {
 
   return session;
 }
-function storeLocalSession(storage, key, conversation_id) {
-  var cachedSession = storage.getItem(key);
+function storeLocalSession(storage, conversation_id) {
+  var cachedSession = storage.getItem(SESSION_NAME);
   var session;
 
   if (cachedSession) {
@@ -27692,18 +27694,18 @@ function storeLocalSession(storage, key, conversation_id) {
     };
   }
 
-  storage.setItem(key, JSON.stringify(session));
+  storage.setItem(SESSION_NAME, JSON.stringify(session));
 }
-var storeMessageTo = function storeMessageTo(storage) {
+var helpers_storeMessageTo = function storeMessageTo(storage) {
   return function (conversation) {
-    var localSession = getLocalSession(storage, "XATKIT_SESSION");
+    var localSession = getLocalSession(storage, SESSION_NAME);
 
     var newSession = _objectSpread(_objectSpread({}, localSession), {}, {
       conversation: conversation.toJS(),
       lastUpdate: Date.now()
     });
 
-    storage.setItem('XATKIT_SESSION', JSON.stringify(newSession));
+    storage.setItem(SESSION_NAME, JSON.stringify(newSession));
     return conversation;
   };
 };
@@ -28335,7 +28337,9 @@ var Widget_Widget = /*#__PURE__*/function (_Component) {
       var userInput = event.target.message.value;
 
       if (userInput.trim()) {
-        _this.props.dispatch(addUserMessage(userInput));
+        console.log("Entered message: " + userInput);
+
+        _this.props.dispatch(addUserMessage('text', userInput));
       }
 
       event.target.message.value = '';
@@ -28343,13 +28347,11 @@ var Widget_Widget = /*#__PURE__*/function (_Component) {
 
     _this.handleQuickButtonClicked = function (event, value) {
       var _this$props = _this.props,
-          xatkitClient = _this$props.xatkitClient,
           senderPlaceHolder = _this$props.senderPlaceHolder,
           dispatch = _this$props.dispatch;
       event.preventDefault();
       console.log("Clicked on " + value);
-      addUserMessage(value);
-      xatkitClient.send('button', value);
+      dispatch(addUserMessage('button', value));
       dispatch(toggleInputDisabled(false));
       dispatch(setPlaceholder(senderPlaceHolder));
     };
@@ -28383,7 +28385,7 @@ var Widget_Widget = /*#__PURE__*/function (_Component) {
 
       dispatch(setPlaceholder(senderPlaceHolder));
       var localId = null;
-      var localSession = getLocalSession(storage, SESSION_NAME);
+      var localSession = getLocalSession(storage);
       var lastUpdate = localSession && localSession.lastUpdate;
       var sessionAge = Date.now() - lastUpdate;
 
@@ -28404,7 +28406,7 @@ var Widget_Widget = /*#__PURE__*/function (_Component) {
           storage.removeItem(SESSION_NAME);
         }
 
-        storeLocalSession(storage, SESSION_NAME, conversationId);
+        storeLocalSession(storage, conversationId);
         dispatch(setConnected(true));
       });
       xatkitClient.onConnectionError(function (error) {
@@ -28560,7 +28562,7 @@ var behaviorReducer = (_behaviorReducer = {}, defineProperty_default()(_behavior
   return function reducer() {
     var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
     var action = arguments.length > 1 ? arguments[1] : undefined;
-    var storeMessage = storeMessageTo(storage);
+    var storeMessage = helpers_storeMessageTo(storage);
 
     switch (action.type) {
       case ADD_NEW_USER_MESSAGE:
@@ -28618,7 +28620,7 @@ var store_initStore = function initStore(storage, xatkitClient) {
         switch (action.type) {
           case ADD_NEW_USER_MESSAGE:
             {
-              xatkitClient.send('text', action.text);
+              xatkitClient.send(action.messageType, action.text);
               break;
             }
 
@@ -28664,7 +28666,7 @@ var XatkitClient_XatkitClient = /*#__PURE__*/function () {
     this.origin = args.origin;
     this.conversationId = args.conversationId;
     this.socket = lib_default()(args.serverUrl, {
-      path: args.basePath
+      path: args.path
     });
   }
 
@@ -28778,7 +28780,11 @@ function initXatkitClient(args) {
       hostname = args.hostname,
       url = args.url,
       origin = args.origin;
-  if (!server) throw new Error('Server is undefined');
+
+  if (!server) {
+    throw new Error('Server is undefined');
+  }
+
   var urlPattern = /(^https?:\/\/[^/]+)\/?(.*)/i;
   var parsedUrl = server.match(urlPattern);
 
