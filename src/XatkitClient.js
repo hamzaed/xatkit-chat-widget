@@ -11,7 +11,7 @@ class XatkitClient {
         this.origin = args.origin;
         this.conversationId = args.conversationId
         this.socket = io(args.serverUrl, {
-            path: args.basePath
+            path: args.path
         });
     }
 
