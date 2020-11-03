@@ -28337,8 +28337,6 @@ var Widget_Widget = /*#__PURE__*/function (_Component) {
       var userInput = event.target.message.value;
 
       if (userInput.trim()) {
-        console.log("Entered message: " + userInput);
-
         _this.props.dispatch(addUserMessage('text', userInput));
       }
 
@@ -28666,7 +28664,7 @@ var XatkitClient_XatkitClient = /*#__PURE__*/function () {
     this.origin = args.origin;
     this.conversationId = args.conversationId;
     this.socket = lib_default()(args.serverUrl, {
-      path: args.path
+      path: args.basePath
     });
   }
 
@@ -28780,11 +28778,7 @@ function initXatkitClient(args) {
       hostname = args.hostname,
       url = args.url,
       origin = args.origin;
-
-  if (!server) {
-    throw new Error('Server is undefined');
-  }
-
+  if (!server) throw new Error('Server is undefined');
   var urlPattern = /(^https?:\/\/[^/]+)\/?(.*)/i;
   var parsedUrl = server.match(urlPattern);
 
