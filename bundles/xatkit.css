@@ -349,7 +349,8 @@
   background-color: #f4f7f9;
   height: 30px;
   padding-left: 15px;
-  font-size: 13px; }
+  font-size: 13px;
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif; }
   .xatkit-sender > .xatkit-new-message:focus {
     outline: none; }
 
