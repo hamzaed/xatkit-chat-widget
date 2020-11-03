@@ -12,8 +12,7 @@ class QuickButton extends Component {
     }
 
     handleQuickButtonClicked(event){
-        const { onQuickButtonClicked, button, quickButtonsIndex, buttonIndex, dispatch } = this.props
-
+        const { onQuickButtonClicked, button, quickButtonsIndex, buttonIndex, dispatch } = this.props;
         dispatch(setQuickButtonClicked(quickButtonsIndex,buttonIndex))
         onQuickButtonClicked(event, button.get('value'))
     }

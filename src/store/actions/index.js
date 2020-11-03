@@ -110,6 +110,5 @@ export function setConnected(newValue) {
     return {
         type: actions.SET_CONNECTED,
         newValue
-
     }
 }

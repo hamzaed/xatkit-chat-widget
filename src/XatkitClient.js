@@ -4,7 +4,6 @@ import io from "socket.io-client";
 class XatkitClient {
 
     constructor(args) {
-
         this.username = args.username;
         this.hostname = args.hostname;
         this.serverUrl = args.serverUrl;
@@ -12,7 +11,7 @@ class XatkitClient {
         this.origin = args.origin;
         this.conversationId = args.conversationId
         this.socket = io(args.serverUrl, {
-            path: args.basePath
+            path: args.path
         });
     }
 
@@ -25,8 +24,6 @@ class XatkitClient {
             this.setConversationId(session.conversationId)
             callback();
         })
-
-
     }
 
     onConnectionError(callback) {
@@ -71,7 +68,6 @@ class XatkitClient {
             default:
                 throw new Error('Unknown message type: ' + type + '.');
         }
-
     }
 
     send(type, message) {
@@ -103,16 +99,15 @@ class XatkitClient {
 }
 
 export default function initXatkitClient(args) {
-    const {server, username, hostname, url, origin} = args;
-    if (!server)
-        throw new Error('Server is undefined')
+    const { server, username, hostname, url, origin } = args;
+    if (!server) {
+        throw new Error('Server is undefined');
+    }
     const urlPattern = /(^https?:\/\/[^/]+)\/?(.*)/i
-
     let parsedUrl = server.match(urlPattern)
     if (parsedUrl === null) {
         throw new Error('The provided URL ' + server + ' is not a valid URL')
     }
-
     let serverUrl = server
     let basePath = '/socket.io'
     if (parsedUrl.length !== null && parsedUrl.length === 3) {
@@ -121,6 +116,6 @@ export default function initXatkitClient(args) {
         }
         serverUrl = parsedUrl[1]
     }
-    return new XatkitClient({serverUrl, path: basePath, hostname, url, origin, username})
+    return new XatkitClient({ serverUrl, path: basePath, hostname, url, origin, username })
 }
 

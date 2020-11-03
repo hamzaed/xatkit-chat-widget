@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {SESSION_NAME} from '@constants';
 
-
 import WidgetLayout from "./layout";
 import {
   addMiniCard,
@@ -19,12 +18,9 @@ import {
   toggleDarkMode
 } from "../../store/actions";
 
-
 import { storeLocalSession, getLocalSession } from '../../utils/helpers'
 
-
 class Widget extends Component {
-
 
     constructor(props) {
         super(props);
@@ -33,12 +29,8 @@ class Widget extends Component {
         }
     }
 
-
     componentDidMount() {
-
        this.initializeWidget();
-
-
     }
 
     initializeWidget() {
@@ -48,7 +40,6 @@ class Widget extends Component {
             dispatch(toggleChat());
         }
         dispatch(setPlaceholder(senderPlaceHolder));
-
         let localId = null
         const localSession = getLocalSession(storage);
         const lastUpdate = localSession && localSession.lastUpdate
@@ -56,7 +47,6 @@ class Widget extends Component {
         if (autoClear || (sessionAge > 3*3600*1000)) {
             storage.removeItem(SESSION_NAME);
         } else {
-
             localId = this.getConversationId();
             localId && xatkitClient.setConversationId(localId)
         }
@@ -70,7 +60,6 @@ class Widget extends Component {
                     localId = conversationId
                     storage.removeItem(SESSION_NAME);
                 }
-
                 storeLocalSession(storage, conversationId);
                 dispatch(setConnected(true))
             })
@@ -101,14 +90,13 @@ class Widget extends Component {
 
     static getDerivedStateFromProps(nextProps, prevState) {
         if (prevState.fullScreenMode !== nextProps.fullScreenMode) {
-            return {fullScreenMode: nextProps.fullScreenMode}
+            return { fullScreenMode: nextProps.fullScreenMode }
         }
         return null
     }
 
-
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if(prevState.fullScreenMode!==this.state.fullScreenMode){
+        if(prevState.fullScreenMode !== this.state.fullScreenMode){
             this.props.dispatch(toggleChat());
         }
     }
@@ -127,11 +115,11 @@ class Widget extends Component {
         event.preventDefault();
         const userInput = event.target.message.value;
         if (userInput.trim()) {
+            console.log("Entered message: " + userInput);
             this.props.dispatch(addUserMessage('text', userInput));
         }
         event.target.message.value = '';
     }
-
 
     handleQuickButtonClicked = (event, value) => {
         const { senderPlaceHolder, dispatch } = this.props
@@ -178,7 +166,6 @@ Widget.propTypes = {
     previousInput: PropTypes.string,
     xatkitClient: PropTypes.object,
     storage: PropTypes.object
-
 };
 
 export default connect()(Widget);
