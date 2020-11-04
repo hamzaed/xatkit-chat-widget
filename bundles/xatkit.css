@@ -123,6 +123,9 @@
 .xatkit-message-text a {
   text-decoration: underline; }
 
+.xatkit-message-text img {
+  max-width: 100%; }
+
 .xatkit-avatar {
   width: 40px;
   height: 40px;
