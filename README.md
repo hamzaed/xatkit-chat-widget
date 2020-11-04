@@ -45,7 +45,7 @@ renderXatkitWidget(args);
 ```
 
 
-#### Using the bundle directly in your HTML page
+#### Using the [bundle](https://github.com/xatkit-bot-platform/xatkit-chat-widget/tree/gh-pages/bundles) directly in your HTML page
 - Download [xatkit.min.js](https://raw.githubusercontent.com/xatkit-bot-platform/xatkit-chat-widget/gh-pages/bundles/xatkit.min.js) and [xatkit.min.css](https://raw.githubusercontent.com/xatkit-bot-platform/xatkit-chat-widget/gh-pages/bundles/xatkit.min.css)
 - Example:
 ```html
