@@ -35,10 +35,16 @@
   height: 60px;
   border-radius: 50%;
   max-width: none;
+  cursor: pointer;
 }
 
 .xatkit-close-launcher {
   width: 20px;
+  vertical-align: baseline;
+  box-sizing: content-box;
+  display: inline;
+  line-height: normal;
+  cursor: pointer;
   @include animation(0s, 0.5s, rotation-lr);
 }
 

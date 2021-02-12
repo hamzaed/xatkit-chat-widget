@@ -12,15 +12,27 @@
     padding: 0;
     margin: 0;
     text-align: center;
+    line-height: normal;
 
     .xatkit-quick-list-button {
       display: inline-block;
-      margin-right: 10px;
-      margin-top: 4px;
+      margin: 4px 10px 0 0;
+      font-family: $message-font-family;
+      line-height: normal;
 
       button {
         font-weight: bold;
         font-family: $message-font-family;
+        letter-spacing: normal;
+        text-transform: none;
+
+        &:hover {
+          text-decoration: none;
+        }
+
+        &:focus {
+          text-decoration: none;
+        }
       }
     }
   }
