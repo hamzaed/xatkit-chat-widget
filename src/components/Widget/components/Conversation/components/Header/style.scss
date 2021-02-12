@@ -4,24 +4,29 @@
 .xatkit-conversation-container {
   .xatkit-header {
     background-color: $xatkit-color;
-    font-family: $message-font-family;
     border-radius: 10px 10px 0 0;
-    color: $white;
     display: flex;
     flex-direction: column;
     text-align: center;
     padding: 15px 0 25px;
+    h4, span {
+      font-family: $message-font-family;
+      color: $white;
+      line-height: normal;
+    }
+    h4 {
+      font-weight: bold;
+    }
+    .xatkit-title {
+      font-size: 24px;
+      margin: 0;
+      color: $white;
+      padding: 15px 0;
+    }
   }
 
   .xatkit-header.dark-mode {
     background-color: $dark;
-  }
-
-  .xatkit-title {
-    font-size: 24px;
-    margin: 0;
-    color: $white;
-    padding: 15px 0;
   }
 
   .xatkit-close-button {

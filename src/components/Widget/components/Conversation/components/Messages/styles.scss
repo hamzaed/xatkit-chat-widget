@@ -8,6 +8,7 @@
   overflow-y: scroll;
   padding-top: 10px;
   -webkit-overflow-scrolling: touch;
+  box-sizing: content-box;
 }
 
 .xatkit-messages-container.dark-mode {

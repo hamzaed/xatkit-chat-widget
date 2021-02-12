@@ -6,6 +6,7 @@
   background-color: $grey-2;
   height: 45px;
   padding: 5px;
+  box-sizing: content-box;
 }
 
 .xatkit-sender.dark-mode {
@@ -17,12 +18,21 @@
   border: 0;
   background-color: $grey-2;
   height: 30px;
-  padding-left: 15px;
+  padding: 1px 1px 1px 15px;
+  box-shadow: none;
   font-size: 13px;
   font-family: $message-font-family;
+  margin: 0;
+  line-height: normal;
+  box-sizing: content-box;
 
   &:focus {
     outline: none;
+  }
+
+  &::placeholder {
+    color: darkgray;
+    opacity: 1;
   }
 }
 
@@ -35,6 +45,7 @@
   background: $grey-2;
   border: 0;
   font-size: 13px;
+  padding: 0 8px 0 8px;
 
   &:hover {
     background: $grey-2;
@@ -49,6 +60,7 @@
   .xatkit-send-icon {
     height: 25px;
     width: 25px;
+    max-width: none;
   }
 }
 
