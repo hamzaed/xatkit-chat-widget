@@ -1,24 +1,28 @@
 @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700|Roboto:100,300,400);
 .xatkit-conversation-container .xatkit-header {
   background-color: #ee2a14;
-  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
   border-radius: 10px 10px 0 0;
-  color: #fff;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-direction: column;
       flex-direction: column;
   text-align: center;
   padding: 15px 0 25px; }
+  .xatkit-conversation-container .xatkit-header h4, .xatkit-conversation-container .xatkit-header span {
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #fff;
+    line-height: normal;
+    font-size: medium; }
+  .xatkit-conversation-container .xatkit-header h4 {
+    font-weight: bold; }
+  .xatkit-conversation-container .xatkit-header .xatkit-title {
+    font-size: 24px;
+    margin: 0;
+    color: #fff;
+    padding: 15px 0; }
 
 .xatkit-conversation-container .xatkit-header.dark-mode {
   background-color: #303030; }
-
-.xatkit-conversation-container .xatkit-title {
-  font-size: 24px;
-  margin: 0;
-  color: #fff;
-  padding: 15px 0; }
 
 .xatkit-conversation-container .xatkit-close-button {
   display: none; }
@@ -113,7 +117,10 @@
 /* For markdown elements created with default styles */
 .xatkit-message-text p {
   margin: 0;
-  font-size: 16px; }
+  font-size: 16px;
+  line-height: normal;
+  color: black;
+  letter-spacing: normal; }
 
 .xatkit-message-text ul, .xatkit-message-text ol {
   margin-top: 16px;
@@ -164,11 +171,23 @@
     list-style: none;
     padding: 0;
     margin: 0;
-    text-align: center; }
+    text-align: center;
+    line-height: normal;
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif; }
     .xatkit-quick-buttons-container .xatkit-quick-buttons .xatkit-quick-list-button {
       display: inline-block;
-      margin-right: 10px;
-      margin-top: 4px; }
+      margin: 4px 10px 0 0;
+      font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      line-height: normal; }
+      .xatkit-quick-buttons-container .xatkit-quick-buttons .xatkit-quick-list-button button {
+        font-weight: bold;
+        font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        letter-spacing: normal;
+        text-transform: none; }
+        .xatkit-quick-buttons-container .xatkit-quick-buttons .xatkit-quick-list-button button:hover {
+          text-decoration: none; }
+        .xatkit-quick-buttons-container .xatkit-quick-buttons .xatkit-quick-list-button button:focus {
+          text-decoration: none; }
   @media screen and (max-width: 800px) {
     .xatkit-quick-buttons-container {
       padding-bottom: 15px; } }
@@ -299,7 +318,9 @@
   max-height: 410px;
   overflow-y: scroll;
   padding-top: 10px;
-  -webkit-overflow-scrolling: touch; }
+  -webkit-overflow-scrolling: touch;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box; }
 
 .xatkit-messages-container.dark-mode {
   background-color: #424242; }
@@ -341,7 +362,9 @@
   display: flex;
   background-color: #f4f7f9;
   height: 45px;
-  padding: 5px; }
+  padding: 5px;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box; }
 
 .xatkit-sender.dark-mode {
   background-color: #303030; }
@@ -351,11 +374,29 @@
   border: 0;
   background-color: #f4f7f9;
   height: 30px;
-  padding-left: 15px;
+  padding: 1px 1px 1px 15px;
+  -webkit-box-shadow: none;
+          box-shadow: none;
   font-size: 13px;
-  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin: 0;
+  line-height: normal;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box; }
   .xatkit-sender > .xatkit-new-message:focus {
     outline: none; }
+  .xatkit-sender > .xatkit-new-message::-webkit-input-placeholder {
+    color: darkgray;
+    opacity: 1; }
+  .xatkit-sender > .xatkit-new-message:-ms-input-placeholder {
+    color: darkgray;
+    opacity: 1; }
+  .xatkit-sender > .xatkit-new-message::-ms-input-placeholder {
+    color: darkgray;
+    opacity: 1; }
+  .xatkit-sender > .xatkit-new-message::placeholder {
+    color: darkgray;
+    opacity: 1; }
 
 .xatkit-sender > .xatkit-new-message.dark-mode {
   background-color: #303030;
@@ -364,7 +405,8 @@
 .xatkit-sender > .xatkit-send {
   background: #f4f7f9;
   border: 0;
-  font-size: 13px; }
+  font-size: 13px;
+  padding: 0 8px 0 8px; }
   .xatkit-sender > .xatkit-send:hover {
     background: #f4f7f9;
     cursor: pointer; }
@@ -373,7 +415,8 @@
     cursor: pointer; }
   .xatkit-sender > .xatkit-send .xatkit-send-icon {
     height: 25px;
-    width: 25px; }
+    width: 25px;
+    max-width: none; }
 
 .xatkit-sender > .xatkit-send.dark-mode {
   background-color: #303030; }
@@ -669,10 +712,17 @@
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  max-width: none; }
+  max-width: none;
+  cursor: pointer; }
 
 .xatkit-close-launcher {
   width: 20px;
+  vertical-align: baseline;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  display: inline;
+  line-height: normal;
+  cursor: pointer;
   -webkit-animation-delay: 0s;
   -webkit-animation-duration: 0.5s;
   -webkit-animation-name: rotation-lr;
