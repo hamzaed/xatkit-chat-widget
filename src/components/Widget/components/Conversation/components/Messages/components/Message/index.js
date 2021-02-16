@@ -11,6 +11,27 @@ import PropTypes from "prop-types";
 
 class Message extends PureComponent {
 
+    handleClick(e) {
+        console.log(this.props)
+        const {onEventLinkClicked} = this.props;
+        const el = e.target.closest("a");
+        if(el && e.currentTarget.contains(el)) {
+            if(el.href.includes("##")) {
+                e.preventDefault();
+                const event = el.href.slice(el.href.indexOf("##") + 2);
+                /*
+                 * TODO this should be an URLDecode (need to update the React platform for this)
+                 */
+                onEventLinkClicked(event.replaceAll("-", " "));
+            }
+        }
+    }
+
+    constructor() {
+        super();
+        this.handleClick = this.handleClick.bind(this);
+    }
+
     render() {
         const sanitizedHTML = markdownIt()
             .use(markdownItSup)
@@ -21,7 +42,7 @@ class Message extends PureComponent {
         return (
             <div
                 className={`xatkit-${this.props.message.get('sender')}` + (this.props.darkMode === true ? " dark-mode" : "")}>
-                <div className="xatkit-message-text" dangerouslySetInnerHTML={{__html: sanitizedHTML}}/>
+                <div className="xatkit-message-text" dangerouslySetInnerHTML={{__html: sanitizedHTML}} onClick={this.handleClick}/>
             </div>
         );
     }
@@ -29,7 +50,8 @@ class Message extends PureComponent {
 
 Message.propTypes = {
     message: PROP_TYPES.MESSAGE,
-    darkMode: PropTypes.bool
+    darkMode: PropTypes.bool,
+    onEventLinkClicked: PropTypes.func
 };
 
 export default Message;

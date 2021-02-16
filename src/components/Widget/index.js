@@ -130,12 +130,19 @@ class Widget extends Component {
         dispatch(setPlaceholder(senderPlaceHolder));
     }
 
+    handleEventLinkClicked = (value) => {
+        if(value.trim()) {
+            this.props.dispatch(addUserMessage('text', value));
+        }
+    }
+
     render() {
         return (
             <WidgetLayout
                 onToggleConversation={this.toggleConversation}
                 onSendMessage={this.handleMessageSubmit}
                 onQuickButtonClicked={this.handleQuickButtonClicked}
+                onEventLinkClicked={this.handleEventLinkClicked}
                 title={this.props.title}
                 titleAvatar={this.props.titleAvatar}
                 subtitle={this.props.subtitle}

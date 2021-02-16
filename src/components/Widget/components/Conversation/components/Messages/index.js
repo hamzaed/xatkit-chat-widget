@@ -31,7 +31,9 @@ class Messages extends Component {
     }
 
     getComponentToRender = (message, index, isLast) => {
-        const {onQuickButtonClicked} = this.props
+        console.log("pouet");
+        console.log(this.props)
+        const {onQuickButtonClicked, onEventLinkClicked} = this.props
         const ComponentToRender = (() => {
             switch (message.get('type')) {
                 case MESSAGES_TYPES.TEXT: {
@@ -54,7 +56,7 @@ class Messages extends Component {
             return <ComponentToRender id={index} message={message} isLast={isLast}
                                       onQuickButtonClicked={onQuickButtonClicked} index={index} darkMode={this.props.darkMode}/>;
         }
-        return <ComponentToRender id={index} message={message} isLast={isLast} darkMode={this.props.darkMode}/>;
+        return <ComponentToRender id={index} message={message} isLast={isLast} darkMode={this.props.darkMode} onEventLinkClicked={onEventLinkClicked}/>;
 
     }
 

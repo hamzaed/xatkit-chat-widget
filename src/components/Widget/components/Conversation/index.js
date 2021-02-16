@@ -20,6 +20,7 @@ const Conversation = props =>
             profileAvatar={props.profileAvatar}
             darkMode={props.darkMode}
             onQuickButtonClicked={props.onQuickButtonClicked}
+            onEventLinkClicked={props.onEventLinkClicked}
         />
         <Sender
             sendMessage={props.sendMessage}
