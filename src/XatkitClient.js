@@ -65,6 +65,11 @@ class XatkitClient {
                     callback(message);
                 }); break;
 
+            case "audio":
+                this.socket.on("audio", (message) => {
+                    callback(message);
+                }); break;
+
             default:
                 throw new Error('Unknown message type: ' + type + '.');
         }

@@ -1,0 +1,13 @@
+@import 'variables.scss';
+@import 'common.scss';
+
+.xatkit-audio-widget-container {
+  width: 245px;
+  max-width: 245px;
+  margin-left: 50px;
+
+  audio {
+    display: inline-block;
+    width: 100%;
+  }
+}

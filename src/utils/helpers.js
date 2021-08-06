@@ -5,6 +5,7 @@ import Message from '@messagesComponents/Message';
 import Snippet from '@messagesComponents/Snippet';
 import QuickButtons from '@messagesComponents/QuickButtons';
 import MiniCard from "@messagesComponents/MiniCard";
+import AudioWidget from "@messagesComponents/AudioWidget";
 
 import {SESSION_NAME} from '@constants';
 
@@ -38,6 +39,16 @@ export function createMiniCard(miniCard) {
         link: miniCard.link,
         img: miniCard.img,
         target: miniCard.target || '_blank',
+        sender: MESSAGE_SENDER.RESPONSE,
+        showAvatar: false
+    })
+}
+
+export function createAudioWidget(audio) {
+    return Map({
+        type: MESSAGES_TYPES.AUDIO_WIDGET,
+        component: AudioWidget,
+        src: audio.src,
         sender: MESSAGE_SENDER.RESPONSE,
         showAvatar: false
     })

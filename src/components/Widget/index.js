@@ -6,6 +6,7 @@ import {SESSION_NAME} from '@constants';
 import WidgetLayout from "./layout";
 import {
   addMiniCard,
+  addAudioWidget,
   addQuickButtons,
   addResponseMessage,
   addUserMessage,
@@ -83,7 +84,11 @@ class Widget extends Component {
 
         xatkitClient.onBotMessage('miniCard', msgObject => {
             dispatch(addMiniCard(msgObject));
-        })
+        });
+
+        xatkitClient.onBotMessage("audio", msgObject => {
+            dispatch(addAudioWidget(msgObject));
+        });
 
         xatkitClient.onBotAction('darkMode', () => dispatch(toggleDarkMode()))
     }

@@ -13,6 +13,7 @@ import xatkitAvatar from '@assets/xatkit-avatar.png'
 import xatkitAvatarWhite from '@assets/xatkit-avatar-white.png'
 import Message from './components/Message'
 import MiniCard from './components/MiniCard'
+import AudioWidget from "./components/AudioWidget";
 
 
 import {MESSAGES_TYPES} from "@constants";
@@ -41,6 +42,9 @@ class Messages extends Component {
                 }
                 case MESSAGES_TYPES.MINI_CARD: {
                     return MiniCard;
+                }
+                case MESSAGES_TYPES.AUDIO_WIDGET: {
+                    return AudioWidget;
                 }
                 case MESSAGES_TYPES.QUICK_BUTTONS: {
                     return QuickButtons

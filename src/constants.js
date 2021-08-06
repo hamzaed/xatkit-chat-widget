@@ -9,6 +9,7 @@ export const MESSAGE_SENDER = {
 export const MESSAGES_TYPES = {
     TEXT: 'text',
     MINI_CARD: 'miniCard',
+    AUDIO_WIDGET: 'audio',
     QUICK_BUTTONS: 'quickButtons',
     SNIPPET: {
         LINK: 'snippet'
@@ -47,6 +48,15 @@ export const PROP_TYPES = {
         title: PropTypes.string,
         link: PropTypes.string,
         img: PropTypes.string,
+        sender: PropTypes.oneOf([
+            MESSAGE_SENDER.CLIENT,
+            MESSAGE_SENDER.RESPONSE
+        ])
+    }),
+
+    AUDIO_WIDGET: ImmutablePropTypes.contains({
+        type: PropTypes.exact(MESSAGES_TYPES.AUDIO_WIDGET),
+        src: PropTypes.string,
         sender: PropTypes.oneOf([
             MESSAGE_SENDER.CLIENT,
             MESSAGE_SENDER.RESPONSE

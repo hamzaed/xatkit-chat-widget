@@ -3,6 +3,7 @@ import { fromJS, List } from 'immutable';
 
 import {
     createMiniCard,
+    createAudioWidget,
     createNewMessage,
     createQuickButtons,
     getLocalSession,
@@ -28,6 +29,9 @@ export default function (storage) {
             }
             case actionTypes.ADD_NEW_MINI_CARD: {
                 return storeMessage(state.push(createMiniCard(action.miniCard)))
+            }
+            case actionTypes.ADD_NEW_AUDIO_WIDGET: {
+                return storeMessage(state.push(createAudioWidget(action.audio)));
             }
             case actionTypes.ADD_QUICK_BUTTONS: {
                 return storeMessage(state.push(createQuickButtons(action.buttons)))

@@ -63,6 +63,13 @@ export function addMiniCard(miniCard) {
     }
 }
 
+export function addAudioWidget(audio) {
+    return {
+        type: actions.ADD_NEW_AUDIO_WIDGET,
+        audio
+    }
+}
+
 export function renderCustomComponent(component, props, showAvatar) {
     return {
         type: actions.ADD_COMPONENT_MESSAGE,
