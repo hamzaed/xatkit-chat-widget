@@ -15,14 +15,13 @@ class Message extends PureComponent {
         console.log(this.props)
         const {onEventLinkClicked} = this.props;
         const el = e.target.closest("a");
-        if(el && e.currentTarget.contains(el)) {
-            if(el.href.includes("##")) {
+        if (el && e.currentTarget.contains(el)) {
+            if (el.href.includes("##")) {
                 e.preventDefault();
                 const event = el.href.slice(el.href.indexOf("##") + 2);
-                /*
-                 * TODO this should be an URLDecode (need to update the React platform for this)
-                 */
-                onEventLinkClicked(event.replaceAll("-", " "));
+                onEventLinkClicked(decodeURIComponent(event)
+                    .replaceAll("+", " ")
+                    .replaceAll("**", ""))
             }
         }
     }
@@ -42,7 +41,8 @@ class Message extends PureComponent {
         return (
             <div
                 className={`xatkit-${this.props.message.get('sender')}` + (this.props.darkMode === true ? " dark-mode" : "")}>
-                <div className="xatkit-message-text" dangerouslySetInnerHTML={{__html: sanitizedHTML}} onClick={this.handleClick}/>
+                <div className="xatkit-message-text" dangerouslySetInnerHTML={{__html: sanitizedHTML}}
+                     onClick={this.handleClick}/>
             </div>
         );
     }
