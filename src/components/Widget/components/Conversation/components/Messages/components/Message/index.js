@@ -12,7 +12,6 @@ import PropTypes from "prop-types";
 class Message extends PureComponent {
 
     handleClick(e) {
-        console.log(this.props)
         const {onEventLinkClicked} = this.props;
         const el = e.target.closest("a");
         if (el && e.currentTarget.contains(el)) {

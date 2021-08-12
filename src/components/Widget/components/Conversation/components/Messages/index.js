@@ -32,7 +32,6 @@ class Messages extends Component {
     }
 
     getComponentToRender = (message, index, isLast) => {
-        console.log(this.props)
         const {onQuickButtonClicked, onEventLinkClicked} = this.props
         const ComponentToRender = (() => {
             switch (message.get('type')) {
