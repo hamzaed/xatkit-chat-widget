@@ -44,9 +44,21 @@ renderXatkitWidget(args);
 ```
 
 
-#### Using the [bundle](https://github.com/xatkit-bot-platform/xatkit-chat-widget/tree/gh-pages/bundles) directly in your HTML page
-- Download [xatkit.min.js](https://raw.githubusercontent.com/xatkit-bot-platform/xatkit-chat-widget/gh-pages/bundles/xatkit.min.js) and [xatkit.min.css](https://raw.githubusercontent.com/xatkit-bot-platform/xatkit-chat-widget/gh-pages/bundles/xatkit.min.css)
-- Example:
+### Using the minified versions of the files
+
+You can compile the minified versions of the css and js files with 
+
+```
+npm run build
+```
+
+Or donwload the compiled versions from
+
+- [https://dev.xatkit.com/static/xatkit.min.css](https://dev.xatkit.com/static/xatkit.min.css)
+- [https://dev.xatkit.com/static/xatkit.min.js](https://dev.xatkit.com/static/xatkit.min.js)
+
+Then use these files in your own webpage to embed the widget there. Example (update the paths to the proper path based on your own configuration):
+
 ```html
 <html lang="en">
 <head>
