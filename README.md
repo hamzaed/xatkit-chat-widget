@@ -78,11 +78,6 @@ Then use these files in your own webpage to embed the widget there. Example (upd
 </body>
 </html>
 ```
-- Extra resources: 
-
-    - [xatkit.min.js.map](https://raw.githubusercontent.com/xatkit-bot-platform/xatkit-chat-widget/gh-pages/bundles/xatkit.min.js.map): the source map of xatkit.min.js.
-    - [xatkit.css](https://raw.githubusercontent.com/xatkit-bot-platform/xatkit-chat-widget/gh-pages/bundles/xatkit.css): the non-minified version of xatkit.min.css.
-
 
 
 ## API
